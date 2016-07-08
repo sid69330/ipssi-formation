@@ -1,0 +1,36 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Connexion_model extends CI_Model
+{	
+	public function verifierIndentifiant($identifiant, $mdp)
+	{
+		$erreur = '';
+		
+		$this->db->select('COUNT(*) as nb');
+		$this->db->from('utilisateur');
+		$this->db->where('mdp_utilisateur', $mdp);
+		$this->db->where('mail_utilisateur', $identifiant);
+		
+		$nb = $this->db->get()->result()[0]->nb;
+		
+		echo $nb;
+
+		if($nb == 0)
+			$erreur = "Identifiant ou mot de passe incorrect.";
+		elseif($nb != 1)
+			$erreur = "Problème avec votre compte : duplicata de l'identifiant en base de données.";
+		
+		return $erreur;
+	}
+	
+	public function recupInfosSession($identifiant)
+	{
+		$this->db->select('id_utilisateur, mail_utilisateur, nom_utilisateur, prenom_utilisateur');
+		$this->db->from('utilisateur');
+		$this->db->where('mail_utilisateur', $identifiant);
+
+		$result = $this->db->get()->result();
+
+		return $result[0];
+	}
+}
