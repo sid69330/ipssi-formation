@@ -40,7 +40,7 @@
 				<?php else : ?>
 					<div class="col-lg-2 col-md-3 col-sm-4 entete-droite visible-lg visible-md visible-sm">
 						<div class="col-lg-12 col-md-12 center" style="color:white">
-							<?php echo $this->session->userdata('nom').' '.$this->session->userdata('prenom'); ?>
+							<a href="#" class="btnConfigCompteHeader"><i class="fa fa-cogs" aria-hidden="true"></i></a> <?php echo $this->session->userdata('nom').' '.$this->session->userdata('prenom'); ?>
 						</div>
 						<div class="col-lg-12 col-md-12">
 							<a href="/ipssi" class="btn btn-primary btn-block" style="margin-top:12px">Mon IPSSI</a>

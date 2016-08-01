@@ -1,6 +1,6 @@
 <?php
 
-class Ressources_humaines_back extends CI_Controller
+class Ressources_humaines_back extends MY_Controller
 {
     public function __construct()
     {
@@ -10,7 +10,37 @@ class Ressources_humaines_back extends CI_Controller
         $this->load->model('back/ressources_humaines_back_model');
     }
 
+    public function cra()
+    {
+
+    }
+
+    public function note_frais()
+    {
+    	
+    }
+
+    public function demande_conges()
+    {
+    	
+    }
+
+    public function cvtheque()
+    {
+    	
+    }
+
     public function offre_poste()
+    {
+        
+    }
+
+    public function candidatures()
+    {
+        
+    }
+
+    public function collaborateurs()
     {
         
     }

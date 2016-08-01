@@ -1,6 +1,6 @@
 <?php
 
-class Actualites_back extends MY_Controller
+class Administration_back extends MY_Controller
 {
     public function __construct()
     {
@@ -10,10 +10,21 @@ class Actualites_back extends MY_Controller
         $this->load->model('back/ressources_humaines_back_model');
     }
 
-    public function liste_actualites()
+    public function gestion_utilisateurs()
     {
-        
+
+    }
+
+    public function application()
+    {
+
+    }
+
+    public function redaction_pages()
+    {
+
     }
 }
+
 
 ?>

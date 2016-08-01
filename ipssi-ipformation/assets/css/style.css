@@ -130,6 +130,14 @@ hr
 
 /* ----------------- Entête -----------------*/
 
+.btnConfigCompteHeader
+{
+	color : white;
+	border : 1px solid white;
+	border-radius : 5px;
+	padding : 3px;
+}
+
 .reseau
 {
 	margin-top : 5px;

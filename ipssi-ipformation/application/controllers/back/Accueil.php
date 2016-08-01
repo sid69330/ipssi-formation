@@ -1,6 +1,6 @@
 <?php
 
-class Accueil extends CI_Controller
+class Accueil extends MY_Controller
 {
     private $back = true;
 
