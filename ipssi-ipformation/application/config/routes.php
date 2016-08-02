@@ -56,8 +56,8 @@ $route['page/(.+)/(.+)'] = 'page/afficher/$1/$2';
 /* ----------- Accueil_back ----------- */
 $route['ipssi'] = 'back/accueil';
 /* ----------- Compte_back ----------- */
-$route['ipssi/compte'] = 'back/compte/index';
-$route['ipssi/compte/modifier-mdp'] = 'back/compte/modifier_mdp';
+$route['ipssi/compte'] = 'back/compte_back/index';
+$route['ipssi/compte/modifier-mdp'] = 'back/compte_back/modifier_mdp';
 /* ----------- Actualite_back ----------- */
 $route['ipssi/actualites/liste-actualites'] = 'back/actualites_back/liste_actualites';
 /* ----------- RH_back ----------- */

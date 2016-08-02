@@ -37,11 +37,13 @@ class Connexion extends CI_Controller
 				$this->session->set_userdata('prenom', $result->prenom_utilisateur);
 				$this->session->set_userdata('mail', $result->mail_utilisateur);
 
+				if($result->changer_password == 1)
+					$this->session->set_userdata('password_expire', $result->changer_password);
+
 				$monfichier = fopen($_SERVER["DOCUMENT_ROOT"].'application/logs/logs.txt', 'a');
 				fputs($monfichier, $result->nom_utilisateur . " " . $result->prenom_utilisateur . " - " . $_SERVER['REMOTE_ADDR'] . " - ".date("Y-m-d H:i:s")."\n");
 				fclose($monfichier);
 
-				//redirect vers le controller accueil de l'erp (à définir)
 				Redirect('/ipssi');
 			}
 			else

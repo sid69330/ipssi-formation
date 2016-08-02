@@ -20,5 +20,4 @@ class Boite_a_outils_back extends MY_Controller
     }
 }
 
-
 ?>

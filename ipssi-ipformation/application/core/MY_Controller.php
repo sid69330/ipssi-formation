@@ -17,6 +17,11 @@ class MY_Controller extends CI_Controller
             $this->session->set_flashdata('mdp_premiere_connexion', 'Vous vous connectez pour la première fois. Merci de choisir un nouveau mot de passe. Il restera valide 3 mois.');
             Redirect('ipssi/compte/modifier-mdp', $data);
         }
+        elseif($this->session->has_userdata('password_expire'))
+        {
+            $this->session->set_flashdata('mdp_premiere_connexion', 'Votre mot de passe a expiré. Merci d\'en saisir un nouveau. Il restera valide 3 mois.');
+            Redirect('ipssi/compte/modifier-mdp', $data);
+        }
         else
         {
             $url = explode('/', uri_string());

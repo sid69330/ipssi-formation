@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jul 08, 2016 at 04:19 PM
--- Server version: 5.5.49-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.17
+-- Client :  127.0.0.1
+-- Généré le :  Mar 02 Août 2016 à 12:36
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `ipssi`
+-- Base de données :  `ipssi`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `actualite`
+-- Structure de la table `actualite`
 --
 
 CREATE TABLE IF NOT EXISTS `actualite` (
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `actualite` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `actualite`
+-- Contenu de la table `actualite`
 --
 
 INSERT INTO `actualite` (`id_actualite`, `titre_actualite`, `texte_actualite`, `date_actualite`, `url_photo_actualite`, `date_validite_actualite`) VALUES
@@ -47,7 +47,7 @@ INSERT INTO `actualite` (`id_actualite`, `titre_actualite`, `texte_actualite`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `adresse`
+-- Structure de la table `adresse`
 --
 
 CREATE TABLE IF NOT EXISTS `adresse` (
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `adresse` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `adresse`
+-- Contenu de la table `adresse`
 --
 
 INSERT INTO `adresse` (`id_adresse`, `libelle_adresse`, `numero_adresse`, `adresse_adresse`, `supplement_adresse`, `code_postal_adresse`, `ville_adresse`, `pays_adresse`, `telephone_adresse`, `fax_adresse`) VALUES
@@ -76,7 +76,7 @@ INSERT INTO `adresse` (`id_adresse`, `libelle_adresse`, `numero_adresse`, `adres
 -- --------------------------------------------------------
 
 --
--- Table structure for table `candidature`
+-- Structure de la table `candidature`
 --
 
 CREATE TABLE IF NOT EXISTS `candidature` (
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `candidature` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `candidature`
+-- Contenu de la table `candidature`
 --
 
 INSERT INTO `candidature` (`id_candidature`, `id_poste_candidature`, `id_sexe`, `nom_candidature`, `prenom_candidature`, `adresse_candidature`, `cp_candidature`, `ville_candidature`, `pays_candidature`, `email_candidature`, `telephone_candidature`, `date_naissance`, `url_cv_candidature`, `url_lettre_candidature`, `etat`, `cle`) VALUES
@@ -112,7 +112,7 @@ INSERT INTO `candidature` (`id_candidature`, `id_poste_candidature`, `id_sexe`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contact`
+-- Structure de la table `contact`
 --
 
 CREATE TABLE IF NOT EXISTS `contact` (
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `contact`
+-- Contenu de la table `contact`
 --
 
 INSERT INTO `contact` (`id_contact`, `id_contact_type`, `id_contact_demande`, `id_sexe`, `nom_contact`, `prenom_contact`, `fonction_contact`, `societe_contact`, `email_contact`, `telephone_contact`, `message_contact`, `date_creation`) VALUES
@@ -147,7 +147,7 @@ INSERT INTO `contact` (`id_contact`, `id_contact_type`, `id_contact_demande`, `i
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contact_demande`
+-- Structure de la table `contact_demande`
 --
 
 CREATE TABLE IF NOT EXISTS `contact_demande` (
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `contact_demande` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `contact_demande`
+-- Contenu de la table `contact_demande`
 --
 
 INSERT INTO `contact_demande` (`id_contact_demande`, `libelle_contact_demande`) VALUES
@@ -169,7 +169,7 @@ INSERT INTO `contact_demande` (`id_contact_demande`, `libelle_contact_demande`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contact_type`
+-- Structure de la table `contact_type`
 --
 
 CREATE TABLE IF NOT EXISTS `contact_type` (
@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `contact_type` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `contact_type`
+-- Contenu de la table `contact_type`
 --
 
 INSERT INTO `contact_type` (`id_contact_type`, `libelle_contact_type`) VALUES
@@ -190,7 +190,7 @@ INSERT INTO `contact_type` (`id_contact_type`, `libelle_contact_type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `droit`
+-- Structure de la table `droit`
 --
 
 CREATE TABLE IF NOT EXISTS `droit` (
@@ -201,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `droit` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `droit`
+-- Contenu de la table `droit`
 --
 
 INSERT INTO `droit` (`id_droit`, `code_droit`, `libelle_droit`) VALUES
@@ -213,7 +213,7 @@ INSERT INTO `droit` (`id_droit`, `code_droit`, `libelle_droit`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `droit_sous_menu_groupe`
+-- Structure de la table `droit_sous_menu_groupe`
 --
 
 CREATE TABLE IF NOT EXISTS `droit_sous_menu_groupe` (
@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `droit_sous_menu_groupe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `droit_sous_menu_groupe`
+-- Contenu de la table `droit_sous_menu_groupe`
 --
 
 INSERT INTO `droit_sous_menu_groupe` (`id_droit`, `id_sous_menu`, `id_groupe`) VALUES
@@ -289,31 +289,32 @@ INSERT INTO `droit_sous_menu_groupe` (`id_droit`, `id_sous_menu`, `id_groupe`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groupe`
+-- Structure de la table `groupe`
 --
 
 CREATE TABLE IF NOT EXISTS `groupe` (
   `id_groupe` int(11) NOT NULL AUTO_INCREMENT,
   `libelle_groupe` varchar(100) NOT NULL,
+  `ordre` int(11) NOT NULL,
   PRIMARY KEY (`id_groupe`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `groupe`
+-- Contenu de la table `groupe`
 --
 
-INSERT INTO `groupe` (`id_groupe`, `libelle_groupe`) VALUES
-(1, 'Administrateur'),
-(2, 'Superviseur'),
-(3, 'Manager'),
-(4, 'RH'),
-(5, 'Collaborateur'),
-(6, 'Rédacteur');
+INSERT INTO `groupe` (`id_groupe`, `libelle_groupe`, `ordre`) VALUES
+(1, 'Administrateur', 6),
+(2, 'Superviseur', 5),
+(3, 'Manager', 4),
+(4, 'RH', 3),
+(5, 'Collaborateur', 2),
+(6, 'Rédacteur', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groupe_utilisateur`
+-- Structure de la table `groupe_utilisateur`
 --
 
 CREATE TABLE IF NOT EXISTS `groupe_utilisateur` (
@@ -324,7 +325,7 @@ CREATE TABLE IF NOT EXISTS `groupe_utilisateur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `groupe_utilisateur`
+-- Contenu de la table `groupe_utilisateur`
 --
 
 INSERT INTO `groupe_utilisateur` (`id_utilisateur`, `id_groupe`) VALUES
@@ -334,7 +335,7 @@ INSERT INTO `groupe_utilisateur` (`id_utilisateur`, `id_groupe`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menu`
+-- Structure de la table `menu`
 --
 
 CREATE TABLE IF NOT EXISTS `menu` (
@@ -348,7 +349,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `menu`
+-- Contenu de la table `menu`
 --
 
 INSERT INTO `menu` (`id_menu`, `libelle_menu`, `url_menu`, `tri_menu`, `date_menu`, `front`) VALUES
@@ -364,7 +365,7 @@ INSERT INTO `menu` (`id_menu`, `libelle_menu`, `url_menu`, `tri_menu`, `date_men
 -- --------------------------------------------------------
 
 --
--- Table structure for table `page_contenu`
+-- Structure de la table `page_contenu`
 --
 
 CREATE TABLE IF NOT EXISTS `page_contenu` (
@@ -380,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `page_contenu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `page_contenu`
+-- Contenu de la table `page_contenu`
 --
 
 INSERT INTO `page_contenu` (`id_page_contenu`, `id_menu`, `id_sous_menu`, `date_page_contenu`, `titre_page_contenu`, `texte_page_contenu`) VALUES
@@ -389,7 +390,7 @@ INSERT INTO `page_contenu` (`id_page_contenu`, `id_menu`, `id_sous_menu`, `date_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `poste_candidature`
+-- Structure de la table `poste_candidature`
 --
 
 CREATE TABLE IF NOT EXISTS `poste_candidature` (
@@ -410,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `poste_candidature` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `poste_candidature`
+-- Contenu de la table `poste_candidature`
 --
 
 INSERT INTO `poste_candidature` (`id_poste`, `id_type_poste`, `titre_poste`, `accroche_poste`, `entreprise_poste`, `date_depot`, `description`, `date_debut_poste`, `remuneration_poste`, `niveau_experience`) VALUES
@@ -421,7 +422,7 @@ INSERT INTO `poste_candidature` (`id_poste`, `id_type_poste`, `titre_poste`, `ac
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sexe`
+-- Structure de la table `sexe`
 --
 
 CREATE TABLE IF NOT EXISTS `sexe` (
@@ -433,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `sexe` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `sexe`
+-- Contenu de la table `sexe`
 --
 
 INSERT INTO `sexe` (`id_sexe`, `raccourci_sexe`, `sexe`) VALUES
@@ -444,7 +445,7 @@ INSERT INTO `sexe` (`id_sexe`, `raccourci_sexe`, `sexe`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sous_menu`
+-- Structure de la table `sous_menu`
 --
 
 CREATE TABLE IF NOT EXISTS `sous_menu` (
@@ -459,7 +460,7 @@ CREATE TABLE IF NOT EXISTS `sous_menu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 --
--- Dumping data for table `sous_menu`
+-- Contenu de la table `sous_menu`
 --
 
 INSERT INTO `sous_menu` (`id_sous_menu`, `id_menu`, `libelle_sous_menu`, `url_sous_menu`, `date_sous_menu`, `tri_sous_menu`) VALUES
@@ -489,7 +490,7 @@ INSERT INTO `sous_menu` (`id_sous_menu`, `id_menu`, `libelle_sous_menu`, `url_so
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sous_sous_menu`
+-- Structure de la table `sous_sous_menu`
 --
 
 CREATE TABLE IF NOT EXISTS `sous_sous_menu` (
@@ -503,7 +504,7 @@ CREATE TABLE IF NOT EXISTS `sous_sous_menu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `sous_sous_menu`
+-- Contenu de la table `sous_sous_menu`
 --
 
 INSERT INTO `sous_sous_menu` (`id_sous_sous_menu`, `id_sous_menu`, `libelle_sous_sous_menu`, `date_sous_sous_menu`, `tri_sous_sous_menu`) VALUES
@@ -521,7 +522,7 @@ INSERT INTO `sous_sous_menu` (`id_sous_sous_menu`, `id_sous_menu`, `libelle_sous
 -- --------------------------------------------------------
 
 --
--- Table structure for table `type_poste`
+-- Structure de la table `type_poste`
 --
 
 CREATE TABLE IF NOT EXISTS `type_poste` (
@@ -532,7 +533,7 @@ CREATE TABLE IF NOT EXISTS `type_poste` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `type_poste`
+-- Contenu de la table `type_poste`
 --
 
 INSERT INTO `type_poste` (`id_type_poste`, `libelle`) VALUES
@@ -545,7 +546,7 @@ INSERT INTO `type_poste` (`id_type_poste`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateur`
+-- Structure de la table `utilisateur`
 --
 
 CREATE TABLE IF NOT EXISTS `utilisateur` (
@@ -556,24 +557,26 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `telephone_utilisateur` varchar(20) NOT NULL,
   `pseudo_utilisateur` varchar(50) NOT NULL,
   `mdp_utilisateur` varchar(150) NOT NULL,
+  `date_mdp_utilisateur` datetime DEFAULT NULL,
+  `mdp_utilisateur_change` tinyint(1) NOT NULL DEFAULT '1',
   `entreprise_utilisateur` varchar(100) NOT NULL,
   PRIMARY KEY (`id_utilisateur`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `utilisateur`
+-- Contenu de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id_utilisateur`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `pseudo_utilisateur`, `mdp_utilisateur`, `entreprise_utilisateur`) VALUES
-(1, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '07.77.36.01.90', 'roro71', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'EXELIS'),
-(2, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799436', 'sid', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'Dalkia');
+INSERT INTO `utilisateur` (`id_utilisateur`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `pseudo_utilisateur`, `mdp_utilisateur`, `date_mdp_utilisateur`, `mdp_utilisateur_change`, `entreprise_utilisateur`) VALUES
+(1, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '07.77.36.01.90', 'roro71', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', NULL, 1, 'EXELIS'),
+(2, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799436', 'sid', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-02 12:22:38', 0, 'Dalkia');
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables exportées
 --
 
 --
--- Constraints for table `contact`
+-- Contraintes pour la table `contact`
 --
 ALTER TABLE `contact`
   ADD CONSTRAINT `contact_ibfk_1` FOREIGN KEY (`id_contact_type`) REFERENCES `contact_type` (`id_contact_type`),
@@ -581,41 +584,41 @@ ALTER TABLE `contact`
   ADD CONSTRAINT `contact_ibfk_3` FOREIGN KEY (`id_sexe`) REFERENCES `sexe` (`id_sexe`);
 
 --
--- Constraints for table `droit_sous_menu_groupe`
+-- Contraintes pour la table `droit_sous_menu_groupe`
 --
 ALTER TABLE `droit_sous_menu_groupe`
-  ADD CONSTRAINT `droit_sous_menu_groupe_ibfk_3` FOREIGN KEY (`id_groupe`) REFERENCES `groupe` (`id_groupe`),
   ADD CONSTRAINT `droit_sous_menu_groupe_ibfk_1` FOREIGN KEY (`id_droit`) REFERENCES `droit` (`id_droit`),
-  ADD CONSTRAINT `droit_sous_menu_groupe_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `sous_menu` (`id_sous_menu`);
+  ADD CONSTRAINT `droit_sous_menu_groupe_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `sous_menu` (`id_sous_menu`),
+  ADD CONSTRAINT `droit_sous_menu_groupe_ibfk_3` FOREIGN KEY (`id_groupe`) REFERENCES `groupe` (`id_groupe`);
 
 --
--- Constraints for table `groupe_utilisateur`
+-- Contraintes pour la table `groupe_utilisateur`
 --
 ALTER TABLE `groupe_utilisateur`
-  ADD CONSTRAINT `groupe_utilisateur_ibfk_2` FOREIGN KEY (`id_groupe`) REFERENCES `groupe` (`id_groupe`),
-  ADD CONSTRAINT `groupe_utilisateur_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`);
+  ADD CONSTRAINT `groupe_utilisateur_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`),
+  ADD CONSTRAINT `groupe_utilisateur_ibfk_2` FOREIGN KEY (`id_groupe`) REFERENCES `groupe` (`id_groupe`);
 
 --
--- Constraints for table `page_contenu`
+-- Contraintes pour la table `page_contenu`
 --
 ALTER TABLE `page_contenu`
   ADD CONSTRAINT `page_contenu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`),
   ADD CONSTRAINT `page_contenu_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `sous_menu` (`id_sous_menu`);
 
 --
--- Constraints for table `poste_candidature`
+-- Contraintes pour la table `poste_candidature`
 --
 ALTER TABLE `poste_candidature`
   ADD CONSTRAINT `poste_candidature_ibfk_1` FOREIGN KEY (`id_type_poste`) REFERENCES `type_poste` (`id_type_poste`);
 
 --
--- Constraints for table `sous_menu`
+-- Contraintes pour la table `sous_menu`
 --
 ALTER TABLE `sous_menu`
   ADD CONSTRAINT `sous_menu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `sous_sous_menu`
+-- Contraintes pour la table `sous_sous_menu`
 --
 ALTER TABLE `sous_sous_menu`
   ADD CONSTRAINT `sous_sous_menu_ibfk_1` FOREIGN KEY (`id_sous_menu`) REFERENCES `sous_menu` (`id_sous_menu`);
