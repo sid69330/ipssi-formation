@@ -18,7 +18,11 @@ class Compte_back extends CI_Controller
 
 	public function index()
 	{
-
+		$menu['title'] = "IPSSI - Mon compte";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+       
+        $this->load->view('back/include/menu.php', $menu);
 	}
 	
 	public function modifier_mdp()

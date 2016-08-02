@@ -47,14 +47,8 @@ class MY_Controller extends CI_Controller
             /* Si pas le droit sur la page courante */
             if(($droits !== true) && ((!is_array($droits)) || (count($droits) == 0)))
             {
-                $this->load->library('menu');
-
-                $menu['title'] = "IPSSI - Accès interdit";
-                $menu['back'] = $this->back;
-                $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
-
-                $this->load->view('back/include/menu.php', $menu);
-                $this->load->view('errors/back/droit_insuffisant.php');
+                $this->session->set_flashdata('droit_insuffisant', 'Vous ne possédez pas les droits nécessaires pour accéder à la page demandée. Vous avez été redirigé vers votre dashboard.');
+                Redirect('/ipssi');
             }
         }
     }

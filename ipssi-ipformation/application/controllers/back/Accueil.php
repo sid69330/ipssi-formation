@@ -22,6 +22,7 @@ class Accueil extends MY_Controller
         $menu['back'] = $this->back;
         $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
 
+        $data['droit_insuffisant'] = $this->session->flashdata('droit_insuffisant');
         $data['actualites'] =$this->actualite_model->recupActualites('', 5, true);
        
         $this->load->view('back/include/menu.php', $menu);
