@@ -8,43 +8,49 @@ class MY_Controller extends CI_Controller
     {
         parent::__construct();
 
+        $this->load->library('droit');
+
         if($this->session->userdata['id'] == '')
             Redirect();
-
-        $url = explode('/', uri_string());
-
-        if(count($url) > 0)
+        if($this->droit->doitModifierMotDePasse($this->session->userdata['id']))
         {
-            if(count($url) >= 3)
-                 $module = $url[2];
-            else
-                $module = array_pop($url);
-            
-            //echo $module;
-
-            unset($url);
+            $this->session->set_flashdata('mdp_premiere_connexion', 'Vous vous connectez pour la première fois. Merci de choisir un nouveau mot de passe. Il restera valide 3 mois.');
+            Redirect('ipssi/compte/modifier-mdp', $data);
         }
         else
         {
-            echo 'erreur controlleur droit';
-            exit();
-        }
+            $url = explode('/', uri_string());
 
-        $this->load->library('droit');
-        $droits = $this->droit->recupDroit($module, $this->session->userdata['id']);
+            if(count($url) > 0)
+            {
+                if(count($url) >= 3)
+                     $module = $url[2];
+                else
+                    $module = array_pop($url);
 
-        //print_r($droits);
+                unset($url);
+            }
+            else
+            {
+                echo 'erreur controlleur droit';
+                exit();
+            }
 
-        if(($droits !== true) && ((!is_array($droits)) || (count($droits) == 0)))
-        {
-            $this->load->library('menu');
+            
+            $droits = $this->droit->recupDroit($module, $this->session->userdata['id']);
 
-            $menu['title'] = "IPSSI - Accueil mon IPSSI";
-            $menu['back'] = $this->back;
-            $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+            /* Si pas le droit sur la page courante */
+            if(($droits !== true) && ((!is_array($droits)) || (count($droits) == 0)))
+            {
+                $this->load->library('menu');
 
-            $this->load->view('back/include/menu.php', $menu);
-            $this->load->view('errors/back/droit_insuffisant.php');
+                $menu['title'] = "IPSSI - Accès interdit";
+                $menu['back'] = $this->back;
+                $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+
+                $this->load->view('back/include/menu.php', $menu);
+                $this->load->view('errors/back/droit_insuffisant.php');
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ class Droit
 		$this->ci = $CI = &get_instance();
 	}
 
+	/* Fonction qui retourne le droit le plus élevé en fonction de son/ses groupes */
 	public function recupDroit($url_page, $id_utilisateur)
 	{
 		if($url_page == 'ipssi')
@@ -27,5 +28,15 @@ class Droit
 		$this->ci->db->where('url_sous_menu', $url_page);
 
 		return $this->ci->db->get()->result_array();
+	}
+
+	/* Fonction retourne true si le mot de passe doit être changé : première connexion */
+	public function doitModifierMotDePasse($id_utilisateur)
+	{
+		$this->ci->db->select('mdp_utilisateur_change');
+		$this->ci->db->from('utilisateur');
+		$this->ci->db->where('id_utilisateur', $id_utilisateur);
+
+		return($this->ci->db->get()->result()[0]->mdp_utilisateur_change == 1);
 	}
 }
