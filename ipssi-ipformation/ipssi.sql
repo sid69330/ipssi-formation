@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 02 Août 2016 à 12:36
+-- Généré le :  Mer 03 Août 2016 à 16:17
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -551,6 +551,7 @@ INSERT INTO `type_poste` (`id_type_poste`, `libelle`) VALUES
 
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sexe` int(11) NOT NULL COMMENT 'clé étrangère',
   `nom_utilisateur` varchar(50) NOT NULL,
   `prenom_utilisateur` varchar(50) NOT NULL,
   `mail_utilisateur` varchar(200) NOT NULL,
@@ -560,16 +561,18 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `date_mdp_utilisateur` datetime DEFAULT NULL,
   `mdp_utilisateur_change` tinyint(1) NOT NULL DEFAULT '1',
   `entreprise_utilisateur` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_utilisateur`)
+  `photo_profil` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_utilisateur`),
+  KEY `id_sexe` (`id_sexe`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id_utilisateur`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `pseudo_utilisateur`, `mdp_utilisateur`, `date_mdp_utilisateur`, `mdp_utilisateur_change`, `entreprise_utilisateur`) VALUES
-(1, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '07.77.36.01.90', 'roro71', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', NULL, 1, 'EXELIS'),
-(2, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799436', 'sid', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-02 12:22:38', 0, 'Dalkia');
+INSERT INTO `utilisateur` (`id_utilisateur`, `id_sexe`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `pseudo_utilisateur`, `mdp_utilisateur`, `date_mdp_utilisateur`, `mdp_utilisateur_change`, `entreprise_utilisateur`, `photo_profil`) VALUES
+(1, 3, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '07.77.36.01.90', 'roro71', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', NULL, 1, 'EXELIS', NULL),
+(2, 1, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799436', 'sid', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-02 14:08:51', 0, 'Dalkia', 'photo-de-profil-de-julien-alexandre-1470231068.jpg');
 
 --
 -- Contraintes pour les tables exportées
@@ -622,6 +625,12 @@ ALTER TABLE `sous_menu`
 --
 ALTER TABLE `sous_sous_menu`
   ADD CONSTRAINT `sous_sous_menu_ibfk_1` FOREIGN KEY (`id_sous_menu`) REFERENCES `sous_menu` (`id_sous_menu`);
+
+--
+-- Contraintes pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD CONSTRAINT `utilisateur_ibfk_1` FOREIGN KEY (`id_sexe`) REFERENCES `sexe` (`id_sexe`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
