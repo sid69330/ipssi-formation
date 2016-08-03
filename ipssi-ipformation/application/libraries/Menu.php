@@ -109,25 +109,28 @@ class Menu
 
 		$groupes = $this->recupGroupe($id_utilisateur);
 
-		$CI->db->select('menu.id_menu, libelle_menu, url_menu', false);
-		$CI->db->from('menu');
-		$CI->db->join('sous_menu SM', 'menu.id_menu = SM.id_menu');
-		$CI->db->join('droit_sous_menu_groupe D', 'D.id_sous_menu = SM.id_sous_menu');
-		$CI->db->where('front', 0);
-		$CI->db->where_in('D.id_groupe', $groupes);
-		$CI->db->group_by('libelle_menu');
-		$CI->db->order_by('tri_menu');
-		$result = $CI->db->get()->result();
-
-		foreach($result as $r)
+		if(count($groupes) > 0)
 		{
-			$menu = new Menu($r->id_menu, $r->libelle_menu, $r->url_menu);
-			$sous_menus = $this->recupSousMenuBack($r->id_menu, $groupes);
-			$menu->sous_menus = $sous_menus;
+			$CI->db->select('menu.id_menu, libelle_menu, url_menu', false);
+			$CI->db->from('menu');
+			$CI->db->join('sous_menu SM', 'menu.id_menu = SM.id_menu');
+			$CI->db->join('droit_sous_menu_groupe D', 'D.id_sous_menu = SM.id_sous_menu');
+			$CI->db->where('front', 0);
+			$CI->db->where_in('D.id_groupe', $groupes);
+			$CI->db->group_by('libelle_menu');
+			$CI->db->order_by('tri_menu');
+			$result = $CI->db->get()->result();
 
-			array_push($menus, $menu);
+			foreach($result as $r)
+			{
+				$menu = new Menu($r->id_menu, $r->libelle_menu, $r->url_menu);
+				$sous_menus = $this->recupSousMenuBack($r->id_menu, $groupes);
+				$menu->sous_menus = $sous_menus;
+
+				array_push($menus, $menu);
+			}
 		}
-
+		
 		return $menus;
 	}
 

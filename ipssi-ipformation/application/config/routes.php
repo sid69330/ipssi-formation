@@ -58,6 +58,8 @@ $route['ipssi'] = 'back/accueil';
 /* ----------- Compte_back ----------- */
 $route['ipssi/compte'] = 'back/compte_back/index';
 $route['ipssi/compte/modifier-mdp'] = 'back/compte_back/modifier_mdp';
+$route['ipssi/compte/modifier-photo-profil'] = 'back/compte_back/modifier_photo_profil';
+$route['ipssi/compte/modifier-infos'] = 'back/compte_back/modifier_infos';
 /* ----------- Actualite_back ----------- */
 $route['ipssi/actualites/liste-actualites'] = 'back/actualites_back/liste_actualites';
 /* ----------- RH_back ----------- */

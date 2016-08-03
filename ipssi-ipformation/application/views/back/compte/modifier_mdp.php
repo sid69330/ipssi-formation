@@ -1,4 +1,5 @@
 <div class="container">
+	<?php include_once($_SERVER['DOCUMENT_ROOT'].'/application/views/back/include/compte/nav.php'); ?>
 	<div class="row">
 		<div class="col-xs-12">
 			<h1 class="titrePage center">Modifier mon mot de passe</h1>
