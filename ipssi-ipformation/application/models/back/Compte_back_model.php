@@ -56,7 +56,7 @@ class Compte_back_model extends CI_Model
 
     public function recupInfosUtilisateur($id_utilisateur)
     {
-        $this->db->select('U.id_utilisateur, U.mail_utilisateur, U.telephone_utilisateur, U.date_mdp_utilisateur, U.entreprise_utilisateur, U.photo_profil, S.raccourci_sexe, DATEDIFF(DATE_ADD(U.date_mdp_utilisateur, INTERVAL 3 MONTH), NOW()) as validite_mdp');
+        $this->db->select('U.id_utilisateur, U.mail_utilisateur, U.telephone_utilisateur, U.date_mdp_utilisateur, U.entreprise_utilisateur, U.photo_profil, S.raccourci_sexe, DATEDIFF(DATE_ADD(U.date_mdp_utilisateur, INTERVAL 3 MONTH), NOW()) as validite_mdp, mdp_utilisateur_change');
         $this->db->from('utilisateur U');
         $this->db->join('sexe S', 'S.id_sexe = U.id_sexe');
         $this->db->where('id_utilisateur', $id_utilisateur);

@@ -3,6 +3,7 @@
 class MY_Controller extends CI_Controller
 {
     private $back = true;
+    private $droits = array();
 
     public function __construct()
     {
@@ -41,16 +42,22 @@ class MY_Controller extends CI_Controller
                 exit();
             }
 
-            
-            $droits = $this->droit->recupDroit($module, $this->session->userdata['id']);
+            $this->droits = $this->droit->recupDroit($module, $this->session->userdata['id']);
+
+            //print_r($this->droits);
 
             /* Si pas le droit sur la page courante */
-            if(($droits !== true) && ((!is_array($droits)) || (count($droits) == 0)))
+            if(($this->droits !== true) && ((!is_array($this->droits)) || (count($this->droits) == 0)))
             {
                 $this->session->set_flashdata('droit_insuffisant', 'Vous ne possédez pas les droits nécessaires pour accéder à la page demandée. Vous avez été redirigé vers votre dashboard.');
                 Redirect('/ipssi');
             }
         }
+    }
+
+    public function getDroits()
+    {
+        return $this->droits;
     }
 }
 
