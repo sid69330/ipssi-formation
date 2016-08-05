@@ -14,17 +14,24 @@ class Compte_back_model extends CI_Model
         return(count($retour) == 1);
     }
 
-    public function maj_infos_utilisateur($id_utilisateur, $tel)
+    public function maj_infos_utilisateur($id_utilisateur, $tel, $tel_actuel)
     {
-        $data = array
-        (
-            'telephone_utilisateur' => $tel
-        );
+        if($tel == $tel_actuel)
+            $retour = true;
+        else
+        {
+            $data = array
+            (
+                'telephone_utilisateur' => $tel
+            );
 
-        $this->db->where('id_utilisateur', $id_utilisateur);
-        $this->db->update('utilisateur', $data);
+            $this->db->where('id_utilisateur', $id_utilisateur);
+            $this->db->update('utilisateur', $data);
 
-        return $this->db->affected_rows();
+            $retour = $this->db->affected_rows();
+        }
+
+        return $retour;
     }
 
     public function modifier_mot_de_passe($new_mdp, $id_utilisateur)

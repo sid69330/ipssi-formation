@@ -25,7 +25,7 @@
   		<?php echo form_error('tel', '<div class="alert alert-danger">', '</div>'); ?>
   		<div class="form-group">
     		<label for="tel">Téléphone</label>
-    		<input type="text" class="form-control" id="tel" name="tel" value="<?php echo set_value('tel'); ?>">
+    		<input type="text" class="form-control" id="tel" name="tel" value="<?php echo set_value('tel', $infos->telephone_utilisateur); ?>">
   		</div>
 
   		<button type="submit" class="btn btn-primary btn-block">Modifier</button>

@@ -49,7 +49,7 @@ class Compte_back extends CI_Controller
 		{
 			$tel = $this->input->post('tel');
 
-			$ok = $this->compte_back_model->maj_infos_utilisateur($this->session->userdata('id'), $tel);
+			$ok = $this->compte_back_model->maj_infos_utilisateur($this->session->userdata('id'), $tel, $data['infos']->telephone_utilisateur);
 
 			if($ok)
 			{
