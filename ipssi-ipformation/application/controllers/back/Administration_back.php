@@ -18,6 +18,9 @@ class Administration_back extends MY_Controller
         //print_r($this->droits);
     }
 
+    /* ---------- Page Gestion des utilisateurs ---------- */
+
+    /* Liste des utilisateurs */
     public function gestion_utilisateurs()
     {
         $menu['title'] = "IPSSI - Gestion des utilisateurs";
@@ -31,6 +34,7 @@ class Administration_back extends MY_Controller
         $this->load->view('back/administration/gestion_utilisateur/liste-utilisateurs.php', $data);
     }
 
+    /* Détail utilisateur */
     public function detail_utilisateur($id_utilisateur = '')
     {
         if(($id_utilisateur == '') || (!$this->administration_back_model->utilisateurExiste($id_utilisateur)) || (!$this->droit->droitSuffisantLecture($this->droits, $id_utilisateur, $this->session->userdata('id'))))
@@ -48,6 +52,64 @@ class Administration_back extends MY_Controller
         $this->load->view('back/administration/gestion_utilisateur/detail-utilisateurs.php', $data);
     }
 
+    public function ajouter()
+    {
+        if(!$this->droit->droitSuffisantAjout($this->droits))
+            Redirect('/ipssi/administration/gestion-utilisateurs');
+
+        $this->load->library('methodes_globales');
+
+        $menu['title'] = "IPSSI - Ajouter un utilisateur";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+
+        $data['droits'] = $this->droits;
+        $data['sexes'] = $this->methodes_globales->recup_sexe();
+        $data['groupes'] = $this->methodes_globales->recup_groupe();
+
+        $this->form_validation->set_rules('sexe', '"Sexe"', 'trim|required|is_exist[sexe.id_sexe]|encode_php_tags');
+        $this->form_validation->set_rules('nom', '"Nom"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('prenom', '"Prénom"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('email', '"Email"', 'trim|required|valid_email|is_unique[utilisateur.mail_utilisateur]|encode_php_tags');
+        $this->form_validation->set_rules('tel', '"Téléphone"', 'trim|encode_php_tags|regex_match[/^0[0-9]{9}$/]');
+        $this->form_validation->set_rules('mdp', '"Mot de passe"', 'trim|required|min_length[5]');
+        $this->form_validation->set_rules('entreprise', '"Entreprise"', 'trim|required');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['success'] = $this->session->flashdata('success');
+            $this->load->view('back/include/menu.php', $menu);
+            $this->load->view('back/administration/gestion_utilisateur/ajouter-utilisateur.php', $data);
+        }
+        else
+        {
+            $sexe = $this->input->post('sexe');
+            $nom = mb_strtoupper($this->input->post('nom'));
+            $prenom = ucfirst(mb_strtolower($this->input->post('prenom')));
+            $email = $this->input->post('email');
+            $tel = $this->input->post('tel');
+            $mdp = hash('sha256', $this->input->post('mdp'));
+            $entreprise = $this->input->post('entreprise');
+            $groupes = $this->input->post('groupes');
+
+            $ok = $this->administration_back_model->ajouter_utilisateur($sexe, $nom, $prenom, $email, $tel, $mdp, $entreprise, $groupes);
+
+            if($ok)
+            {
+                $this->session->set_flashdata('success', 'Le nouvel utilisateur a été ajouté avec succès.');
+                Redirect('/ipssi/administration/gestion-utilisateurs/ajouter');
+            }
+            else
+            {
+                $data['erreur'] = 'Une erreur est survenue pendant l\'ajout du nouvel utilisateur';
+                $this->load->view('back/include/menu.php', $menu);
+                $this->load->view('back/administration/gestion_utilisateur/ajouter-utilisateur.php', $data);
+            }
+        }
+    }
+
+    /* ---------- Page Application ---------- */
+
     public function application()
     {
         $menu['title'] = "IPSSI - Gestion de l'application";
@@ -56,6 +118,8 @@ class Administration_back extends MY_Controller
        
         $this->load->view('back/include/menu.php', $menu);
     }
+
+    /* ---------- Page Rédaction des pages ---------- */
 
     public function redaction_pages()
     {

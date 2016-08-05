@@ -90,4 +90,14 @@ class Droit
 
         return $retour;
     }
+
+    public function droitSuffisantAjout($droits)
+    {
+    	if(in_array('T', $droits))
+            $retour = true;
+        else
+        	$retour = false;
+
+        return $retour;
+    }
 }

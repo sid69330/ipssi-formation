@@ -57,6 +57,7 @@ $lang['form_validation_regex_match']			= 'Le champ {field} n\'est pas un bon for
 $lang['form_validation_matches']				= 'Le champ {field} ne correspond pas au champ {param}.';
 $lang['form_validation_differs']        		= 'Le champ {field} doit &ecirc;tre dif&eacute;rent au champ {param}.';
 $lang['form_validation_is_unique'] 				= 'Le champ {field} doit contenir une valeur unique.';
+$lang['form_validation_is_exist'] 				= 'Le champ {field} doit contenir une valeur possible.';
 $lang['form_validation_is_natural']				= 'Le champ {field} doit contenir que des chiffres.';
 $lang['form_validation_is_natural_no_zero']		= 'Le champ {field} doit contenir que des chiffres et doit &ecirc;tre sup&eacute;rieure &agrave; z&eacute;ro.';
 $lang['form_validation_decimal']				= 'Le champ {field} doit contenir un nombre d&eacute;cimal.';

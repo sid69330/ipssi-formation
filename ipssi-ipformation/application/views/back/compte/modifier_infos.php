@@ -6,7 +6,7 @@
 		</div>
 	</div>
 
-	<?php if($success != '') : ?>
+	<?php if(isset($success) && ($success != '')) : ?>
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="alert alert-success"><?php echo $success; ?></div>

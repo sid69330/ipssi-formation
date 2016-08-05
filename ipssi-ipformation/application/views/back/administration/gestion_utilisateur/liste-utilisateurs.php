@@ -19,6 +19,14 @@
 		</div>
 	</div><br/>
 
+	<?php if(in_array('T', $droits)) : ?>
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="/ipssi/administration/gestion-utilisateurs/ajouter" class="btn btn-block btn-primary btn-sm">Ajouter</a>
+			</div>
+		</div><br/>
+	<?php endif; ?>
+
 	<?php if(count($utilisateurs) > 0) : ?>
 		<table class="table table-bordered table-stripped" id="listeUtilisateur">
 			<thead>
@@ -63,6 +71,6 @@
 	        "order": false
 	    });
 	});
-	</script>
+</script>
 </body>
 </html>

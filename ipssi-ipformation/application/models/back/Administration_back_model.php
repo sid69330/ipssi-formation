@@ -74,4 +74,45 @@ class Administration_back_model extends CI_Model
 
         return(count($this->db->get()->result()) == 1);
     }
+
+    public function ajouter_utilisateur($sexe, $nom, $prenom, $email, $tel, $mdp, $entreprise, $groupes)
+    {
+        $data = array(
+            'id_sexe' => $sexe,
+            'nom_utilisateur' => $nom,
+            'prenom_utilisateur' => $prenom,
+            'mail_utilisateur' => $email,
+            'telephone_utilisateur' => $tel,
+            'mdp_utilisateur' => $mdp,
+            'entreprise_utilisateur' => $entreprise
+        );
+        $this->db->insert('utilisateur', $data);
+
+        $insert_id = $this->db->insert_id();
+
+        if($insert_id != '')
+        {
+            foreach($groupes as $g)
+            {
+                if($this->groupe_existe($g))
+                {
+                    $data = array(
+                        'id_utilisateur' => $insert_id,
+                        'id_groupe' => $g
+                    );
+                    $this->db->insert('groupe_utilisateur', $data);
+                }
+            }
+        }
+        
+        return $this->db->affected_rows();
+    }
+
+    public function groupe_existe($id_groupe)
+    {
+        $this->db->select('id_groupe');
+        $this->db->from('groupe');
+
+        return $this->db->count_all_results();
+    }
 }
