@@ -19,6 +19,14 @@
 		</div>
 	</div><br/>
 
+	<?php if(isset($success)) : ?>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="alert alert-success"><?php echo $success; ?></div>
+			</div>
+		</div>
+	<?php endif; ?>
+
 	<?php if(in_array('T', $droits)) : ?>
 		<div class="row">
 			<div class="col-xs-12">
@@ -33,6 +41,7 @@
 				<tr>
 					<th>Nom</th>
 					<th>Prénom</th>
+					<th>Etat</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -41,14 +50,26 @@
 					<tr>
 						<td><?php echo $u->nom_utilisateur; ?></td>
 						<td><?php echo $u->prenom_utilisateur; ?></td>
+						<td class="text-center">
+							<?php if($u->supprime == 0) : ?>
+								Actif
+							<?php else : ?>
+								Inactif
+							<?php endif; ?>
+						</td>
 						<td class="center">
 							<?php if(in_array('T', $droits)) : ?>
 								<a href="/ipssi/administration/gestion-utilisateurs/detail/<?php echo $u->id_utilisateur; ?>" title="Détail" class="btn btn-xs btn-default btn-detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
-								<a href="#" title="Modifier" class="btn btn-xs btn-default btn-modifier"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-								<a href="#" title="Supprimer" class="btn btn-xs btn-default btn-supprimer"><i class="fa fa-trash" aria-hidden="true"></i></a>
+								<a href="/ipssi/administration/gestion-utilisateurs/modifier/<?php echo $u->id_utilisateur; ?>" title="Modifier" class="btn btn-xs btn-default btn-modifier"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+
+								<?php if($this->session->userdata('id') != $u->id_utilisateur) : ?>
+									<a href="/ipssi/administration/gestion-utilisateurs/supprimer/<?php echo $u->id_utilisateur; ?>" title="Supprimer" class="btn btn-xs btn-default btn-supprimer" <?php if($u->supprime == 1) echo "disabled='disabled'"; ?> onclick="return(confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?'));">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</a>
+								<?php endif; ?>
 							<?php elseif(in_array('M', $droits) || in_array('P', $droits)) : ?>
 								<a href="/ipssi/administration/gestion-utilisateurs/detail/<?php echo $u->id_utilisateur; ?>" title="Détail" class="btn btn-xs btn-default btn-detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
-								<a href="#" title="Modifier" class="btn btn-xs btn-default btn-modifier"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+								<a href="/ipssi/administration/gestion-utilisateurs/modifier/<?php echo $u->id_utilisateur; ?>" title="Modifier" class="btn btn-xs btn-default btn-modifier"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 							<?php elseif(in_array('V', $droits)) : ?>
 								<a href="/ipssi/administration/gestion-utilisateurs/detail/<?php echo $u->id_utilisateur; ?>" title="Détail" class="btn btn-xs btn-default btn-detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
 							<?php endif; ?>

@@ -80,6 +80,8 @@ $route['ipssi/parametrage/crm'] = 'back/parametrage_back/crm';
 $route['ipssi/administration/gestion-utilisateurs'] = 'back/administration_back/gestion_utilisateurs';
 $route['ipssi/administration/gestion-utilisateurs/detail/(:num)'] = 'back/administration_back/detail_utilisateur/$1';
 $route['ipssi/administration/gestion-utilisateurs/ajouter'] = 'back/administration_back/ajouter';
+$route['ipssi/administration/gestion-utilisateurs/modifier/(:num)'] = 'back/administration_back/modifier_utilisateur/$1';
+$route['ipssi/administration/gestion-utilisateurs/supprimer/(:num)'] = 'back/administration_back/supprimer_utilisateur/$1';
 $route['ipssi/administration/application'] = 'back/administration_back/application';
 $route['ipssi/administration/redaction-pages'] = 'back/administration_back/redaction_pages';
 

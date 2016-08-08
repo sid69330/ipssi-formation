@@ -10,10 +10,9 @@ class Connexion_model extends CI_Model
 		$this->db->from('utilisateur');
 		$this->db->where('mdp_utilisateur', $mdp);
 		$this->db->where('mail_utilisateur', $identifiant);
+		$this->db->where('supprime', 0);
 		
 		$nb = $this->db->get()->result()[0]->nb;
-		
-		echo $nb;
 
 		if($nb == 0)
 			$erreur = "Identifiant ou mot de passe incorrect.";
