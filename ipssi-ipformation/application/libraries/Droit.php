@@ -91,6 +91,13 @@ class Droit
         return $retour;
     }
 
+    public function droitSuffisantLectureSimple($droits)
+    {
+        $retour = true;
+
+        return $retour;
+    }
+
     public function droitSuffisantModifier($droits, $id_utilisateur_page, $id_utilisateur_connecte)
     {
     	$retour = false;
@@ -131,6 +138,18 @@ class Droit
         }
         elseif(in_array('V', $droits))
         	$retour = false;
+
+        return $retour;
+    }
+
+    public function droitSuffisantModifierSimple($droits)
+    {
+        $retour = false;
+
+        if(in_array('V', $droits))
+            $retour = false;
+        else
+            $retour = true;
 
         return $retour;
     }

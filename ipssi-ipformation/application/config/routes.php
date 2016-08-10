@@ -83,7 +83,12 @@ $route['ipssi/administration/gestion-utilisateurs/ajouter'] = 'back/administrati
 $route['ipssi/administration/gestion-utilisateurs/modifier/(:num)'] = 'back/administration_back/modifier_utilisateur/$1';
 $route['ipssi/administration/gestion-utilisateurs/supprimer/(:num)'] = 'back/administration_back/supprimer_utilisateur/$1';
 $route['ipssi/administration/application'] = 'back/administration_back/application';
+
 $route['ipssi/administration/redaction-pages'] = 'back/administration_back/redaction_pages';
+$route['ipssi/administration/redaction-pages/detail/(.+)/(.+)'] = 'back/administration_back/detail_redaction_pages/$1/$2';
+$route['ipssi/administration/redaction-pages/detail/(.+)'] = 'back/administration_back/detail_redaction_pages/$1';
+$route['ipssi/administration/redaction-pages/modifier/(.+)/(.+)'] = 'back/administration_back/modifier_redaction_pages/$1/$2';
+$route['ipssi/administration/redaction-pages/modifier/(.+)'] = 'back/administration_back/modifier_redaction_pages/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

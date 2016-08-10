@@ -4,17 +4,14 @@
 				{
 					include_once($_SERVER['DOCUMENT_ROOT'].'/application/views/include/sous_sous_menu.php');
 					
-					echo '<div class="col-lg-9 well">';
+					echo '<div class="col-lg-9">';
 				}
 				else
-					echo '<div class="col-lg-12 well">';
+					echo '<div class="col-lg-12">';
 				?>
-				
-					<h1 class="titrePage"><?php echo $infosPage->titre_page_contenu; ?></h1>
-					
-					<?php 
-						echo nl2br($infosPage->texte_page_contenu);
-					?>
+				<?php 
+					echo nl2br($infosPage->texte_page_contenu);
+				?>
 				</div>
 			</div>
 		</div>

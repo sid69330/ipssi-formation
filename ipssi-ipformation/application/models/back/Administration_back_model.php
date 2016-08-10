@@ -2,6 +2,8 @@
 
 class Administration_back_model extends CI_Model
 {
+    /* -------------------- Gestion des utilisateurs -------------------- */
+
     /* Page Liste */
     public function liste_utilisateurs($droits, $id_utilisateur)
     {
@@ -46,6 +48,7 @@ class Administration_back_model extends CI_Model
         }
     }
 
+    /* Retourne vrai si aucune personne que celle passée en paramètre possède l'adresse mail passée en paramètre. Faux sinon */
     public function email_unique_utilisateur($id_utilisateur, $email)
     {
         $this->db->select('id_utilisateur');
@@ -56,6 +59,7 @@ class Administration_back_model extends CI_Model
         return(count($this->db->get()->result()) == 0);
     }
 
+    /* Récupère les informations de l'utilisateur passé en paramètre */
     public function recup_infos_utilisateur($id_utilisateur)
     {
         $this->db->select('U.id_utilisateur, U.nom_utilisateur, U.prenom_utilisateur, U.mail_utilisateur, U.telephone_utilisateur, U.date_mdp_utilisateur, U.entreprise_utilisateur, U.photo_profil, U.mdp_utilisateur_change, S.id_sexe, S.raccourci_sexe, DATEDIFF(DATE_ADD(U.date_mdp_utilisateur, INTERVAL 3 MONTH), NOW()) as validite_mdp');
@@ -75,6 +79,7 @@ class Administration_back_model extends CI_Model
         return $result;
     }
 
+    /* Permet de récupérer les groupes d'un utilisateur passé en paramètre */
     public function recup_groupe_utilisateur($id_utilisateur)
     {
         $retour = array();
@@ -104,6 +109,7 @@ class Administration_back_model extends CI_Model
         return(count($this->db->get()->result()) == 1);
     }
 
+    /* Fonction permettant d'ajouter un utilisateur en base de données */
     public function ajouter_utilisateur($sexe, $nom, $prenom, $email, $tel, $mdp, $entreprise, $groupes)
     {
         $data = array(
@@ -137,6 +143,7 @@ class Administration_back_model extends CI_Model
         return $this->db->affected_rows();
     }
 
+    /* Permet de modifier les informations d'un utilisateur en base de données */
     public function modifier_utilisateur($sexe, $nom, $prenom, $email, $tel, $entreprise, $groupes, $id_utilisateur)
     {
         $data = array
@@ -168,6 +175,7 @@ class Administration_back_model extends CI_Model
         }
     }
 
+    /* Permet de supprimer un utilisateur en base de données en modifiant le champ supprime en base de données */
     public function supprimer_utilisateur($id_utilisateur)
     {
         $data = array
@@ -178,11 +186,85 @@ class Administration_back_model extends CI_Model
         $this->db->update('utilisateur', $data);
     }
 
+    /* Retourne vrai si le groupe passé en paramètre existe. Faux sinon */
     public function groupe_existe($id_groupe)
     {
         $this->db->select('id_groupe');
         $this->db->from('groupe');
 
         return $this->db->count_all_results();
+    }
+
+    /* -------------------- Rédaction des pages -------------------- */
+
+    /* Permet de récupérer la liste des pages pouvant être rédigée */
+    public function recup_redaction_pages()
+    {
+        $this->db->select('M.id_menu, M.libelle_menu, M.url_menu, SM.id_sous_menu, SM.libelle_sous_menu, SM.url_sous_menu');
+        $this->db->from('menu M');
+        $this->db->join('sous_menu SM', 'SM.id_menu = M.id_menu', 'left');
+        $this->db->where('front', 1);
+
+        return $this->db->get()->result();
+    }
+
+    public function menu_sous_menu_existe($libelle_menu, $libelle_sous_menu)
+    {
+        $retour = false; 
+
+        $this->db->select('M.id_menu, id_sous_menu');
+        $this->db->from('menu M');
+        $this->db->join('sous_menu SM', 'SM.id_menu = M.id_menu', 'left');
+        $this->db->where('M.url_menu', $libelle_menu);
+
+        if($libelle_sous_menu == '')
+            $this->db->where('SM.url_sous_menu', null);
+        else
+            $this->db->where('SM.url_sous_menu', $libelle_sous_menu);
+
+        $result = $this->db->get()->result();
+
+        if(count($result) == 0)
+            $retour = false;
+        else
+        {
+            if($libelle_sous_menu != '')
+                $retour = true;
+            elseif($libelle_menu == 'accueil')
+                $retour = true;
+        }
+
+        return $retour;
+    }
+
+    public function recup_detail_redaction_pages($libelle_menu, $libelle_sous_menu)
+    {
+        $this->db->select('P.texte_page_contenu, M.url_menu, M.id_menu, SM.url_sous_menu, SM.id_sous_menu');
+        $this->db->from('menu M');
+        $this->db->join('sous_menu SM', 'SM.id_menu = M.id_menu', 'left');
+        $this->db->join('page_contenu P', 'SM.id_sous_menu = P.id_sous_menu AND M.id_menu = P.id_menu', 'left');
+        $this->db->where('M.url_menu', $libelle_menu);
+
+        if($libelle_sous_menu == '')
+            $this->db->where('SM.url_sous_menu', null);
+        else
+            $this->db->where('SM.url_sous_menu', $libelle_sous_menu);
+
+        return $this->db->get()->result()[0];
+    }
+
+    public function modifier_contenu_page($id_menu, $id_sous_menu, $contenu)
+    {
+        $this->db->where('id_menu', $id_menu);
+        $this->db->where('id_sous_menu', $id_sous_menu);
+        $this->db->delete('page_contenu');
+
+        $data = array
+        (
+            'id_menu' => $id_menu,
+            'id_sous_menu' => $id_sous_menu,
+            'texte_page_contenu' => $contenu
+        );
+        $this->db->insert('page_contenu', $data);
     }
 }
