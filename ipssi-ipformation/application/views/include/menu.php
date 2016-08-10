@@ -111,7 +111,6 @@
 							</li>
 							<li><a href="/espace_collaborateur">L'espace collaborateur</a></li>
 							<li><a href="/contact">Contact</a></li>
-							<li><a href="/saisie">Saisie contenu</a></li>
 						</ul>
 					</div>
 				</div>

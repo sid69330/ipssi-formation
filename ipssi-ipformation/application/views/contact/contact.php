@@ -1,8 +1,12 @@
-		<div class='container well'>
-			<h1 class="titrePage">Contact</h1>
+		<div class='container'>
 			<div class="row">
-					<div class="col-md-12">
-						<?php echo form_open('/contact', array('class'=>'form-horizontal')); ?>
+				<div class="col-xs-12">
+					<h1 class="titrePage center">Contact</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<?php echo form_open('/contact', array('class'=>'form-horizontal')); ?>
 						<?php 
 							if(isset($erreur) && ($erreur != '')) 
 								echo "<p class='alert alert-danger'>".$erreur."</p>";
