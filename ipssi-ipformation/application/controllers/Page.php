@@ -17,7 +17,8 @@ class Page extends CI_Controller
 		$menu['menu'] = $this->menu->recupMenu();
 		
 		$data['actualite'] = $this->actualite_model->recupActualites();
-		
+		$data['infosPage'] = $this->page_model->recupInfosPage(1, null);
+
 		$this->load->view('include/menu.php', $menu);
 		$this->load->view('accueil.php', $data);
 	}

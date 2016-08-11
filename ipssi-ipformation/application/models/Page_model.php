@@ -63,7 +63,7 @@ class Page_model extends CI_Model
 		{
 			$result = new stdClass();
 			$result->titre_page_contenu = 'Veuillez renseigner un titre pour cette page';
-			$result->texte_page_contenu = 'Veuillez renseigner un contenu cette page';
+			$result->texte_page_contenu = '<div class="alert alert-info">Veuillez renseigner un contenu cette page</div>';
 			
 			return $result;
 		}			
