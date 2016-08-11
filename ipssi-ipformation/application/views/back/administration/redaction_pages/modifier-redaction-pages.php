@@ -46,5 +46,21 @@
 
 </div>
 <?php include_once($_SERVER['DOCUMENT_ROOT'].'/application/views/include/footer.php'); ?>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>
+	tinymce.init
+	({ 
+		selector:'textarea',
+		plugins: 
+		[
+    		'advlist autolink lists link image charmap print preview anchor',
+    		'visualblocks code',
+    		'insertdatetime media table contextmenu paste'
+  		],
+  		convert_fonts_to_spans : false,
+  		toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code"
+	});
+	
+</script>
 </body>
 </html>

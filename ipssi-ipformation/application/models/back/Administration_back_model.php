@@ -242,7 +242,12 @@ class Administration_back_model extends CI_Model
         $this->db->select('P.texte_page_contenu, M.url_menu, M.id_menu, SM.url_sous_menu, SM.id_sous_menu');
         $this->db->from('menu M');
         $this->db->join('sous_menu SM', 'SM.id_menu = M.id_menu', 'left');
-        $this->db->join('page_contenu P', 'SM.id_sous_menu = P.id_sous_menu AND M.id_menu = P.id_menu', 'left');
+
+        if($libelle_sous_menu == '')
+            $this->db->join('page_contenu P', 'M.id_menu = P.id_menu', 'left');
+        else
+            $this->db->join('page_contenu P', 'SM.id_sous_menu = P.id_sous_menu AND M.id_menu = P.id_menu', 'left');
+        
         $this->db->where('M.url_menu', $libelle_menu);
 
         if($libelle_sous_menu == '')
