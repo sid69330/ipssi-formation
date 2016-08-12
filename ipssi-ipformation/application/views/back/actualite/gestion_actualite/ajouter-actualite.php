@@ -54,7 +54,7 @@
 		<?php echo form_error('date_validite', '<div class="alert alert-danger">', '</div>'); ?>
 		<div class="form-group">
 			<label for="date_validite">Date de fin de validité <sup>(1)</sup></label>
-			<input type="text" class="form-control" id="date_validite" placeholder="Date fin validité : dd-mm-yy" name="date_validite" value="<?php echo set_value('date_validite'); ?>">
+			<input type="text" class="form-control" id="date_validite" placeholder="Date fin validité : dd-mm-yyyy" name="date_validite" value="<?php echo set_value('date_validite'); ?>">
 		</div>
 		<?php echo form_error('actif', '<div class="alert alert-danger">', '</div>'); ?>
 		<label for="actif">Actif *</label>
