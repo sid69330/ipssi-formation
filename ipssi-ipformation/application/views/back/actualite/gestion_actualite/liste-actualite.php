@@ -42,7 +42,9 @@
 					<th>Ajouté par</th>
 					<th>Titre</th>
 					<th>Ajouté le</th>
-					<th>Fin validité</th>
+					<th>Fin validité *</th>
+					<th>Actif *</th>
+					<th>Front</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -60,6 +62,24 @@
 							<td class="center bg-success">
 						<?php endif; ?>
 							<?php echo $a->date_validite_actualite; ?>
+						</td>
+						<?php if($a->actif_actualite == 0) : ?>
+							<td class="center bg-danger">
+						<?php else : ?>
+							<td class="center bg-success">
+						<?php endif; ?>
+							<?php if($a->actif_actualite == 1) : ?>
+								Actif
+							<?php else : ?>
+								Inactif
+							<?php endif; ?>
+						</td>
+						<td class="center">
+							<?php if($a->front == 1) : ?>
+								Front
+							<?php else : ?>
+								Back
+							<?php endif; ?>
 						</td>
 						<td class="center">
 							<?php if(in_array('T', $droits)) : ?>
@@ -89,6 +109,7 @@
 				<?php endforeach; ?>
 			</tbody>
 		</table>
+		<p class="champsObligatoires">* Une actualité est visible si "Fin validité" et "Actif" sont verts.</p>
 	<?php endif; ?>
 
 </div>

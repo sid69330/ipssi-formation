@@ -49,17 +49,33 @@
 		<?php echo form_error('texte', '<div class="alert alert-danger">', '</div>'); ?>
 		<div class="form-group">
 			<label for="texte">Texte *</label>
-			<textarea class="form-control" id="texte" name="texte" rows="5" value="<?php echo set_value('texte'); ?>"></textarea>
+			<textarea class="form-control" id="texte" name="texte" rows="5"><?php echo set_value('texte'); ?></textarea>
 		</div>
 		<?php echo form_error('date_validite', '<div class="alert alert-danger">', '</div>'); ?>
 		<div class="form-group">
-			<label for="date_validite">Date de fin de validité *</label>
-			<input type="text" class="form-control" id="date_validite" placeholder="Date fin validité" name="date_validite" value="<?php echo set_value('date_validite'); ?>">
+			<label for="date_validite">Date de fin de validité <sup>(1)</sup></label>
+			<input type="text" class="form-control" id="date_validite" placeholder="Date fin validité : dd-mm-yy" name="date_validite" value="<?php echo set_value('date_validite'); ?>">
 		</div>
+		<?php echo form_error('actif', '<div class="alert alert-danger">', '</div>'); ?>
+		<label for="actif">Actif *</label>
+		<select class="form-control form-group" name="actif" id="actif">
+  			<option value="1" <?php if(isset($_POST['actif']) && ($_POST['actif'] == 1)) echo 'selected="selected"'; ?>>Actif</option>
+  			<option value="0" <?php if(isset($_POST['actif']) && ($_POST['actif'] == 0)) echo 'selected="selected"'; ?>>Inactif</option>
+		</select>
+		<?php echo form_error('front', '<div class="alert alert-danger">', '</div>'); ?>
+		<label for="front">Front *</label>
+		<select class="form-control form-group" name="front" id="front">
+  			<option value="1" <?php if(isset($_POST['front']) && ($_POST['front'] == 1)) echo 'selected="selected"'; ?>>Oui</option>
+  			<option value="0" <?php if(isset($_POST['front']) && ($_POST['front'] == 0)) echo 'selected="selected"'; ?>>Non</option>
+		</select>
 		
 		<div class="form-group">
 			<button class="btn btn-primary btn-block">Ajouter</button>
 		</div>
+		<p class="champsObligatoires">
+			* Champs obligatoires<br/>
+			<sup>(1)</sup> Permet de rendre automatiquement inactive l'actualité à la date renseignée.
+		</p>
 
 	<?php echo form_close(); ?>
 </div>
@@ -78,7 +94,7 @@
 			dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
 			dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
 			weekHeader: 'Sem.',
-			dateFormat: 'yy-mm-dd',
+			dateFormat: 'dd-mm-yy',
 			firstDay : 1
 		});
 	});

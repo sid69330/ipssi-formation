@@ -4,7 +4,7 @@ class Ressources_humaines_back_model extends CI_Model
 {
     protected $tableActualite = "actualite";
 
-    public function recupActualites($idActualite="")
+    /*public function recupActualites($idActualite="")
     {
         $this->db->select('id_actualite, titre_actualite, texte_actualite, date_validite_actualite, url_photo_actualite');
         $this->db->from($this->tableActualite);
@@ -18,9 +18,9 @@ class Ressources_humaines_back_model extends CI_Model
             $result = $this->db->get()->result();
 
         return $result;
-    }
+    }*/
 
-    public function actualiteExiste($id_actualite)
+    /*public function actualiteExiste($id_actualite)
     {
         $this->db->select('count(id_actualite) as nbActualite');
         $this->db->from($this->tableActualite);
@@ -28,5 +28,5 @@ class Ressources_humaines_back_model extends CI_Model
         $this->db->where('date_validite_actualite >= NOW()');
 
         return $this->db->get()->result()[0]->nbActualite;
-    }
+    }*/
 }

@@ -45,7 +45,7 @@
                 <?php endif; ?>
                 <div class="row">
                     <div class="col-xs-12">
-                        <a href="/ipssi/actualites/liste-actualites" class="btn btn-info btn-block">Gestion des actualités</a>
+                        <a href="/ipssi/actualites/gestion-actualites" class="btn btn-info btn-block">Gestion des actualités</a>
                     </div>
                 </div>
 

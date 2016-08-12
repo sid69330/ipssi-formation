@@ -39,16 +39,55 @@ class Actualites_back extends MY_Controller
 
         $this->form_validation->set_rules('titre', '"Titre"', 'trim|required|encode_php_tags');
         $this->form_validation->set_rules('texte', '"Texte"', 'trim|required|encode_php_tags');
-        $this->form_validation->set_rules('date_validite', '"Date validité"', 'trim|encode_php_tags|regex_match[/^(0[1-9]|1[0-9]|2[0-9]|3(0|1))-(0[1-9]|1[0-2])-\d{4}]$/');
+        $this->form_validation->set_rules('date_validite', '"Date validité"', 'trim|encode_php_tags');
+        $this->form_validation->set_rules('actif', '"Actif"', 'trim|required|encode_php_tags|regex_match[/^[0-1]{1}$/]');
+        $this->form_validation->set_rules('front', '"Front"', 'trim|required|encode_php_tags|regex_match[/^[0-1]{1}$/]');
 
         if($this->form_validation->run() == FALSE)
         {
+            $data['success'] = $this->session->flashdata('success');
             $this->load->view('back/include/menu.php', $menu);
             $this->load->view('back/actualite/gestion_actualite/ajouter-actualite.php', $data);
         }
         else
         {
+            $date_validite = $this->input->post('date_validite');
+            $titre = $this->input->post('titre');
+            $texte = $this->input->post('texte');
+            $actif = $this->input->post('actif');
+            $front = $this->input->post('front');
 
+            $tab = explode('-', $date_validite);
+
+            if(count($tab) == 3)
+            {
+                if(checkdate($tab[1], $tab[0], $tab[2]))
+                {
+                    if(mb_strlen($tab[2]) == 4)
+                    {
+                         $ok = $this->actualite_back_model->ajouter_actualite($titre, $texte, $actif, $front, $date_validite, $this->session->userdata('id'));
+
+                        if($ok)
+                        {
+                            $this->session->set_flashdata('success', 'Actualité ajoutée avec succès.');
+                            Redirect('/ipssi/actualites/gestion-actualites/ajouter');
+                        }
+                    }
+                    else
+                        $erreur = 'La date renseignée est au mauvais format. Format demandé : (dd-mm-yyyy)';
+                }
+                else
+                    $erreur = 'La date renseignée n\'existe pas.';
+            }
+            else
+                $erreur = 'La date renseignée est au mauvais format. Format demandé : (dd-mm-yyyy)';
+
+            if(isset($erreur))
+            {
+                $data['erreur'] = $erreur;
+                $this->load->view('back/include/menu.php', $menu);
+                $this->load->view('back/actualite/gestion_actualite/ajouter-actualite.php', $data);
+            }
         }
     }
 }

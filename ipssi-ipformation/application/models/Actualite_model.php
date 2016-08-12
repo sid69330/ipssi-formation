@@ -8,7 +8,13 @@ class Actualite_model extends CI_Model
 	{	
 		$this->db->select
 		(
-			'CASE WHEN date_validite_actualite >= NOW() THEN "En ligne" ELSE "Date validité dépassée" END AS etat, 
+			'CASE 
+				WHEN actif_actualite = 0 THEN "Hors ligne"
+				WHEN date_validite_actualite IS NULL THEN "En ligne"
+				WHEN date_validite_actualite >= NOW() THEN "En ligne"
+				ELSE "Date validité dépassée"
+			END
+				AS etat, 
 			DATE_FORMAT(date_actualite, "%d/%m/%Y %H:%i") AS date_actualite, 
 			id_actualite, 
 			titre_actualite, 
@@ -19,10 +25,18 @@ class Actualite_model extends CI_Model
 		$this->db->from($this->tableActualite);
 
 		if($all == false)
+		{
+			$this->db->group_start();
 			$this->db->where('date_validite_actualite >= NOW()');
+			$this->db->or_where('date_validite_actualite', null);
+			$this->db->group_end();
+		}
 
 		if($idActualite!= '')
 			$this->db->where('id_actualite', $idActualite);
+
+		$this->db->where('front', 1);
+		$this->db->where('actif_actualite', 1);
 
 		if($limite != '')
 			$this->db->limit($limite);
