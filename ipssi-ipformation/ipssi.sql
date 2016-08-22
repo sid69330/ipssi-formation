@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jul 08, 2016 at 04:19 PM
--- Server version: 5.5.49-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.17
+-- Client :  127.0.0.1
+-- Généré le :  Lun 08 Août 2016 à 11:43
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,16 +17,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `ipssi`
+-- Base de données :  `ipssi`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `actualite`
+-- Structure de la table `ipssi_actualite`
 --
 
-CREATE TABLE IF NOT EXISTS `actualite` (
+CREATE TABLE IF NOT EXISTS `ipssi_actualite` (
   `id_actualite` int(11) NOT NULL AUTO_INCREMENT,
   `titre_actualite` varchar(100) NOT NULL,
   `texte_actualite` text NOT NULL,
@@ -37,20 +37,20 @@ CREATE TABLE IF NOT EXISTS `actualite` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `actualite`
+-- Contenu de la table `ipssi_actualite`
 --
 
-INSERT INTO `actualite` (`id_actualite`, `titre_actualite`, `texte_actualite`, `date_actualite`, `url_photo_actualite`, `date_validite_actualite`) VALUES
+INSERT INTO `ipssi_actualite` (`id_actualite`, `titre_actualite`, `texte_actualite`, `date_actualite`, `url_photo_actualite`, `date_validite_actualite`) VALUES
 (1, 'Actualité 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vel risus at dolor placerat pretium. Vestibulum lobortis neque eget dolor auctor, vel vestibulum nisl interdum. Aliquam risus arcu, dictum in mauris vitae, luctus elementum quam. Donec at accumsan velit. Interdum et malesuada fames ac ante ipsum primis in faucibus.', '2016-07-08 12:39:31', 'actualite1.jpg', '2016-07-08 11:00:00'),
 (2, 'Actualité 2', 'Aliquam eget libero massa. Nam eget molestie velit. Pellentesque interdum quam lectus, nec molestie neque tincidunt vitae. Curabitur in interdum metus. Aliquam erat volutpat. Praesent mi magna, ullamcorper sit amet imperdiet non, consectetur quis velit.', '2016-07-08 12:55:57', 'actualite2.jpg', '2016-07-31 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `adresse`
+-- Structure de la table `ipssi_adresse`
 --
 
-CREATE TABLE IF NOT EXISTS `adresse` (
+CREATE TABLE IF NOT EXISTS `ipssi_adresse` (
   `id_adresse` int(11) NOT NULL AUTO_INCREMENT,
   `libelle_adresse` varchar(250) NOT NULL,
   `numero_adresse` varchar(250) NOT NULL,
@@ -65,10 +65,10 @@ CREATE TABLE IF NOT EXISTS `adresse` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `adresse`
+-- Contenu de la table `ipssi_adresse`
 --
 
-INSERT INTO `adresse` (`id_adresse`, `libelle_adresse`, `numero_adresse`, `adresse_adresse`, `supplement_adresse`, `code_postal_adresse`, `ville_adresse`, `pays_adresse`, `telephone_adresse`, `fax_adresse`) VALUES
+INSERT INTO `ipssi_adresse` (`id_adresse`, `libelle_adresse`, `numero_adresse`, `adresse_adresse`, `supplement_adresse`, `code_postal_adresse`, `ville_adresse`, `pays_adresse`, `telephone_adresse`, `fax_adresse`) VALUES
 (1, 'IPSSI Paris', '25 ', 'rue Claude Tillier\r\n\r\n', '2ème étage', '75012 ', 'Paris', 'France', '01 55 43 26 65', '01 55 43 26 64'),
 (2, 'IPSSI Lyon', '6', 'Place Charles Hernu', NULL, '69100', 'Villeurbanne', 'France', '0811 692 888', '01 55 43 26 64'),
 (3, 'IPSSI Brest', '1 Bis ', 'rue Bossuet ', NULL, '29200', 'Brest', 'France', '07 81 26 13 40', '');
@@ -76,10 +76,10 @@ INSERT INTO `adresse` (`id_adresse`, `libelle_adresse`, `numero_adresse`, `adres
 -- --------------------------------------------------------
 
 --
--- Table structure for table `candidature`
+-- Structure de la table `ipssi_candidature`
 --
 
-CREATE TABLE IF NOT EXISTS `candidature` (
+CREATE TABLE IF NOT EXISTS `ipssi_candidature` (
   `id_candidature` int(11) NOT NULL AUTO_INCREMENT,
   `id_poste_candidature` int(11) DEFAULT NULL,
   `id_sexe` int(11) NOT NULL,
@@ -102,20 +102,20 @@ CREATE TABLE IF NOT EXISTS `candidature` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `candidature`
+-- Contenu de la table `ipssi_candidature`
 --
 
-INSERT INTO `candidature` (`id_candidature`, `id_poste_candidature`, `id_sexe`, `nom_candidature`, `prenom_candidature`, `adresse_candidature`, `cp_candidature`, `ville_candidature`, `pays_candidature`, `email_candidature`, `telephone_candidature`, `date_naissance`, `url_cv_candidature`, `url_lettre_candidature`, `etat`, `cle`) VALUES
+INSERT INTO `ipssi_candidature` (`id_candidature`, `id_poste_candidature`, `id_sexe`, `nom_candidature`, `prenom_candidature`, `adresse_candidature`, `cp_candidature`, `ville_candidature`, `pays_candidature`, `email_candidature`, `telephone_candidature`, `date_naissance`, `url_cv_candidature`, `url_lettre_candidature`, `etat`, `cle`) VALUES
 (1, NULL, 3, 'MOSSON', 'Romane', '16 rue des Erables', '69330', 'Pusignan', 'France', 'romane.mosson@gmail.com', '0777360290', '1993-05-07', NULL, NULL, 0, 'qJW678aziF1vqngfEZ1TUXwjSxQ8Wdg0Odm4oxU0mTY69hkborwzylm8MJop16qPo0YXSTmbC4CB38yzOPIHSFoRSRE0KTKVavgN'),
 (2, 3, 3, 'MOSSON', 'Romane', '16 rue des Erables', '69330', 'Pusignan', 'France', 'romane.mosson@gmail.com', '0777360290', '1993-05-07', NULL, NULL, 0, '3buDy0s4CpuTqF7LSVCxEVAjGDMXCjK6opOxGburo870erGL5D30CVcViPYrg4qNq6OnuFILmLUlIDWHsL9HMn1t7rSlAdMXab10');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contact`
+-- Structure de la table `ipssi_contact`
 --
 
-CREATE TABLE IF NOT EXISTS `contact` (
+CREATE TABLE IF NOT EXISTS `ipssi_contact` (
   `id_contact` int(11) NOT NULL AUTO_INCREMENT,
   `id_contact_type` int(11) NOT NULL,
   `id_contact_demande` int(11) NOT NULL,
@@ -138,19 +138,19 @@ CREATE TABLE IF NOT EXISTS `contact` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `contact`
+-- Contenu de la table `ipssi_contact`
 --
 
-INSERT INTO `contact` (`id_contact`, `id_contact_type`, `id_contact_demande`, `id_sexe`, `nom_contact`, `prenom_contact`, `fonction_contact`, `societe_contact`, `email_contact`, `telephone_contact`, `message_contact`, `date_creation`) VALUES
+INSERT INTO `ipssi_contact` (`id_contact`, `id_contact_type`, `id_contact_demande`, `id_sexe`, `nom_contact`, `prenom_contact`, `fonction_contact`, `societe_contact`, `email_contact`, `telephone_contact`, `message_contact`, `date_creation`) VALUES
 (4, 2, 1, 3, 'MOSSON', 'Romane', NULL, '', 'romane.mosson@gmail.com', '0777360290', 'Ceci est un test', '2016-04-05 13:53:20');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contact_demande`
+-- Structure de la table `ipssi_contact_demande`
 --
 
-CREATE TABLE IF NOT EXISTS `contact_demande` (
+CREATE TABLE IF NOT EXISTS `ipssi_contact_demande` (
   `id_contact_demande` int(11) NOT NULL AUTO_INCREMENT,
   `libelle_contact_demande` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_contact_demande`),
@@ -158,10 +158,10 @@ CREATE TABLE IF NOT EXISTS `contact_demande` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `contact_demande`
+-- Contenu de la table `ipssi_contact_demande`
 --
 
-INSERT INTO `contact_demande` (`id_contact_demande`, `libelle_contact_demande`) VALUES
+INSERT INTO `ipssi_contact_demande` (`id_contact_demande`, `libelle_contact_demande`) VALUES
 (1, 'Demande de renseignements généraux'),
 (2, 'Demande de renseignements sur l''école'),
 (3, 'Demande de renseignements sur les cours');
@@ -169,10 +169,10 @@ INSERT INTO `contact_demande` (`id_contact_demande`, `libelle_contact_demande`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contact_type`
+-- Structure de la table `ipssi_contact_type`
 --
 
-CREATE TABLE IF NOT EXISTS `contact_type` (
+CREATE TABLE IF NOT EXISTS `ipssi_contact_type` (
   `id_contact_type` int(11) NOT NULL AUTO_INCREMENT,
   `libelle_contact_type` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_contact_type`),
@@ -180,20 +180,20 @@ CREATE TABLE IF NOT EXISTS `contact_type` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `contact_type`
+-- Contenu de la table `ipssi_contact_type`
 --
 
-INSERT INTO `contact_type` (`id_contact_type`, `libelle_contact_type`) VALUES
+INSERT INTO `ipssi_contact_type` (`id_contact_type`, `libelle_contact_type`) VALUES
 (1, 'Professionnel'),
 (2, 'Particulier');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `droit`
+-- Structure de la table `ipssi_droit`
 --
 
-CREATE TABLE IF NOT EXISTS `droit` (
+CREATE TABLE IF NOT EXISTS `ipssi_droit` (
   `id_droit` int(11) NOT NULL AUTO_INCREMENT,
   `code_droit` varchar(1) NOT NULL,
   `libelle_droit` varchar(100) NOT NULL,
@@ -201,10 +201,10 @@ CREATE TABLE IF NOT EXISTS `droit` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `droit`
+-- Contenu de la table `ipssi_droit`
 --
 
-INSERT INTO `droit` (`id_droit`, `code_droit`, `libelle_droit`) VALUES
+INSERT INTO `ipssi_droit` (`id_droit`, `code_droit`, `libelle_droit`) VALUES
 (1, 'T', 'Tous les droits'),
 (2, 'M', 'Modification et visualisation N et N-'),
 (3, 'P', 'Vue et modification personnelle'),
@@ -213,10 +213,10 @@ INSERT INTO `droit` (`id_droit`, `code_droit`, `libelle_droit`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `droit_sous_menu_groupe`
+-- Structure de la table `ipssi_droit_sous_menu_groupe`
 --
 
-CREATE TABLE IF NOT EXISTS `droit_sous_menu_groupe` (
+CREATE TABLE IF NOT EXISTS `ipssi_droit_sous_menu_groupe` (
   `id_droit` int(11) NOT NULL,
   `id_sous_menu` int(11) NOT NULL,
   `id_groupe` int(11) NOT NULL,
@@ -226,10 +226,10 @@ CREATE TABLE IF NOT EXISTS `droit_sous_menu_groupe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `droit_sous_menu_groupe`
+-- Contenu de la table `ipssi_droit_sous_menu_groupe`
 --
 
-INSERT INTO `droit_sous_menu_groupe` (`id_droit`, `id_sous_menu`, `id_groupe`) VALUES
+INSERT INTO `ipssi_droit_sous_menu_groupe` (`id_droit`, `id_sous_menu`, `id_groupe`) VALUES
 (1, 8, 1),
 (1, 8, 2),
 (1, 8, 6),
@@ -289,34 +289,35 @@ INSERT INTO `droit_sous_menu_groupe` (`id_droit`, `id_sous_menu`, `id_groupe`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groupe`
+-- Structure de la table `ipssi_groupe`
 --
 
-CREATE TABLE IF NOT EXISTS `groupe` (
+CREATE TABLE IF NOT EXISTS `ipssi_groupe` (
   `id_groupe` int(11) NOT NULL AUTO_INCREMENT,
   `libelle_groupe` varchar(100) NOT NULL,
+  `ordre` int(11) NOT NULL,
   PRIMARY KEY (`id_groupe`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `groupe`
+-- Contenu de la table `ipssi_groupe`
 --
 
-INSERT INTO `groupe` (`id_groupe`, `libelle_groupe`) VALUES
-(1, 'Administrateur'),
-(2, 'Superviseur'),
-(3, 'Manager'),
-(4, 'RH'),
-(5, 'Collaborateur'),
-(6, 'Rédacteur');
+INSERT INTO `ipssi_groupe` (`id_groupe`, `libelle_groupe`, `ordre`) VALUES
+(1, 'Administrateur', 6),
+(2, 'Superviseur', 5),
+(3, 'Manager', 4),
+(4, 'RH', 3),
+(5, 'Collaborateur', 2),
+(6, 'Rédacteur', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groupe_utilisateur`
+-- Structure de la table `ipssi_groupe_utilisateur`
 --
 
-CREATE TABLE IF NOT EXISTS `groupe_utilisateur` (
+CREATE TABLE IF NOT EXISTS `ipssi_groupe_utilisateur` (
   `id_utilisateur` int(11) NOT NULL,
   `id_groupe` int(11) NOT NULL,
   PRIMARY KEY (`id_utilisateur`,`id_groupe`),
@@ -324,20 +325,20 @@ CREATE TABLE IF NOT EXISTS `groupe_utilisateur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `groupe_utilisateur`
+-- Contenu de la table `ipssi_groupe_utilisateur`
 --
 
-INSERT INTO `groupe_utilisateur` (`id_utilisateur`, `id_groupe`) VALUES
-(1, 1),
-(2, 1);
+INSERT INTO `ipssi_groupe_utilisateur` (`id_utilisateur`, `id_groupe`) VALUES
+(2, 1),
+(1, 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menu`
+-- Structure de la table `ipssi_menu`
 --
 
-CREATE TABLE IF NOT EXISTS `menu` (
+CREATE TABLE IF NOT EXISTS `ipssi_menu` (
   `id_menu` int(11) NOT NULL AUTO_INCREMENT,
   `libelle_menu` varchar(100) NOT NULL,
   `url_menu` varchar(100) NOT NULL,
@@ -348,10 +349,10 @@ CREATE TABLE IF NOT EXISTS `menu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `menu`
+-- Contenu de la table `ipssi_menu`
 --
 
-INSERT INTO `menu` (`id_menu`, `libelle_menu`, `url_menu`, `tri_menu`, `date_menu`, `front`) VALUES
+INSERT INTO `ipssi_menu` (`id_menu`, `libelle_menu`, `url_menu`, `tri_menu`, `date_menu`, `front`) VALUES
 (1, 'Accueil', '', 1, '2016-02-29 08:25:10', 1),
 (2, 'Le groupe', 'le-groupe', 2, '2016-02-29 07:27:42', 1),
 (3, 'L''activité', 'l-activite', 3, '2016-02-29 07:27:53', 1),
@@ -364,10 +365,10 @@ INSERT INTO `menu` (`id_menu`, `libelle_menu`, `url_menu`, `tri_menu`, `date_men
 -- --------------------------------------------------------
 
 --
--- Table structure for table `page_contenu`
+-- Structure de la table `ipssi_page_contenu`
 --
 
-CREATE TABLE IF NOT EXISTS `page_contenu` (
+CREATE TABLE IF NOT EXISTS `ipssi_page_contenu` (
   `id_page_contenu` int(11) NOT NULL AUTO_INCREMENT,
   `id_menu` int(11) NOT NULL COMMENT 'clé étrangère',
   `id_sous_menu` int(11) DEFAULT NULL COMMENT 'clé étrangère',
@@ -380,19 +381,19 @@ CREATE TABLE IF NOT EXISTS `page_contenu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `page_contenu`
+-- Contenu de la table `ipssi_page_contenu`
 --
 
-INSERT INTO `page_contenu` (`id_page_contenu`, `id_menu`, `id_sous_menu`, `date_page_contenu`, `titre_page_contenu`, `texte_page_contenu`) VALUES
+INSERT INTO `ipssi_page_contenu` (`id_page_contenu`, `id_menu`, `id_sous_menu`, `date_page_contenu`, `titre_page_contenu`, `texte_page_contenu`) VALUES
 (1, 2, 1, '2016-02-29 10:03:04', 'test titre', 'test contenu');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `poste_candidature`
+-- Structure de la table `ipssi_poste_candidature`
 --
 
-CREATE TABLE IF NOT EXISTS `poste_candidature` (
+CREATE TABLE IF NOT EXISTS `ipssi_poste_candidature` (
   `id_poste` int(11) NOT NULL AUTO_INCREMENT,
   `id_type_poste` int(11) NOT NULL,
   `titre_poste` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -410,10 +411,10 @@ CREATE TABLE IF NOT EXISTS `poste_candidature` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `poste_candidature`
+-- Contenu de la table `ipssi_poste_candidature`
 --
 
-INSERT INTO `poste_candidature` (`id_poste`, `id_type_poste`, `titre_poste`, `accroche_poste`, `entreprise_poste`, `date_depot`, `description`, `date_debut_poste`, `remuneration_poste`, `niveau_experience`) VALUES
+INSERT INTO `ipssi_poste_candidature` (`id_poste`, `id_type_poste`, `titre_poste`, `accroche_poste`, `entreprise_poste`, `date_depot`, `description`, `date_debut_poste`, `remuneration_poste`, `niveau_experience`) VALUES
 (1, 1, 'Développeur PHP', 'Développeur PHP en alternance', 'Dalkia Infracom', '2015-05-29 10:34:57', 'Recherche d''un développeur spécialisé en PHP. \r\nnécessaire : HTML, PHP, CSS, Javascript\r\nplus : Ajax, Bootstrap', '2014-10-18 20:00:00', '820', 'BAc+2 à Bac+3'),
 (2, 3, 'Développeur VB.Net', 'Développeur Microsoft VisualBasic en alternance', 'Exelis', '2015-05-29 10:35:07', 'Recherche d''un développeur spécialisé en VisualBasic. \nnécessaire : VB.Net, SQL Server\nplus : SSIS', '2014-11-11 22:00:00', '920', 'BAc+2 à Bac+3'),
 (3, 4, 'Administrateur Base de Données', 'Administrateur base de données sur SQL Server', '1000Mercis', '2015-05-29 10:38:47', 'Nous cherchons actuellement un alternant pour un poste d''administrateur de base de données.\r\nRequis : SQL, SQL Server\r\nplus : C#, SSIS', '2013-09-07 20:00:00', '850', 'BAc+4');
@@ -421,10 +422,10 @@ INSERT INTO `poste_candidature` (`id_poste`, `id_type_poste`, `titre_poste`, `ac
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sexe`
+-- Structure de la table `ipssi_sexe`
 --
 
-CREATE TABLE IF NOT EXISTS `sexe` (
+CREATE TABLE IF NOT EXISTS `ipssi_sexe` (
   `id_sexe` int(11) NOT NULL AUTO_INCREMENT,
   `raccourci_sexe` varchar(4) NOT NULL,
   `sexe` varchar(250) NOT NULL,
@@ -433,10 +434,10 @@ CREATE TABLE IF NOT EXISTS `sexe` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `sexe`
+-- Contenu de la table `ipssi_sexe`
 --
 
-INSERT INTO `sexe` (`id_sexe`, `raccourci_sexe`, `sexe`) VALUES
+INSERT INTO `ipssi_sexe` (`id_sexe`, `raccourci_sexe`, `sexe`) VALUES
 (1, 'M.', 'Monsieur'),
 (2, 'Mme', 'Madame'),
 (3, 'Mlle', 'Mademoiselle');
@@ -444,10 +445,10 @@ INSERT INTO `sexe` (`id_sexe`, `raccourci_sexe`, `sexe`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sous_menu`
+-- Structure de la table `ipssi_sous_menu`
 --
 
-CREATE TABLE IF NOT EXISTS `sous_menu` (
+CREATE TABLE IF NOT EXISTS `ipssi_sous_menu` (
   `id_sous_menu` int(11) NOT NULL AUTO_INCREMENT,
   `id_menu` int(11) NOT NULL COMMENT 'clé étrangère',
   `libelle_sous_menu` varchar(100) NOT NULL,
@@ -459,10 +460,10 @@ CREATE TABLE IF NOT EXISTS `sous_menu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 --
--- Dumping data for table `sous_menu`
+-- Contenu de la table `ipssi_sous_menu`
 --
 
-INSERT INTO `sous_menu` (`id_sous_menu`, `id_menu`, `libelle_sous_menu`, `url_sous_menu`, `date_sous_menu`, `tri_sous_menu`) VALUES
+INSERT INTO `ipssi_sous_menu` (`id_sous_menu`, `id_menu`, `libelle_sous_menu`, `url_sous_menu`, `date_sous_menu`, `tri_sous_menu`) VALUES
 (1, 2, 'Présentation', 'presentation', '2016-02-29 07:39:57', 1),
 (2, 2, 'Chiffres clés', 'chiffres-cles', '2016-02-29 07:40:13', 2),
 (3, 2, 'Notre expertise', 'notre-expertise', '2016-02-29 07:40:23', 3),
@@ -489,10 +490,10 @@ INSERT INTO `sous_menu` (`id_sous_menu`, `id_menu`, `libelle_sous_menu`, `url_so
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sous_sous_menu`
+-- Structure de la table `ipssi_sous_sous_menu`
 --
 
-CREATE TABLE IF NOT EXISTS `sous_sous_menu` (
+CREATE TABLE IF NOT EXISTS `ipssi_sous_sous_menu` (
   `id_sous_sous_menu` int(11) NOT NULL AUTO_INCREMENT,
   `id_sous_menu` int(11) NOT NULL COMMENT 'clé étrangère',
   `libelle_sous_sous_menu` varchar(100) NOT NULL,
@@ -503,10 +504,10 @@ CREATE TABLE IF NOT EXISTS `sous_sous_menu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `sous_sous_menu`
+-- Contenu de la table `ipssi_sous_sous_menu`
 --
 
-INSERT INTO `sous_sous_menu` (`id_sous_sous_menu`, `id_sous_menu`, `libelle_sous_sous_menu`, `date_sous_sous_menu`, `tri_sous_sous_menu`) VALUES
+INSERT INTO `ipssi_sous_sous_menu` (`id_sous_sous_menu`, `id_sous_menu`, `libelle_sous_sous_menu`, `date_sous_sous_menu`, `tri_sous_sous_menu`) VALUES
 (1, 3, 'Présentation des expertises', '2016-02-29 09:39:45', 1),
 (2, 3, 'Assistance technique', '2016-02-29 09:41:18', 2),
 (3, 3, 'Formation', '2016-02-29 09:41:30', 3),
@@ -521,10 +522,10 @@ INSERT INTO `sous_sous_menu` (`id_sous_sous_menu`, `id_sous_menu`, `libelle_sous
 -- --------------------------------------------------------
 
 --
--- Table structure for table `type_poste`
+-- Structure de la table `ipssi_type_poste`
 --
 
-CREATE TABLE IF NOT EXISTS `type_poste` (
+CREATE TABLE IF NOT EXISTS `ipssi_type_poste` (
   `id_type_poste` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(255) NOT NULL,
   PRIMARY KEY (`id_type_poste`),
@@ -532,10 +533,10 @@ CREATE TABLE IF NOT EXISTS `type_poste` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `type_poste`
+-- Contenu de la table `ipssi_type_poste`
 --
 
-INSERT INTO `type_poste` (`id_type_poste`, `libelle`) VALUES
+INSERT INTO `ipssi_type_poste` (`id_type_poste`, `libelle`) VALUES
 (1, 'CDI'),
 (2, 'CDD'),
 (3, 'Contrat d''alternance'),
@@ -545,80 +546,91 @@ INSERT INTO `type_poste` (`id_type_poste`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateur`
+-- Structure de la table `ipssi_utilisateur`
 --
 
-CREATE TABLE IF NOT EXISTS `utilisateur` (
+CREATE TABLE IF NOT EXISTS `ipssi_utilisateur` (
   `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sexe` int(11) NOT NULL COMMENT 'clé étrangère',
   `nom_utilisateur` varchar(50) NOT NULL,
   `prenom_utilisateur` varchar(50) NOT NULL,
   `mail_utilisateur` varchar(200) NOT NULL,
   `telephone_utilisateur` varchar(20) NOT NULL,
-  `pseudo_utilisateur` varchar(50) NOT NULL,
   `mdp_utilisateur` varchar(150) NOT NULL,
+  `date_mdp_utilisateur` datetime DEFAULT NULL,
+  `mdp_utilisateur_change` tinyint(1) NOT NULL DEFAULT '1',
   `entreprise_utilisateur` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_utilisateur`)
+  `photo_profil` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_utilisateur`),
+  UNIQUE KEY `mail_utilisateur` (`mail_utilisateur`),
+  KEY `id_sexe` (`id_sexe`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `utilisateur`
+-- Contenu de la table `ipssi_utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id_utilisateur`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `pseudo_utilisateur`, `mdp_utilisateur`, `entreprise_utilisateur`) VALUES
-(1, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '07.77.36.01.90', 'roro71', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'EXELIS'),
-(2, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799436', 'sid', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'Dalkia');
+INSERT INTO `ipssi_utilisateur` (`id_utilisateur`, `id_sexe`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `mdp_utilisateur`, `date_mdp_utilisateur`, `mdp_utilisateur_change`, `entreprise_utilisateur`, `photo_profil`) VALUES
+(1, 3, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '0777360290', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', NULL, 1, 'EXELIS', NULL),
+(2, 1, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799437', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-02 14:08:51', 0, 'Dalkia', 'photo-de-profil-de-julien-alexandre-1470231068.jpg');
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables exportées
 --
 
 --
--- Constraints for table `contact`
+-- Contraintes pour la table `ipssi_contact`
 --
-ALTER TABLE `contact`
-  ADD CONSTRAINT `contact_ibfk_1` FOREIGN KEY (`id_contact_type`) REFERENCES `contact_type` (`id_contact_type`),
-  ADD CONSTRAINT `contact_ibfk_2` FOREIGN KEY (`id_contact_demande`) REFERENCES `contact_demande` (`id_contact_demande`),
-  ADD CONSTRAINT `contact_ibfk_3` FOREIGN KEY (`id_sexe`) REFERENCES `sexe` (`id_sexe`);
+ALTER TABLE `ipssi_contact`
+  ADD CONSTRAINT `ipssi_contact_ibfk_1` FOREIGN KEY (`id_contact_type`) REFERENCES `ipssi_contact_type` (`id_contact_type`),
+  ADD CONSTRAINT `ipssi_contact_ibfk_2` FOREIGN KEY (`id_contact_demande`) REFERENCES `ipssi_contact_demande` (`id_contact_demande`),
+  ADD CONSTRAINT `ipssi_contact_ibfk_3` FOREIGN KEY (`id_sexe`) REFERENCES `ipssi_sexe` (`id_sexe`);
 
 --
--- Constraints for table `droit_sous_menu_groupe`
+-- Contraintes pour la table `ipssi_droit_sous_menu_groupe`
 --
-ALTER TABLE `droit_sous_menu_groupe`
-  ADD CONSTRAINT `droit_sous_menu_groupe_ibfk_3` FOREIGN KEY (`id_groupe`) REFERENCES `groupe` (`id_groupe`),
-  ADD CONSTRAINT `droit_sous_menu_groupe_ibfk_1` FOREIGN KEY (`id_droit`) REFERENCES `droit` (`id_droit`),
-  ADD CONSTRAINT `droit_sous_menu_groupe_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `sous_menu` (`id_sous_menu`);
+ALTER TABLE `ipssi_droit_sous_menu_groupe`
+  ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_1` FOREIGN KEY (`id_droit`) REFERENCES `ipssi_droit` (`id_droit`),
+  ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `ipssi_sous_menu` (`id_sous_menu`),
+  ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_3` FOREIGN KEY (`id_groupe`) REFERENCES `ipssi_groupe` (`id_groupe`);
 
 --
--- Constraints for table `groupe_utilisateur`
+-- Contraintes pour la table `ipssi_groupe_utilisateur`
 --
-ALTER TABLE `groupe_utilisateur`
-  ADD CONSTRAINT `groupe_utilisateur_ibfk_2` FOREIGN KEY (`id_groupe`) REFERENCES `groupe` (`id_groupe`),
-  ADD CONSTRAINT `groupe_utilisateur_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`);
+ALTER TABLE `ipssi_groupe_utilisateur`
+  ADD CONSTRAINT `ipssi_groupe_utilisateur_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `ipssi_utilisateur` (`id_utilisateur`),
+  ADD CONSTRAINT `ipssi_groupe_utilisateur_ibfk_2` FOREIGN KEY (`id_groupe`) REFERENCES `ipssi_groupe` (`id_groupe`);
 
 --
--- Constraints for table `page_contenu`
+-- Contraintes pour la table `ipssi_page_contenu`
 --
-ALTER TABLE `page_contenu`
-  ADD CONSTRAINT `page_contenu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`),
-  ADD CONSTRAINT `page_contenu_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `sous_menu` (`id_sous_menu`);
+ALTER TABLE `ipssi_page_contenu`
+  ADD CONSTRAINT `ipssi_page_contenu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `ipssi_menu` (`id_menu`),
+  ADD CONSTRAINT `ipssi_page_contenu_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `ipssi_sous_menu` (`id_sous_menu`);
 
 --
--- Constraints for table `poste_candidature`
+-- Contraintes pour la table `ipssi_poste_candidature`
 --
-ALTER TABLE `poste_candidature`
-  ADD CONSTRAINT `poste_candidature_ibfk_1` FOREIGN KEY (`id_type_poste`) REFERENCES `type_poste` (`id_type_poste`);
+ALTER TABLE `ipssi_poste_candidature`
+  ADD CONSTRAINT `ipssi_poste_candidature_ibfk_1` FOREIGN KEY (`id_type_poste`) REFERENCES `ipssi_type_poste` (`id_type_poste`);
 
 --
--- Constraints for table `sous_menu`
+-- Contraintes pour la table `ipssi_sous_menu`
 --
-ALTER TABLE `sous_menu`
-  ADD CONSTRAINT `sous_menu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`) ON UPDATE CASCADE;
+ALTER TABLE `ipssi_sous_menu`
+  ADD CONSTRAINT `ipssi_sous_menu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `ipssi_menu` (`id_menu`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `sous_sous_menu`
+-- Contraintes pour la table `ipssi_sous_sous_menu`
 --
-ALTER TABLE `sous_sous_menu`
-  ADD CONSTRAINT `sous_sous_menu_ibfk_1` FOREIGN KEY (`id_sous_menu`) REFERENCES `sous_menu` (`id_sous_menu`);
+ALTER TABLE `ipssi_sous_sous_menu`
+  ADD CONSTRAINT `ipssi_sous_sous_menu_ibfk_1` FOREIGN KEY (`id_sous_menu`) REFERENCES `ipssi_sous_menu` (`id_sous_menu`);
+
+--
+-- Contraintes pour la table `ipssi_utilisateur`
+--
+ALTER TABLE `ipssi_utilisateur`
+  ADD CONSTRAINT `ipssi_utilisateur_ibfk_1` FOREIGN KEY (`id_sexe`) REFERENCES `ipssi_sexe` (`id_sexe`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

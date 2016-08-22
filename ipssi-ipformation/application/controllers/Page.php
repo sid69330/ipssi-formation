@@ -17,7 +17,8 @@ class Page extends CI_Controller
 		$menu['menu'] = $this->menu->recupMenu();
 		
 		$data['actualite'] = $this->actualite_model->recupActualites();
-		
+		$data['infosPage'] = $this->page_model->recupInfosPage(1, null);
+
 		$this->load->view('include/menu.php', $menu);
 		$this->load->view('accueil.php', $data);
 	}
@@ -32,7 +33,7 @@ class Page extends CI_Controller
 			{
 				$data['infosPage'] = $this->page_model->recupInfosPage($page[0]->id_menu, $page[0]->id_sous_menu);
 				$men['menu'] = $this->menu->recupMenu();
-				$men['title'] = $data['infosPage']->titre_page_contenu;
+				$men['title'] = str_replace('-', ' ', ucfirst($menu)).' - '.str_replace('-', ' ', ucfirst($sous_menu));
 				
 				if($sous_menu != '')
 					$men['sous_sous_menu'] = $this->menu->recupSousSousMenu($page[0]->id_sous_menu);

@@ -41,7 +41,7 @@ class Page_model extends CI_Model
 	
 	public function recupInfosPage($menu, $sous_menu)
 	{
-		$this->db->select('id_page_contenu, titre_page_contenu, texte_page_contenu');
+		$this->db->select('id_page_contenu, texte_page_contenu');
 		$this->db->from($this->tablePage.' P');
 		
 		if($sous_menu != '')
@@ -63,7 +63,7 @@ class Page_model extends CI_Model
 		{
 			$result = new stdClass();
 			$result->titre_page_contenu = 'Veuillez renseigner un titre pour cette page';
-			$result->texte_page_contenu = 'Veuillez renseigner un contenu cette page';
+			$result->texte_page_contenu = '<div class="alert alert-info">Veuillez renseigner un contenu cette page</div>';
 			
 			return $result;
 		}			

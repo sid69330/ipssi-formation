@@ -56,6 +56,12 @@
 				<?php endif; ?>
 			</div>
 		</div>
+		<?php if($infosPage->texte_page_contenu != '') : ?>
+			<div class="container">
+				<?php echo $infosPage->texte_page_contenu; ?>
+			</div>
+		<?php endif; ?>
+
 		<?php include_once($_SERVER['DOCUMENT_ROOT'].'/application/views/include/footer.php'); ?>
 	</body>
 </html>
