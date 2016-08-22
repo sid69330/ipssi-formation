@@ -66,10 +66,19 @@ class Actualite_back_model extends CI_Model
         }
     }
 
-    public function ajouter_actualite($titre, $texte, $actif, $front, $date_validite, $id_utilisateur)
+    public function ajouter_actualite($titre, $texte, $actif, $front, $date_validite, $fichier, $id_utilisateur)
     {
-        $tab = explode('-', $date_validite);
-        $date_validite = $tab[2].'-'.$tab[1].'-'.$tab[0];
+        if($date_validite != '')
+        {
+            $tab = explode('-', $date_validite);
+
+            if(count($tab) == 3)
+                $date_validite = $tab[2].'-'.$tab[1].'-'.$tab[0];
+            else
+                $date_validite = null;
+        }
+        else
+            $date_validite = null;
 
         $data = array
         (
@@ -78,10 +87,11 @@ class Actualite_back_model extends CI_Model
             'texte_actualite' => $texte,
             'date_validite_actualite' => $date_validite,
             'actif_actualite' => $actif,
-            'front' => $front
+            'front' => $front,
+            'url_photo_actualite' => $fichier
         );
         $this->db->insert('actualite', $data);
 
-        return $this->db->affected_rows();
+        return $this->db->insert_id();
     }
 }

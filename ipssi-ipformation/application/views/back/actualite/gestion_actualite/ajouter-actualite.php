@@ -39,7 +39,7 @@
 		</div>
 	<?php endif; ?>
 
-	<?php echo form_open('/ipssi/actualites/gestion-actualites/ajouter'); ?>
+	<?php echo form_open_multipart('/ipssi/actualites/gestion-actualites/ajouter'); ?>
 
 		<?php echo form_error('titre', '<div class="alert alert-danger">', '</div>'); ?>
 		<div class="form-group">
@@ -68,13 +68,19 @@
   			<option value="1" <?php if(isset($_POST['front']) && ($_POST['front'] == 1)) echo 'selected="selected"'; ?>>Oui</option>
   			<option value="0" <?php if(isset($_POST['front']) && ($_POST['front'] == 0)) echo 'selected="selected"'; ?>>Non</option>
 		</select>
+
+		<div class="form-group">
+			<label for="fichier">Photographie * <sup>(2)</sup></label>
+			<input type="file" id="fichier" name="fichier" value="<?php echo set_value('fichier'); ?>">
+		</div>
 		
 		<div class="form-group">
 			<button class="btn btn-primary btn-block">Ajouter</button>
 		</div>
 		<p class="champsObligatoires">
 			* Champs obligatoires<br/>
-			<sup>(1)</sup> Permet de rendre automatiquement inactive l'actualité à la date renseignée.
+			<sup>(1)</sup> Permet de rendre automatiquement inactive l'actualité à la date renseignée.<br/>
+			<sup>(2)</sup> Taille maximale de 2Mo, format 900x250px minimum, extensions : jpeg, jpg, png
 		</p>
 
 	<?php echo form_close(); ?>

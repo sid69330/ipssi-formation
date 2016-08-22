@@ -6,6 +6,11 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
+					<img class="img-responsive center-block" src="/assets/images/contact/contact.png" alt=""/>
+				</div>
+			</div><br/>
+			<div class="row">
+				<div class="col-xs-12">
 					<?php echo form_open('/contact', array('class'=>'form-horizontal')); ?>
 						<?php 
 							if(isset($erreur) && ($erreur != '')) 

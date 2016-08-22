@@ -44,7 +44,7 @@
 					<th>Ajouté le</th>
 					<th>Fin validité *</th>
 					<th>Actif *</th>
-					<th>Front</th>
+					<th>Présence</th>
 					<th>Action</th>
 				</tr>
 			</thead>
