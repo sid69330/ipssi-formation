@@ -21,7 +21,7 @@ class Actualites_back extends MY_Controller
         $menu['back'] = $this->back;
         $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
        
-        $data['actualites'] = $this->actualite_back_model->liste_actualite($this->droits, $this->session->userdata('id'));       
+        $data['actualites'] = $this->actualite_back_model->liste_actualite($this->droits, $this->session->userdata('id'));
         $data['droits'] = $this->droits;
 
         $this->load->view('back/include/menu.php', $menu);
@@ -146,6 +146,21 @@ class Actualites_back extends MY_Controller
                 }
             }
         }
+    }
+
+    public function supprimer_actualite($id_actualite = '')
+    {
+        if(($id_actualite == '') || (!$this->droit->droitSuffisantSupprimer($this->droits)))
+            Redirect('/ipssi/actualites/gestion-actualites');
+
+        $ok = $this->actualite_back_model->supprimer_actualite($id_actualite);
+
+        if($ok)
+            $this->session->set_flashdata('success', 'Actualité supprimée avec succès.');
+        else
+            $this->session->set_flashdata('erreur', 'Impossible de supprimer cette actualité.');
+
+        Redirect('/ipssi/actualites/gestion-actualites');
     }
 }
 

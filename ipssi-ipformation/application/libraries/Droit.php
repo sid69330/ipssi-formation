@@ -166,10 +166,10 @@ class Droit
 
     public function droitSuffisantSupprimer($droits)
     {
+        $retour = false;
+
     	if(in_array('T', $droits))
-            $retour = true;
-        else
-        	$retour = false;
+            $retour = true;        	
 
         return $retour;
     }

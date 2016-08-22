@@ -56,7 +56,12 @@ class Actualite_model extends CI_Model
 		$this->db->select('count(id_actualite) as nbActualite');
 		$this->db->from($this->tableActualite);
 		$this->db->where('id_actualite', $id_actualite);
+		$this->db->where('actif_actualite', 1);
+
+		$this->db->group_start();
 		$this->db->where('date_validite_actualite >= NOW()');
+		$this->db->or_where('date_validite_actualite', null);
+		$this->db->group_end();
 
 		return $this->db->get()->result()[0]->nbActualite;
 	}

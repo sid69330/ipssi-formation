@@ -73,7 +73,7 @@ class Actualite_back_model extends CI_Model
             $tab = explode('-', $date_validite);
 
             if(count($tab) == 3)
-                $date_validite = $tab[2].'-'.$tab[1].'-'.$tab[0];
+                $date_validite = $tab[2].'-'.$tab[1].'-'.$tab[0].' 23:59:59';
             else
                 $date_validite = null;
         }
@@ -93,5 +93,13 @@ class Actualite_back_model extends CI_Model
         $this->db->insert('actualite', $data);
 
         return $this->db->insert_id();
+    }
+
+    public function supprimer_actualite($id_actualite)
+    {
+        $this->db->where('id_actualite', $id_actualite);
+        $this->db->delete('actualite');
+
+        return $this->db->affected_rows();
     }
 }

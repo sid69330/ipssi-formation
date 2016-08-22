@@ -89,7 +89,7 @@
 								<a href="#" title="Modifier" class="btn btn-xs btn-default btn-modifier">
 									<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 								</a>
-								<a href="#" title="Supprimer" class="btn btn-xs btn-default btn-supprimer" onclick="return(confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?'));">
+								<a href="/ipssi/actualites/gestion-actualites/supprimer/<?php echo $a->id_actualite; ?>" title="Supprimer" class="btn btn-xs btn-default btn-supprimer" onclick="return(confirm('Etes-vous sûre de vouloir supprimer cette actualité ? Toute suppression est non reversible.'));">
 									<i class="fa fa-trash" aria-hidden="true"></i>
 								</a>
 							<?php elseif(in_array('M', $droits) || in_array('P', $droits)) : ?>
@@ -110,6 +110,12 @@
 			</tbody>
 		</table>
 		<p class="champsObligatoires">* Une actualité est visible si "Fin validité" et "Actif" sont verts.</p>
+	<?php else : ?>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="alert alert-info">Aucune actualité à afficher.</div>
+			</div>
+		</div>
 	<?php endif; ?>
 
 </div>
