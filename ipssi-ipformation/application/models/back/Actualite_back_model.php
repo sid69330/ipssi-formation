@@ -155,4 +155,38 @@ class Actualite_back_model extends CI_Model
         $this->db->where('id_actualite', $id_actualite);
         $this->db->update('actualite', $data);
     }
+
+    public function recupActualitesBack()
+    {   
+        $this->db->select
+        (
+            'CASE 
+                WHEN actif_actualite = 0 THEN "Hors ligne"
+                WHEN date_validite_actualite IS NULL THEN "En ligne"
+                WHEN date_validite_actualite >= NOW() THEN "En ligne"
+                ELSE "Date validité dépassée"
+            END
+                AS etat, 
+            DATE_FORMAT(date_actualite, "%d/%m/%Y %H:%i") AS date_actualite, 
+            id_actualite, 
+            titre_actualite, 
+            texte_actualite, 
+            date_validite_actualite, 
+            url_photo_actualite'
+        );
+        $this->db->from('actualite');
+
+        $this->db->group_start();
+        $this->db->where('date_validite_actualite >= NOW()');
+        $this->db->or_where('date_validite_actualite', null);
+        $this->db->group_end();
+
+        $this->db->where('front', 0);
+        $this->db->where('actif_actualite', 1);
+        $this->db->order_by('date_actualite desc');
+
+        $result = $this->db->get()->result();
+
+        return $result;
+    }
 }
