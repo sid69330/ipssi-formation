@@ -61,7 +61,11 @@
 						<?php else : ?>
 							<td class="center bg-success">
 						<?php endif; ?>
-							<?php echo $a->date_validite_actualite; ?>
+							<?php if($a->date_validite_actualite != '') : ?>
+								<?php echo $a->date_validite_actualite; ?>
+							<?php else : ?>
+								Aucune
+							<?php endif; ?>
 						</td>
 						<?php if($a->actif_actualite == 0) : ?>
 							<td class="center bg-danger">
@@ -83,24 +87,24 @@
 						</td>
 						<td class="center">
 							<?php if(in_array('T', $droits)) : ?>
-								<a href="#" title="Détail" class="btn btn-xs btn-default btn-detail">
+								<a href="/ipssi/actualites/gestion-actualites/detail/<?php echo $a->id_actualite; ?>" title="Détail" class="btn btn-xs btn-default btn-detail">
 									<i class="fa fa-eye" aria-hidden="true"></i>
 								</a>
-								<a href="#" title="Modifier" class="btn btn-xs btn-default btn-modifier">
+								<a href="/ipssi/actualites/gestion-actualites/modifier/<?php echo $a->id_actualite; ?>" title="Modifier" class="btn btn-xs btn-default btn-modifier">
 									<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 								</a>
 								<a href="/ipssi/actualites/gestion-actualites/supprimer/<?php echo $a->id_actualite; ?>" title="Supprimer" class="btn btn-xs btn-default btn-supprimer" onclick="return(confirm('Etes-vous sûre de vouloir supprimer cette actualité ? Toute suppression est non reversible.'));">
 									<i class="fa fa-trash" aria-hidden="true"></i>
 								</a>
 							<?php elseif(in_array('M', $droits) || in_array('P', $droits)) : ?>
-								<a href="#" title="Détail" class="btn btn-xs btn-default btn-detail">
+								<a href="/ipssi/actualites/gestion-actualites/detail/<?php echo $a->id_actualite; ?>" title="Détail" class="btn btn-xs btn-default btn-detail">
 									<i class="fa fa-eye" aria-hidden="true"></i>
 								</a>
-								<a href="#" title="Modifier" class="btn btn-xs btn-default btn-modifier">
+								<a href="/ipssi/actualites/gestion-actualites/modifier/<?php echo $a->id_actualite; ?>" title="Modifier" class="btn btn-xs btn-default btn-modifier">
 									<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 								</a>
 							<?php elseif(in_array('V', $droits)) : ?>
-								<a href="#" title="Détail" class="btn btn-xs btn-default btn-detail">
+								<a href="/ipssi/actualites/gestion-actualites/detail/<?php echo $a->id_actualite; ?>" title="Détail" class="btn btn-xs btn-default btn-detail">
 									<i class="fa fa-eye" aria-hidden="true"></i>
 								</a>
 							<?php endif; ?>

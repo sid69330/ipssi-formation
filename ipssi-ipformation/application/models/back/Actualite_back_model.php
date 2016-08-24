@@ -66,6 +66,22 @@ class Actualite_back_model extends CI_Model
         }
     }
 
+    public function recup_infos_actualite($id_actualite)
+    {
+        $this->db->select('A.id_actualite, A.id_utilisateur, A.titre_actualite, A.texte_actualite, DATE_FORMAT(A.date_actualite, "%d/%m/%Y") as date_actualite, A.url_photo_actualite, DATE_FORMAT(A.date_validite_actualite, "%d/%m/%Y") as date_validite_actualite, DATE_FORMAT(A.date_validite_actualite, "%d-%m-%Y") as date_validite_actualite_fr, 
+            CASE 
+                WHEN A.date_validite_actualite IS NULL THEN 1
+                WHEN A.date_validite_actualite > NOW() THEN 1
+                ELSE 0
+            END as valide, 
+            U.nom_utilisateur, U.prenom_utilisateur, A.actif_actualite, A.front');
+        $this->db->from('actualite A');
+        $this->db->join('utilisateur U', 'U.id_utilisateur = A.id_utilisateur');
+        $this->db->where('A.id_actualite', $id_actualite);
+
+        return $this->db->get()->result()[0];
+    }
+
     public function ajouter_actualite($titre, $texte, $actif, $front, $date_validite, $fichier, $id_utilisateur)
     {
         if($date_validite != '')
@@ -101,5 +117,42 @@ class Actualite_back_model extends CI_Model
         $this->db->delete('actualite');
 
         return $this->db->affected_rows();
+    }
+
+    public function actualite_existe($id_actualite)
+    {
+        $this->db->select('count(*) as nb');
+        $this->db->from('actualite');
+        $this->db->where('id_actualite', $id_actualite);
+
+        return($this->db->get()->result()[0]->nb == 1);
+    }
+
+    public function modifier_actualite($titre, $texte, $actif, $front, $date_validite, $fichier, $id_actualite)
+    {
+        if($date_validite != '')
+        {
+            $tab = explode('-', $date_validite);
+
+            if(count($tab) == 3)
+                $date_validite = $tab[2].'-'.$tab[1].'-'.$tab[0].' 23:59:59';
+            else
+                $date_validite = null;
+        }
+        else
+            $date_validite = null;
+
+        $data = array
+        (
+            'titre_actualite' => $titre,
+            'texte_actualite' => $texte,
+            'date_validite_actualite' => $date_validite,
+            'actif_actualite' => $actif,
+            'front' => $front,
+            'url_photo_actualite' => $fichier
+        );
+
+        $this->db->where('id_actualite', $id_actualite);
+        $this->db->update('actualite', $data);
     }
 }

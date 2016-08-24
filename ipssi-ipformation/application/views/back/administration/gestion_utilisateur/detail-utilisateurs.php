@@ -99,7 +99,7 @@
 	<?php if((in_array('T', $droits)) || (in_array('M', $droits)) || (in_array('P', $droits))) : ?>
 		<br/><div class="row">
 			<div class="col-xs-12">
-				<a href="#" class="btn btn-block btn-primary btn-sm">Modifier</a>
+				<a href="/ipssi/administration/gestion-utilisateurs/modifier/<?php echo $infos->id_utilisateur; ?>" class="btn btn-block btn-primary btn-sm">Modifier</a>
 			</div>
 		</div>
 	<?php endif; ?>
