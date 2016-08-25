@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.2.12deb2+deb8u2
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Lun 08 Août 2016 à 11:43
--- Version du serveur :  5.6.17
--- Version de PHP :  5.5.12
+-- Client :  localhost
+-- Généré le :  Jeu 25 Août 2016 à 10:16
+-- Version du serveur :  5.5.50-0+deb8u1
+-- Version de PHP :  5.6.24-0+deb8u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,22 +27,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_actualite` (
-  `id_actualite` int(11) NOT NULL AUTO_INCREMENT,
+`id_actualite` int(11) NOT NULL,
+  `id_utilisateur` int(11) NOT NULL,
   `titre_actualite` varchar(100) NOT NULL,
   `texte_actualite` text NOT NULL,
   `date_actualite` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `url_photo_actualite` varchar(250) NOT NULL,
-  `date_validite_actualite` datetime NOT NULL,
-  PRIMARY KEY (`id_actualite`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- Contenu de la table `ipssi_actualite`
---
-
-INSERT INTO `ipssi_actualite` (`id_actualite`, `titre_actualite`, `texte_actualite`, `date_actualite`, `url_photo_actualite`, `date_validite_actualite`) VALUES
-(1, 'Actualité 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vel risus at dolor placerat pretium. Vestibulum lobortis neque eget dolor auctor, vel vestibulum nisl interdum. Aliquam risus arcu, dictum in mauris vitae, luctus elementum quam. Donec at accumsan velit. Interdum et malesuada fames ac ante ipsum primis in faucibus.', '2016-07-08 12:39:31', 'actualite1.jpg', '2016-07-08 11:00:00'),
-(2, 'Actualité 2', 'Aliquam eget libero massa. Nam eget molestie velit. Pellentesque interdum quam lectus, nec molestie neque tincidunt vitae. Curabitur in interdum metus. Aliquam erat volutpat. Praesent mi magna, ullamcorper sit amet imperdiet non, consectetur quis velit.', '2016-07-08 12:55:57', 'actualite2.jpg', '2016-07-31 00:00:00');
+  `date_validite_actualite` datetime DEFAULT NULL,
+  `actif_actualite` tinyint(1) NOT NULL,
+  `front` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -51,7 +45,7 @@ INSERT INTO `ipssi_actualite` (`id_actualite`, `titre_actualite`, `texte_actuali
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_adresse` (
-  `id_adresse` int(11) NOT NULL AUTO_INCREMENT,
+`id_adresse` int(11) NOT NULL,
   `libelle_adresse` varchar(250) NOT NULL,
   `numero_adresse` varchar(250) NOT NULL,
   `adresse_adresse` varchar(250) NOT NULL,
@@ -60,9 +54,8 @@ CREATE TABLE IF NOT EXISTS `ipssi_adresse` (
   `ville_adresse` varchar(250) NOT NULL,
   `pays_adresse` varchar(250) NOT NULL,
   `telephone_adresse` varchar(250) DEFAULT NULL,
-  `fax_adresse` varchar(250) DEFAULT NULL,
-  PRIMARY KEY (`id_adresse`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `fax_adresse` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_adresse`
@@ -80,7 +73,7 @@ INSERT INTO `ipssi_adresse` (`id_adresse`, `libelle_adresse`, `numero_adresse`, 
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_candidature` (
-  `id_candidature` int(11) NOT NULL AUTO_INCREMENT,
+`id_candidature` int(11) NOT NULL,
   `id_poste_candidature` int(11) DEFAULT NULL,
   `id_sexe` int(11) NOT NULL,
   `nom_candidature` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -95,11 +88,8 @@ CREATE TABLE IF NOT EXISTS `ipssi_candidature` (
   `url_cv_candidature` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `url_lettre_candidature` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `etat` tinyint(1) NOT NULL DEFAULT '0',
-  `cle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id_candidature`),
-  KEY `id_poste_candidature` (`id_poste_candidature`),
-  KEY `id_sexe` (`id_sexe`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+  `cle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Contenu de la table `ipssi_candidature`
@@ -116,7 +106,7 @@ INSERT INTO `ipssi_candidature` (`id_candidature`, `id_poste_candidature`, `id_s
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_contact` (
-  `id_contact` int(11) NOT NULL AUTO_INCREMENT,
+`id_contact` int(11) NOT NULL,
   `id_contact_type` int(11) NOT NULL,
   `id_contact_demande` int(11) NOT NULL,
   `id_sexe` int(11) NOT NULL,
@@ -127,15 +117,8 @@ CREATE TABLE IF NOT EXISTS `ipssi_contact` (
   `email_contact` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `telephone_contact` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `message_contact` text COLLATE utf8_unicode_ci NOT NULL,
-  `date_creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_contact`),
-  KEY `id_type_contact` (`id_contact_type`),
-  KEY `id_type_demande` (`id_contact_demande`),
-  KEY `id_sexe` (`id_sexe`),
-  KEY `id_contact_type` (`id_contact_type`),
-  KEY `id_contact_demande` (`id_contact_demande`),
-  KEY `id_sexe_2` (`id_sexe`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+  `date_creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Contenu de la table `ipssi_contact`
@@ -151,11 +134,9 @@ INSERT INTO `ipssi_contact` (`id_contact`, `id_contact_type`, `id_contact_demand
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_contact_demande` (
-  `id_contact_demande` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle_contact_demande` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id_contact_demande`),
-  KEY `id_contact_demande` (`id_contact_demande`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+`id_contact_demande` int(11) NOT NULL,
+  `libelle_contact_demande` varchar(250) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Contenu de la table `ipssi_contact_demande`
@@ -173,11 +154,9 @@ INSERT INTO `ipssi_contact_demande` (`id_contact_demande`, `libelle_contact_dema
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_contact_type` (
-  `id_contact_type` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle_contact_type` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id_contact_type`),
-  KEY `id_contact_type` (`id_contact_type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+`id_contact_type` int(11) NOT NULL,
+  `libelle_contact_type` varchar(250) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Contenu de la table `ipssi_contact_type`
@@ -194,11 +173,10 @@ INSERT INTO `ipssi_contact_type` (`id_contact_type`, `libelle_contact_type`) VAL
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_droit` (
-  `id_droit` int(11) NOT NULL AUTO_INCREMENT,
+`id_droit` int(11) NOT NULL,
   `code_droit` varchar(1) NOT NULL,
-  `libelle_droit` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_droit`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `libelle_droit` varchar(100) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_droit`
@@ -219,10 +197,7 @@ INSERT INTO `ipssi_droit` (`id_droit`, `code_droit`, `libelle_droit`) VALUES
 CREATE TABLE IF NOT EXISTS `ipssi_droit_sous_menu_groupe` (
   `id_droit` int(11) NOT NULL,
   `id_sous_menu` int(11) NOT NULL,
-  `id_groupe` int(11) NOT NULL,
-  PRIMARY KEY (`id_droit`,`id_sous_menu`,`id_groupe`),
-  KEY `id_sous_menu` (`id_sous_menu`),
-  KEY `id_groupe` (`id_groupe`)
+  `id_groupe` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -293,11 +268,10 @@ INSERT INTO `ipssi_droit_sous_menu_groupe` (`id_droit`, `id_sous_menu`, `id_grou
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_groupe` (
-  `id_groupe` int(11) NOT NULL AUTO_INCREMENT,
+`id_groupe` int(11) NOT NULL,
   `libelle_groupe` varchar(100) NOT NULL,
-  `ordre` int(11) NOT NULL,
-  PRIMARY KEY (`id_groupe`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `ordre` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_groupe`
@@ -319,9 +293,7 @@ INSERT INTO `ipssi_groupe` (`id_groupe`, `libelle_groupe`, `ordre`) VALUES
 
 CREATE TABLE IF NOT EXISTS `ipssi_groupe_utilisateur` (
   `id_utilisateur` int(11) NOT NULL,
-  `id_groupe` int(11) NOT NULL,
-  PRIMARY KEY (`id_utilisateur`,`id_groupe`),
-  KEY `id_groupe` (`id_groupe`)
+  `id_groupe` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -329,8 +301,8 @@ CREATE TABLE IF NOT EXISTS `ipssi_groupe_utilisateur` (
 --
 
 INSERT INTO `ipssi_groupe_utilisateur` (`id_utilisateur`, `id_groupe`) VALUES
-(2, 1),
-(1, 5);
+(1, 1),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -339,21 +311,20 @@ INSERT INTO `ipssi_groupe_utilisateur` (`id_utilisateur`, `id_groupe`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_menu` (
-  `id_menu` int(11) NOT NULL AUTO_INCREMENT,
+`id_menu` int(11) NOT NULL,
   `libelle_menu` varchar(100) NOT NULL,
   `url_menu` varchar(100) NOT NULL,
   `tri_menu` int(11) NOT NULL,
   `date_menu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `front` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id_menu`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  `front` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_menu`
 --
 
 INSERT INTO `ipssi_menu` (`id_menu`, `libelle_menu`, `url_menu`, `tri_menu`, `date_menu`, `front`) VALUES
-(1, 'Accueil', '', 1, '2016-02-29 08:25:10', 1),
+(1, 'Accueil', 'accueil', 1, '2016-02-29 08:25:10', 1),
 (2, 'Le groupe', 'le-groupe', 2, '2016-02-29 07:27:42', 1),
 (3, 'L''activité', 'l-activite', 3, '2016-02-29 07:27:53', 1),
 (4, 'Actualités', 'actualites', 1, '2016-07-08 08:01:04', 0),
@@ -369,16 +340,13 @@ INSERT INTO `ipssi_menu` (`id_menu`, `libelle_menu`, `url_menu`, `tri_menu`, `da
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_page_contenu` (
-  `id_page_contenu` int(11) NOT NULL AUTO_INCREMENT,
+`id_page_contenu` int(11) NOT NULL,
   `id_menu` int(11) NOT NULL COMMENT 'clé étrangère',
   `id_sous_menu` int(11) DEFAULT NULL COMMENT 'clé étrangère',
   `date_page_contenu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `titre_page_contenu` varchar(100) NOT NULL,
-  `texte_page_contenu` text NOT NULL,
-  PRIMARY KEY (`id_page_contenu`),
-  KEY `id_menu` (`id_menu`),
-  KEY `id_sous_menu` (`id_sous_menu`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `texte_page_contenu` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_page_contenu`
@@ -394,7 +362,7 @@ INSERT INTO `ipssi_page_contenu` (`id_page_contenu`, `id_menu`, `id_sous_menu`, 
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_poste_candidature` (
-  `id_poste` int(11) NOT NULL AUTO_INCREMENT,
+`id_poste` int(11) NOT NULL,
   `id_type_poste` int(11) NOT NULL,
   `titre_poste` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `accroche_poste` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -403,12 +371,8 @@ CREATE TABLE IF NOT EXISTS `ipssi_poste_candidature` (
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `date_debut_poste` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `remuneration_poste` varchar(50) DEFAULT NULL,
-  `niveau_experience` varchar(250) NOT NULL,
-  PRIMARY KEY (`id_poste`),
-  KEY `id_type_poste` (`id_type_poste`),
-  KEY `id_poste` (`id_poste`),
-  KEY `id_type_poste_2` (`id_type_poste`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `niveau_experience` varchar(250) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `ipssi_poste_candidature`
@@ -426,12 +390,10 @@ INSERT INTO `ipssi_poste_candidature` (`id_poste`, `id_type_poste`, `titre_poste
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_sexe` (
-  `id_sexe` int(11) NOT NULL AUTO_INCREMENT,
+`id_sexe` int(11) NOT NULL,
   `raccourci_sexe` varchar(4) NOT NULL,
-  `sexe` varchar(250) NOT NULL,
-  PRIMARY KEY (`id_sexe`),
-  KEY `id_sexe` (`id_sexe`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `sexe` varchar(250) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_sexe`
@@ -449,15 +411,13 @@ INSERT INTO `ipssi_sexe` (`id_sexe`, `raccourci_sexe`, `sexe`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_sous_menu` (
-  `id_sous_menu` int(11) NOT NULL AUTO_INCREMENT,
+`id_sous_menu` int(11) NOT NULL,
   `id_menu` int(11) NOT NULL COMMENT 'clé étrangère',
   `libelle_sous_menu` varchar(100) NOT NULL,
   `url_sous_menu` varchar(100) NOT NULL,
   `date_sous_menu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `tri_sous_menu` int(11) NOT NULL,
-  PRIMARY KEY (`id_sous_menu`),
-  KEY `id_menu` (`id_menu`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+  `tri_sous_menu` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_sous_menu`
@@ -471,7 +431,7 @@ INSERT INTO `ipssi_sous_menu` (`id_sous_menu`, `id_menu`, `libelle_sous_menu`, `
 (5, 3, 'Nos métiers', 'nos-metiers', '2016-02-29 07:51:06', 1),
 (6, 3, 'Nos secteurs d''activités', 'nos-secteurs-d-activites', '2016-02-29 07:51:29', 2),
 (7, 3, 'Ils nous font confiance', 'ils-nous-font-confiance', '2016-02-29 07:51:56', 3),
-(8, 4, 'Liste des actualités', 'liste-actualites', '2016-07-08 08:04:00', 1),
+(8, 4, 'Liste des actualités', 'gestion-actualites', '2016-07-08 08:04:00', 1),
 (9, 5, 'CRA', 'cra', '2016-07-08 08:04:19', 1),
 (10, 5, 'Notes de frais', 'note-frais', '2016-07-08 08:04:33', 2),
 (11, 5, 'Demande de congés', 'demande-conges', '2016-07-08 08:04:54', 3),
@@ -494,30 +454,29 @@ INSERT INTO `ipssi_sous_menu` (`id_sous_menu`, `id_menu`, `libelle_sous_menu`, `
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_sous_sous_menu` (
-  `id_sous_sous_menu` int(11) NOT NULL AUTO_INCREMENT,
+`id_sous_sous_menu` int(11) NOT NULL,
   `id_sous_menu` int(11) NOT NULL COMMENT 'clé étrangère',
   `libelle_sous_sous_menu` varchar(100) NOT NULL,
+  `ancrage` varchar(100) NOT NULL,
   `date_sous_sous_menu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `tri_sous_sous_menu` int(11) NOT NULL,
-  PRIMARY KEY (`id_sous_sous_menu`),
-  KEY `id_sous_menu` (`id_sous_menu`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  `tri_sous_sous_menu` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_sous_sous_menu`
 --
 
-INSERT INTO `ipssi_sous_sous_menu` (`id_sous_sous_menu`, `id_sous_menu`, `libelle_sous_sous_menu`, `date_sous_sous_menu`, `tri_sous_sous_menu`) VALUES
-(1, 3, 'Présentation des expertises', '2016-02-29 09:39:45', 1),
-(2, 3, 'Assistance technique', '2016-02-29 09:41:18', 2),
-(3, 3, 'Formation', '2016-02-29 09:41:30', 3),
-(4, 3, 'Forfait', '2016-02-29 09:41:42', 4),
-(5, 6, 'Présentation des secteurs', '2016-02-29 09:42:03', 1),
-(6, 6, 'Energie', '2016-02-29 09:42:14', 2),
-(7, 6, 'Défense', '2016-02-29 09:42:24', 3),
-(8, 6, 'Chimie, Pétrochimie, Pharmacie', '2016-02-29 09:42:47', 4),
-(9, 6, 'Industrie lourde', '2016-02-29 09:43:02', 5),
-(10, 6, 'Transports', '2016-02-29 09:43:14', 6);
+INSERT INTO `ipssi_sous_sous_menu` (`id_sous_sous_menu`, `id_sous_menu`, `libelle_sous_sous_menu`, `ancrage`, `date_sous_sous_menu`, `tri_sous_sous_menu`) VALUES
+(1, 3, 'Présentation des expertises', '', '2016-02-29 09:39:45', 1),
+(2, 3, 'Assistance technique', '', '2016-02-29 09:41:18', 2),
+(3, 3, 'Formation', '', '2016-02-29 09:41:30', 3),
+(4, 3, 'Forfait', '', '2016-02-29 09:41:42', 4),
+(5, 6, 'Présentation des secteurs', '', '2016-02-29 09:42:03', 1),
+(6, 6, 'Energie', '', '2016-02-29 09:42:14', 2),
+(7, 6, 'Défense', '', '2016-02-29 09:42:24', 3),
+(8, 6, 'Chimie, Pétrochimie, Pharmacie', '', '2016-02-29 09:42:47', 4),
+(9, 6, 'Industrie lourde', '', '2016-02-29 09:43:02', 5),
+(10, 6, 'Transports', '', '2016-02-29 09:43:14', 6);
 
 -- --------------------------------------------------------
 
@@ -526,11 +485,9 @@ INSERT INTO `ipssi_sous_sous_menu` (`id_sous_sous_menu`, `id_sous_menu`, `libell
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_type_poste` (
-  `id_type_poste` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_type_poste`),
-  KEY `id_type_poste` (`id_type_poste`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+`id_type_poste` int(11) NOT NULL,
+  `libelle` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_type_poste`
@@ -550,7 +507,7 @@ INSERT INTO `ipssi_type_poste` (`id_type_poste`, `libelle`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ipssi_utilisateur` (
-  `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT,
+`id_utilisateur` int(11) NOT NULL,
   `id_sexe` int(11) NOT NULL COMMENT 'clé étrangère',
   `nom_utilisateur` varchar(50) NOT NULL,
   `prenom_utilisateur` varchar(50) NOT NULL,
@@ -561,19 +518,213 @@ CREATE TABLE IF NOT EXISTS `ipssi_utilisateur` (
   `mdp_utilisateur_change` tinyint(1) NOT NULL DEFAULT '1',
   `entreprise_utilisateur` varchar(100) NOT NULL,
   `photo_profil` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_utilisateur`),
-  UNIQUE KEY `mail_utilisateur` (`mail_utilisateur`),
-  KEY `id_sexe` (`id_sexe`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `supprime` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_utilisateur`
 --
 
-INSERT INTO `ipssi_utilisateur` (`id_utilisateur`, `id_sexe`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `mdp_utilisateur`, `date_mdp_utilisateur`, `mdp_utilisateur_change`, `entreprise_utilisateur`, `photo_profil`) VALUES
-(1, 3, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '0777360290', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', NULL, 1, 'EXELIS', NULL),
-(2, 1, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799437', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-02 14:08:51', 0, 'Dalkia', 'photo-de-profil-de-julien-alexandre-1470231068.jpg');
+INSERT INTO `ipssi_utilisateur` (`id_utilisateur`, `id_sexe`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `mdp_utilisateur`, `date_mdp_utilisateur`, `mdp_utilisateur_change`, `entreprise_utilisateur`, `photo_profil`, `supprime`) VALUES
+(1, 3, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '0777360290', '627d93c4da0370051dbfd30039edae208fedd0bf70a43707237a26087d3e164a', '2016-08-24 14:31:56', 0, 'EXELIS', NULL, 0),
+(2, 1, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799437', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-02 14:08:51', 0, 'Dalkia', 'photo-de-profil-de-julien-alexandre-1470231068.jpg', 0);
 
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `ipssi_actualite`
+--
+ALTER TABLE `ipssi_actualite`
+ ADD PRIMARY KEY (`id_actualite`), ADD KEY `id_utilisateur` (`id_utilisateur`);
+
+--
+-- Index pour la table `ipssi_adresse`
+--
+ALTER TABLE `ipssi_adresse`
+ ADD PRIMARY KEY (`id_adresse`);
+
+--
+-- Index pour la table `ipssi_candidature`
+--
+ALTER TABLE `ipssi_candidature`
+ ADD PRIMARY KEY (`id_candidature`), ADD KEY `id_poste_candidature` (`id_poste_candidature`), ADD KEY `id_sexe` (`id_sexe`);
+
+--
+-- Index pour la table `ipssi_contact`
+--
+ALTER TABLE `ipssi_contact`
+ ADD PRIMARY KEY (`id_contact`), ADD KEY `id_type_contact` (`id_contact_type`), ADD KEY `id_type_demande` (`id_contact_demande`), ADD KEY `id_sexe` (`id_sexe`), ADD KEY `id_contact_type` (`id_contact_type`), ADD KEY `id_contact_demande` (`id_contact_demande`), ADD KEY `id_sexe_2` (`id_sexe`);
+
+--
+-- Index pour la table `ipssi_contact_demande`
+--
+ALTER TABLE `ipssi_contact_demande`
+ ADD PRIMARY KEY (`id_contact_demande`), ADD KEY `id_contact_demande` (`id_contact_demande`);
+
+--
+-- Index pour la table `ipssi_contact_type`
+--
+ALTER TABLE `ipssi_contact_type`
+ ADD PRIMARY KEY (`id_contact_type`), ADD KEY `id_contact_type` (`id_contact_type`);
+
+--
+-- Index pour la table `ipssi_droit`
+--
+ALTER TABLE `ipssi_droit`
+ ADD PRIMARY KEY (`id_droit`);
+
+--
+-- Index pour la table `ipssi_droit_sous_menu_groupe`
+--
+ALTER TABLE `ipssi_droit_sous_menu_groupe`
+ ADD PRIMARY KEY (`id_droit`,`id_sous_menu`,`id_groupe`), ADD KEY `id_sous_menu` (`id_sous_menu`), ADD KEY `id_groupe` (`id_groupe`);
+
+--
+-- Index pour la table `ipssi_groupe`
+--
+ALTER TABLE `ipssi_groupe`
+ ADD PRIMARY KEY (`id_groupe`);
+
+--
+-- Index pour la table `ipssi_groupe_utilisateur`
+--
+ALTER TABLE `ipssi_groupe_utilisateur`
+ ADD PRIMARY KEY (`id_utilisateur`,`id_groupe`), ADD KEY `id_groupe` (`id_groupe`);
+
+--
+-- Index pour la table `ipssi_menu`
+--
+ALTER TABLE `ipssi_menu`
+ ADD PRIMARY KEY (`id_menu`);
+
+--
+-- Index pour la table `ipssi_page_contenu`
+--
+ALTER TABLE `ipssi_page_contenu`
+ ADD PRIMARY KEY (`id_page_contenu`), ADD KEY `id_menu` (`id_menu`), ADD KEY `id_sous_menu` (`id_sous_menu`);
+
+--
+-- Index pour la table `ipssi_poste_candidature`
+--
+ALTER TABLE `ipssi_poste_candidature`
+ ADD PRIMARY KEY (`id_poste`), ADD KEY `id_type_poste` (`id_type_poste`), ADD KEY `id_poste` (`id_poste`), ADD KEY `id_type_poste_2` (`id_type_poste`);
+
+--
+-- Index pour la table `ipssi_sexe`
+--
+ALTER TABLE `ipssi_sexe`
+ ADD PRIMARY KEY (`id_sexe`), ADD KEY `id_sexe` (`id_sexe`);
+
+--
+-- Index pour la table `ipssi_sous_menu`
+--
+ALTER TABLE `ipssi_sous_menu`
+ ADD PRIMARY KEY (`id_sous_menu`), ADD KEY `id_menu` (`id_menu`);
+
+--
+-- Index pour la table `ipssi_sous_sous_menu`
+--
+ALTER TABLE `ipssi_sous_sous_menu`
+ ADD PRIMARY KEY (`id_sous_sous_menu`), ADD KEY `id_sous_menu` (`id_sous_menu`);
+
+--
+-- Index pour la table `ipssi_type_poste`
+--
+ALTER TABLE `ipssi_type_poste`
+ ADD PRIMARY KEY (`id_type_poste`), ADD KEY `id_type_poste` (`id_type_poste`);
+
+--
+-- Index pour la table `ipssi_utilisateur`
+--
+ALTER TABLE `ipssi_utilisateur`
+ ADD PRIMARY KEY (`id_utilisateur`), ADD UNIQUE KEY `mail_utilisateur` (`mail_utilisateur`), ADD KEY `id_sexe` (`id_sexe`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `ipssi_actualite`
+--
+ALTER TABLE `ipssi_actualite`
+MODIFY `id_actualite` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT pour la table `ipssi_adresse`
+--
+ALTER TABLE `ipssi_adresse`
+MODIFY `id_adresse` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `ipssi_candidature`
+--
+ALTER TABLE `ipssi_candidature`
+MODIFY `id_candidature` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `ipssi_contact`
+--
+ALTER TABLE `ipssi_contact`
+MODIFY `id_contact` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `ipssi_contact_demande`
+--
+ALTER TABLE `ipssi_contact_demande`
+MODIFY `id_contact_demande` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `ipssi_contact_type`
+--
+ALTER TABLE `ipssi_contact_type`
+MODIFY `id_contact_type` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `ipssi_droit`
+--
+ALTER TABLE `ipssi_droit`
+MODIFY `id_droit` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `ipssi_groupe`
+--
+ALTER TABLE `ipssi_groupe`
+MODIFY `id_groupe` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT pour la table `ipssi_menu`
+--
+ALTER TABLE `ipssi_menu`
+MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT pour la table `ipssi_page_contenu`
+--
+ALTER TABLE `ipssi_page_contenu`
+MODIFY `id_page_contenu` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `ipssi_poste_candidature`
+--
+ALTER TABLE `ipssi_poste_candidature`
+MODIFY `id_poste` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `ipssi_sexe`
+--
+ALTER TABLE `ipssi_sexe`
+MODIFY `id_sexe` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `ipssi_sous_menu`
+--
+ALTER TABLE `ipssi_sous_menu`
+MODIFY `id_sous_menu` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT pour la table `ipssi_sous_sous_menu`
+--
+ALTER TABLE `ipssi_sous_sous_menu`
+MODIFY `id_sous_sous_menu` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT pour la table `ipssi_type_poste`
+--
+ALTER TABLE `ipssi_type_poste`
+MODIFY `id_type_poste` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT pour la table `ipssi_utilisateur`
+--
+ALTER TABLE `ipssi_utilisateur`
+MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Contraintes pour les tables exportées
 --
@@ -582,55 +733,55 @@ INSERT INTO `ipssi_utilisateur` (`id_utilisateur`, `id_sexe`, `nom_utilisateur`,
 -- Contraintes pour la table `ipssi_contact`
 --
 ALTER TABLE `ipssi_contact`
-  ADD CONSTRAINT `ipssi_contact_ibfk_1` FOREIGN KEY (`id_contact_type`) REFERENCES `ipssi_contact_type` (`id_contact_type`),
-  ADD CONSTRAINT `ipssi_contact_ibfk_2` FOREIGN KEY (`id_contact_demande`) REFERENCES `ipssi_contact_demande` (`id_contact_demande`),
-  ADD CONSTRAINT `ipssi_contact_ibfk_3` FOREIGN KEY (`id_sexe`) REFERENCES `ipssi_sexe` (`id_sexe`);
+ADD CONSTRAINT `ipssi_contact_ibfk_1` FOREIGN KEY (`id_contact_type`) REFERENCES `ipssi_contact_type` (`id_contact_type`),
+ADD CONSTRAINT `ipssi_contact_ibfk_2` FOREIGN KEY (`id_contact_demande`) REFERENCES `ipssi_contact_demande` (`id_contact_demande`),
+ADD CONSTRAINT `ipssi_contact_ibfk_3` FOREIGN KEY (`id_sexe`) REFERENCES `ipssi_sexe` (`id_sexe`);
 
 --
 -- Contraintes pour la table `ipssi_droit_sous_menu_groupe`
 --
 ALTER TABLE `ipssi_droit_sous_menu_groupe`
-  ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_1` FOREIGN KEY (`id_droit`) REFERENCES `ipssi_droit` (`id_droit`),
-  ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `ipssi_sous_menu` (`id_sous_menu`),
-  ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_3` FOREIGN KEY (`id_groupe`) REFERENCES `ipssi_groupe` (`id_groupe`);
+ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_1` FOREIGN KEY (`id_droit`) REFERENCES `ipssi_droit` (`id_droit`),
+ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `ipssi_sous_menu` (`id_sous_menu`),
+ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_3` FOREIGN KEY (`id_groupe`) REFERENCES `ipssi_groupe` (`id_groupe`);
 
 --
 -- Contraintes pour la table `ipssi_groupe_utilisateur`
 --
 ALTER TABLE `ipssi_groupe_utilisateur`
-  ADD CONSTRAINT `ipssi_groupe_utilisateur_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `ipssi_utilisateur` (`id_utilisateur`),
-  ADD CONSTRAINT `ipssi_groupe_utilisateur_ibfk_2` FOREIGN KEY (`id_groupe`) REFERENCES `ipssi_groupe` (`id_groupe`);
+ADD CONSTRAINT `ipssi_groupe_utilisateur_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `ipssi_utilisateur` (`id_utilisateur`),
+ADD CONSTRAINT `ipssi_groupe_utilisateur_ibfk_2` FOREIGN KEY (`id_groupe`) REFERENCES `ipssi_groupe` (`id_groupe`);
 
 --
 -- Contraintes pour la table `ipssi_page_contenu`
 --
 ALTER TABLE `ipssi_page_contenu`
-  ADD CONSTRAINT `ipssi_page_contenu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `ipssi_menu` (`id_menu`),
-  ADD CONSTRAINT `ipssi_page_contenu_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `ipssi_sous_menu` (`id_sous_menu`);
+ADD CONSTRAINT `ipssi_page_contenu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `ipssi_menu` (`id_menu`),
+ADD CONSTRAINT `ipssi_page_contenu_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `ipssi_sous_menu` (`id_sous_menu`);
 
 --
 -- Contraintes pour la table `ipssi_poste_candidature`
 --
 ALTER TABLE `ipssi_poste_candidature`
-  ADD CONSTRAINT `ipssi_poste_candidature_ibfk_1` FOREIGN KEY (`id_type_poste`) REFERENCES `ipssi_type_poste` (`id_type_poste`);
+ADD CONSTRAINT `ipssi_poste_candidature_ibfk_1` FOREIGN KEY (`id_type_poste`) REFERENCES `ipssi_type_poste` (`id_type_poste`);
 
 --
 -- Contraintes pour la table `ipssi_sous_menu`
 --
 ALTER TABLE `ipssi_sous_menu`
-  ADD CONSTRAINT `ipssi_sous_menu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `ipssi_menu` (`id_menu`) ON UPDATE CASCADE;
+ADD CONSTRAINT `ipssi_sous_menu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `ipssi_menu` (`id_menu`) ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `ipssi_sous_sous_menu`
 --
 ALTER TABLE `ipssi_sous_sous_menu`
-  ADD CONSTRAINT `ipssi_sous_sous_menu_ibfk_1` FOREIGN KEY (`id_sous_menu`) REFERENCES `ipssi_sous_menu` (`id_sous_menu`);
+ADD CONSTRAINT `ipssi_sous_sous_menu_ibfk_1` FOREIGN KEY (`id_sous_menu`) REFERENCES `ipssi_sous_menu` (`id_sous_menu`);
 
 --
 -- Contraintes pour la table `ipssi_utilisateur`
 --
 ALTER TABLE `ipssi_utilisateur`
-  ADD CONSTRAINT `ipssi_utilisateur_ibfk_1` FOREIGN KEY (`id_sexe`) REFERENCES `ipssi_sexe` (`id_sexe`);
+ADD CONSTRAINT `ipssi_utilisateur_ibfk_1` FOREIGN KEY (`id_sexe`) REFERENCES `ipssi_sexe` (`id_sexe`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
