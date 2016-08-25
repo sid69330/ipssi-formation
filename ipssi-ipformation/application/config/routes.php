@@ -66,6 +66,7 @@ $route['ipssi/actualites/gestion-actualites/ajouter'] = 'back/actualites_back/aj
 $route['ipssi/actualites/gestion-actualites/supprimer/(:num)'] = 'back/actualites_back/supprimer_actualite/$1';
 $route['ipssi/actualites/gestion-actualites/detail/(:num)'] = 'back/actualites_back/detail_actualite/$1';
 $route['ipssi/actualites/gestion-actualites/modifier/(:num)'] = 'back/actualites_back/modifier_actualite/$1';
+$route['ipssi/actualites/gestion-actualites/export'] = 'back/actualites_back/export';
 /* ----------- RH_back ----------- */
 $route['ipssi/ressources-humaines/cra'] = 'back/ressources_humaines_back/cra';
 $route['ipssi/ressources-humaines/note-frais'] = 'back/ressources_humaines_back/note_frais';

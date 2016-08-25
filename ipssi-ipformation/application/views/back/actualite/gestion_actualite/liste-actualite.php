@@ -36,7 +36,8 @@
 	<?php endif; ?>
 
 	<?php if(count($actualites) > 0) : ?>
-		<table class="table table-bordered table-stripped" id="listeActualite">
+
+		<table class="table table-bordered table-stripped" id="listeActualites">
 			<thead>
 				<tr>
 					<th>Ajouté par</th>
@@ -114,6 +115,12 @@
 			</tbody>
 		</table>
 		<p class="champsObligatoires">* Une actualité est visible si "Fin validité" et "Actif" sont verts.</p>
+		<div class="row">
+			<div class="col-xs-12">
+				<p><a href="/ipssi/actualites/gestion-actualites/export"><img src="/assets/images/icone/csv.png" class="center-block" alt="" style="margin-bottom:0"/></a></p>
+				<p class="text-center font11 italique"><a href="/ipssi/actualites/gestion-actualites/export" style="color:black">Exporter</a></p>
+			</div>
+		</div>
 	<?php else : ?>
 		<div class="row">
 			<div class="col-xs-12">
@@ -124,5 +131,15 @@
 
 </div>
 <?php include_once($_SERVER['DOCUMENT_ROOT'].'/application/views/include/footer.php'); ?>
+<script>
+	$(document).ready(function() {
+	    $('#listeActualites').DataTable( {
+	    	"language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+        	},
+	        "order": false
+	    });
+	});
+</script>
 </body>
 </html>

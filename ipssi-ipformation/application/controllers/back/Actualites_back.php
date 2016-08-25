@@ -323,6 +323,13 @@ class Actualites_back extends MY_Controller
         else
             Redirect('/ipssi/actualites/gestion-actualites');
     }
+
+    public function export()
+    {
+        $this->load->library('export');
+
+        $this->export->exportTable('actualite');
+    }
 }
 
 ?>

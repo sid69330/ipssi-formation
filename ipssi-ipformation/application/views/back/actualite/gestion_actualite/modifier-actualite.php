@@ -90,6 +90,13 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+				<img src="/assets/images/actualite/<?php echo $infos->url_photo_actualite; ?>" alt="" class="img-responsive center-block"/>
+			</div>
+		</div>
+		<div class="text-center font12 italique">Photographie actuelle</div><br/>
+
 		<div class="form-group">
 			<label for="fichier">Photographie * <sup>(2)</sup></label>
 			<input type="file" id="fichier" name="fichier" value="<?php echo set_value('fichier'); ?>">
