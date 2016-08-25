@@ -10,17 +10,7 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-xs-12">
-			<?php if(in_array('T', $droits)) : ?>
-				<p class="font11 italique center">Vous possédez tous les droits sur cette page</p>
-			<?php elseif(in_array('M', $droits) || in_array('P', $droits)) : ?>
-				<p class="font11 italique center">Vous possédez le droit de visualisation et de modification</p>
-			<?php else : ?>
-				<p class="font11 italique center">Vous possédez le droit de visualisation</p>
-			<?php endif; ?>
-		</div>
-	</div>
+	<?php include_once($_SERVER['DOCUMENT_ROOT'].'/application/views/back/include/droit-page.php'); ?>
 
 	<div class="row">
 		<div class="col-xs-12">

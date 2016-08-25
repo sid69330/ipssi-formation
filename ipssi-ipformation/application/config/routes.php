@@ -69,7 +69,14 @@ $route['ipssi/actualites/gestion-actualites/modifier/(:num)'] = 'back/actualites
 $route['ipssi/actualites/gestion-actualites/export'] = 'back/actualites_back/export';
 /* ----------- RH_back ----------- */
 $route['ipssi/ressources-humaines/cra'] = 'back/ressources_humaines_back/cra';
+
 $route['ipssi/ressources-humaines/note-frais'] = 'back/ressources_humaines_back/note_frais';
+$route['ipssi/ressources-humaines/note-frais/modifier/(:num)'] = 'back/ressources_humaines_back/modifier_note_frais/$1';
+$route['ipssi/ressources-humaines/note-frais/supprimer/(:num)'] = 'back/ressources_humaines_back/supprimer_note_frais/$1';
+$route['ipssi/ressources-humaines/note-frais/detail/(:num)'] = 'back/ressources_humaines_back/detail_note_frais/$1';
+$route['ipssi/ressources-humaines/note-frais/ajouter'] = 'back/ressources_humaines_back/ajouter_note_frais';
+$route['ipssi/ressources-humaines/note-frais/valider/(:num)'] = 'back/ressources_humaines_back/valider_note_frais/$1';
+
 $route['ipssi/ressources-humaines/demande-conges'] = 'back/ressources_humaines_back/demande_conges';
 $route['ipssi/ressources-humaines/cvtheque'] = 'back/ressources_humaines_back/cvtheque';
 $route['ipssi/ressources-humaines/offre-poste'] = 'back/ressources_humaines_back/offre_poste';
