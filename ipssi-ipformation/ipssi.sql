@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.12deb2+deb8u1build0.15.04.1
+-- version 4.2.12deb2+deb8u2
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 25 Août 2016 à 16:54
--- Version du serveur :  5.6.28-0ubuntu0.15.04.1
--- Version de PHP :  5.6.4-4ubuntu6.4
+-- Généré le :  Jeu 25 Août 2016 à 16:58
+-- Version du serveur :  5.5.50-0+deb8u1
+-- Version de PHP :  5.6.24-0+deb8u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -419,9 +419,9 @@ CREATE TABLE IF NOT EXISTS `ipssi_poste_candidature` (
   `date_depot` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `date_debut_poste` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `remuneration_poste` varchar(50) DEFAULT NULL,
-  `niveau_experience` varchar(250) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `remuneration_poste` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
+  `niveau_experience` varchar(250) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_poste_candidature`
