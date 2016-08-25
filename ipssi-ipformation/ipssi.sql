@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.12deb2+deb8u2
+-- version 4.2.12deb2+deb8u1build0.15.04.1
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 25 Août 2016 à 10:16
--- Version du serveur :  5.5.50-0+deb8u1
--- Version de PHP :  5.6.24-0+deb8u1
+-- Généré le :  Jeu 25 Août 2016 à 16:54
+-- Version du serveur :  5.6.28-0ubuntu0.15.04.1
+-- Version de PHP :  5.6.4-4ubuntu6.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `ipssi_actualite` (
   `date_validite_actualite` datetime DEFAULT NULL,
   `actif_actualite` tinyint(1) NOT NULL,
   `front` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -264,6 +264,26 @@ INSERT INTO `ipssi_droit_sous_menu_groupe` (`id_droit`, `id_sous_menu`, `id_grou
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `ipssi_etat`
+--
+
+CREATE TABLE IF NOT EXISTS `ipssi_etat` (
+`id_etat` int(11) NOT NULL,
+  `libelle_etat` varchar(100) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `ipssi_etat`
+--
+
+INSERT INTO `ipssi_etat` (`id_etat`, `libelle_etat`) VALUES
+(1, 'En attente'),
+(2, 'Validé'),
+(3, 'Refusé');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `ipssi_groupe`
 --
 
@@ -332,6 +352,35 @@ INSERT INTO `ipssi_menu` (`id_menu`, `libelle_menu`, `url_menu`, `tri_menu`, `da
 (6, 'Boîte à outils', 'boite-a-outils', 3, '2016-07-08 08:02:11', 0),
 (7, 'Paramétrage', 'parametrage', 4, '2016-07-08 08:02:49', 0),
 (8, 'Administration', 'administration', 5, '2016-07-08 08:02:49', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ipssi_notes_frais`
+--
+
+CREATE TABLE IF NOT EXISTS `ipssi_notes_frais` (
+`id_note_frais` int(11) NOT NULL,
+  `id_utilisateur` int(11) NOT NULL COMMENT 'clé étrangère',
+  `id_type_note_frais` int(11) NOT NULL COMMENT 'clé étrangère',
+  `id_etat` int(11) NOT NULL DEFAULT '1' COMMENT 'clé étrangère',
+  `id_type_paiement_note_frais` int(11) DEFAULT NULL COMMENT 'clé étrangère',
+  `date_note_frais` datetime NOT NULL,
+  `description_note_frais` text NOT NULL,
+  `montant_note_frais` float NOT NULL,
+  `trajet_note_frais` varchar(250) DEFAULT NULL,
+  `km_parcouru_note_frais` float DEFAULT NULL,
+  `montant_km_note_frais` float DEFAULT NULL,
+  `date_creation_note_frais` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_paiement_note_frais` datetime DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `ipssi_notes_frais`
+--
+
+INSERT INTO `ipssi_notes_frais` (`id_note_frais`, `id_utilisateur`, `id_type_note_frais`, `id_etat`, `id_type_paiement_note_frais`, `date_note_frais`, `description_note_frais`, `montant_note_frais`, `trajet_note_frais`, `km_parcouru_note_frais`, `montant_km_note_frais`, `date_creation_note_frais`, `date_paiement_note_frais`) VALUES
+(1, 1, 2, 1, NULL, '2016-08-19 00:00:00', 'Ceci est ma premiere note de frais', 49.52, NULL, NULL, NULL, '2016-08-25 10:08:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -481,6 +530,53 @@ INSERT INTO `ipssi_sous_sous_menu` (`id_sous_sous_menu`, `id_sous_menu`, `libell
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `ipssi_type_notes_frais`
+--
+
+CREATE TABLE IF NOT EXISTS `ipssi_type_notes_frais` (
+`id_type_note_frais` int(11) NOT NULL,
+  `libelle_type_note_frais` varchar(100) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `ipssi_type_notes_frais`
+--
+
+INSERT INTO `ipssi_type_notes_frais` (`id_type_note_frais`, `libelle_type_note_frais`) VALUES
+(1, 'Train'),
+(2, 'Avion'),
+(3, 'Taxi'),
+(4, 'Parking'),
+(5, 'Péage'),
+(6, 'Hôtel'),
+(7, 'Restaurant'),
+(8, 'Métro'),
+(9, 'Frais kilométriques');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ipssi_type_paiement_notes_frais`
+--
+
+CREATE TABLE IF NOT EXISTS `ipssi_type_paiement_notes_frais` (
+`id_type_paiement_note_frais` int(11) NOT NULL,
+  `libelle_paiement_note_frais` varchar(100) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `ipssi_type_paiement_notes_frais`
+--
+
+INSERT INTO `ipssi_type_paiement_notes_frais` (`id_type_paiement_note_frais`, `libelle_paiement_note_frais`) VALUES
+(1, 'Chèque'),
+(2, 'Virement Bancaire'),
+(3, 'Feuille de Paie'),
+(4, 'Espèces');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `ipssi_type_poste`
 --
 
@@ -515,6 +611,7 @@ CREATE TABLE IF NOT EXISTS `ipssi_utilisateur` (
   `telephone_utilisateur` varchar(20) NOT NULL,
   `mdp_utilisateur` varchar(150) NOT NULL,
   `date_mdp_utilisateur` datetime DEFAULT NULL,
+  `cle_mdp_utilisaeur` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `mdp_utilisateur_change` tinyint(1) NOT NULL DEFAULT '1',
   `entreprise_utilisateur` varchar(100) NOT NULL,
   `photo_profil` varchar(255) DEFAULT NULL,
@@ -525,9 +622,9 @@ CREATE TABLE IF NOT EXISTS `ipssi_utilisateur` (
 -- Contenu de la table `ipssi_utilisateur`
 --
 
-INSERT INTO `ipssi_utilisateur` (`id_utilisateur`, `id_sexe`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `mdp_utilisateur`, `date_mdp_utilisateur`, `mdp_utilisateur_change`, `entreprise_utilisateur`, `photo_profil`, `supprime`) VALUES
-(1, 3, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '0777360290', '627d93c4da0370051dbfd30039edae208fedd0bf70a43707237a26087d3e164a', '2016-08-24 14:31:56', 0, 'EXELIS', NULL, 0),
-(2, 1, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799437', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-02 14:08:51', 0, 'Dalkia', 'photo-de-profil-de-julien-alexandre-1470231068.jpg', 0);
+INSERT INTO `ipssi_utilisateur` (`id_utilisateur`, `id_sexe`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `mdp_utilisateur`, `date_mdp_utilisateur`, `cle_mdp_utilisaeur`, `mdp_utilisateur_change`, `entreprise_utilisateur`, `photo_profil`, `supprime`) VALUES
+(1, 3, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '0777360290', '627d93c4da0370051dbfd30039edae208fedd0bf70a43707237a26087d3e164a', '2016-08-24 14:31:56', NULL, 0, 'EXELIS', NULL, 0),
+(2, 1, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799437', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-02 14:08:51', NULL, 0, 'Dalkia', 'photo-de-profil-de-julien-alexandre-1470231068.jpg', 0);
 
 --
 -- Index pour les tables exportées
@@ -582,6 +679,12 @@ ALTER TABLE `ipssi_droit_sous_menu_groupe`
  ADD PRIMARY KEY (`id_droit`,`id_sous_menu`,`id_groupe`), ADD KEY `id_sous_menu` (`id_sous_menu`), ADD KEY `id_groupe` (`id_groupe`);
 
 --
+-- Index pour la table `ipssi_etat`
+--
+ALTER TABLE `ipssi_etat`
+ ADD PRIMARY KEY (`id_etat`);
+
+--
 -- Index pour la table `ipssi_groupe`
 --
 ALTER TABLE `ipssi_groupe`
@@ -598,6 +701,12 @@ ALTER TABLE `ipssi_groupe_utilisateur`
 --
 ALTER TABLE `ipssi_menu`
  ADD PRIMARY KEY (`id_menu`);
+
+--
+-- Index pour la table `ipssi_notes_frais`
+--
+ALTER TABLE `ipssi_notes_frais`
+ ADD PRIMARY KEY (`id_note_frais`), ADD KEY `id_utilisateur` (`id_utilisateur`), ADD KEY `id_type_note_frais` (`id_type_note_frais`), ADD KEY `id_etat` (`id_etat`), ADD KEY `id_utilisateur_2` (`id_utilisateur`), ADD KEY `id_type_note_frais_2` (`id_type_note_frais`), ADD KEY `id_etat_2` (`id_etat`), ADD KEY `id_type_paiement_note_frais` (`id_type_paiement_note_frais`), ADD KEY `id_type_paiement_note_frais_2` (`id_type_paiement_note_frais`);
 
 --
 -- Index pour la table `ipssi_page_contenu`
@@ -630,6 +739,18 @@ ALTER TABLE `ipssi_sous_sous_menu`
  ADD PRIMARY KEY (`id_sous_sous_menu`), ADD KEY `id_sous_menu` (`id_sous_menu`);
 
 --
+-- Index pour la table `ipssi_type_notes_frais`
+--
+ALTER TABLE `ipssi_type_notes_frais`
+ ADD PRIMARY KEY (`id_type_note_frais`);
+
+--
+-- Index pour la table `ipssi_type_paiement_notes_frais`
+--
+ALTER TABLE `ipssi_type_paiement_notes_frais`
+ ADD PRIMARY KEY (`id_type_paiement_note_frais`);
+
+--
 -- Index pour la table `ipssi_type_poste`
 --
 ALTER TABLE `ipssi_type_poste`
@@ -649,7 +770,7 @@ ALTER TABLE `ipssi_utilisateur`
 -- AUTO_INCREMENT pour la table `ipssi_actualite`
 --
 ALTER TABLE `ipssi_actualite`
-MODIFY `id_actualite` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+MODIFY `id_actualite` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT pour la table `ipssi_adresse`
 --
@@ -681,6 +802,11 @@ MODIFY `id_contact_type` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `ipssi_droit`
 MODIFY `id_droit` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT pour la table `ipssi_etat`
+--
+ALTER TABLE `ipssi_etat`
+MODIFY `id_etat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT pour la table `ipssi_groupe`
 --
 ALTER TABLE `ipssi_groupe`
@@ -690,6 +816,11 @@ MODIFY `id_groupe` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 ALTER TABLE `ipssi_menu`
 MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT pour la table `ipssi_notes_frais`
+--
+ALTER TABLE `ipssi_notes_frais`
+MODIFY `id_note_frais` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `ipssi_page_contenu`
 --
@@ -715,6 +846,16 @@ MODIFY `id_sous_menu` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 ALTER TABLE `ipssi_sous_sous_menu`
 MODIFY `id_sous_sous_menu` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT pour la table `ipssi_type_notes_frais`
+--
+ALTER TABLE `ipssi_type_notes_frais`
+MODIFY `id_type_note_frais` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT pour la table `ipssi_type_paiement_notes_frais`
+--
+ALTER TABLE `ipssi_type_paiement_notes_frais`
+MODIFY `id_type_paiement_note_frais` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `ipssi_type_poste`
 --
@@ -751,6 +892,15 @@ ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_3` FOREIGN KEY (`id_groupe`) R
 ALTER TABLE `ipssi_groupe_utilisateur`
 ADD CONSTRAINT `ipssi_groupe_utilisateur_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `ipssi_utilisateur` (`id_utilisateur`),
 ADD CONSTRAINT `ipssi_groupe_utilisateur_ibfk_2` FOREIGN KEY (`id_groupe`) REFERENCES `ipssi_groupe` (`id_groupe`);
+
+--
+-- Contraintes pour la table `ipssi_notes_frais`
+--
+ALTER TABLE `ipssi_notes_frais`
+ADD CONSTRAINT `ipssi_notes_frais_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `ipssi_utilisateur` (`id_utilisateur`),
+ADD CONSTRAINT `ipssi_notes_frais_ibfk_2` FOREIGN KEY (`id_type_note_frais`) REFERENCES `ipssi_type_notes_frais` (`id_type_note_frais`),
+ADD CONSTRAINT `ipssi_notes_frais_ibfk_3` FOREIGN KEY (`id_etat`) REFERENCES `ipssi_etat` (`id_etat`),
+ADD CONSTRAINT `ipssi_notes_frais_ibfk_4` FOREIGN KEY (`id_type_paiement_note_frais`) REFERENCES `ipssi_type_paiement_notes_frais` (`id_type_paiement_note_frais`);
 
 --
 -- Contraintes pour la table `ipssi_page_contenu`
