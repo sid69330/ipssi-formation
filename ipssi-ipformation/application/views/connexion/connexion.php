@@ -12,9 +12,9 @@
 
 		<?php echo form_error('identifiant', '<div class="alert alert-danger">', '</div>'); ?>
 		<div class="form-group">
-			<label class="col-md-4 control-label" for="nom">Identifiant : </label>  
+			<label class="col-md-4 control-label" for="nom">Email : </label>  
 			<div class="col-md-4">
-				<input id="identifiant" name="identifiant" type="text" placeholder="Identifiant" class="form-control input-md" value="<?php echo set_value('identifiant'); ?>">
+				<input id="identifiant" name="identifiant" type="text" placeholder="Email" class="form-control input-md" value="<?php echo set_value('identifiant'); ?>">
 			</div>
 		</div>
 
@@ -32,7 +32,14 @@
 				<button id="connexion" name="connexion" class="btn btn-primary btn-block">Connexion</button>
 			</div>
 		</div>
+
 	</form>
+
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<a href="/connexion/mot_de_passe_oublie" class="italique font12" style="color:black">Mot de passe oublié</a>
+		</div>
+	</div>
 </div>
 <?php include_once($_SERVER['DOCUMENT_ROOT'].'/application/views/include/footer.php'); ?>
 </body>

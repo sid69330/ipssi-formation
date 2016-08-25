@@ -32,4 +32,17 @@ class Connexion_model extends CI_Model
 
 		return $result[0];
 	}
+
+	public function genererCleMdp($email, $code_aleatoire)
+	{
+		$data = array
+		(
+	        'cle_mdp_utilisateur' => $code_aleatoire
+		);
+
+		$this->db->where('mail_utilisateur', $email);
+		$this->db->update('utilisateur', $data);
+
+		return $this->db->affected_rows();
+	}
 }
