@@ -27,12 +27,12 @@
 		</div>
 	<?php endif; ?>
 
-	<?php echo form_open_multipart('/ressources-humaines/note-frais/ajouter'); ?>
+	<?php echo form_open('/ipssi/ressources-humaines/note-frais/ajouter'); ?>
 
 		<?php echo form_error('type_note_frais', '<div class="alert alert-danger">', '</div>'); ?>
 		<div class="form-group">
 			<label for="type_note_frais">Type de note de frais *</label>
-			<select id="type_note_frais" name="type_note_frais" class="form-control">
+			<select id="type_note_frais" name="type_note_frais" class="form-control" onchange="affichageFormulaire(this.value);">
 				<option value="0">-- Veuillez sélectionner un type de note de frais --</option>
 				<?php foreach($type_note_frais as $t) : ?>
 					<option value="<?php echo $t->id_type_note_frais ?>"><?php echo $t->libelle_type_note_frais ?></option>
@@ -56,22 +56,24 @@
 			<label for="montant">Montant</label>
 			<input type="text" class="form-control" id="montant" placeholder="Montant (en €)" name="montant" value="<?php echo set_value('montant'); ?>">
 		</div>
-		<?php echo form_error('trajet', '<div class="alert alert-danger">', '</div>'); ?>
-		<div class="form-group">
-			<label for="trajet">Trajet concernant la note de frais</label>
-			<input type="text" class="form-control" id="trajet" placeholder="Trajet" name="trajet" value="<?php echo set_value('trajet'); ?>">
+
+		<div id="AAfficher">
+			<?php echo form_error('trajet', '<div class="alert alert-danger">', '</div>'); ?>
+			<div class="form-group">
+				<label for="trajet">Trajet concernant la note de frais</label>
+				<input type="text" class="form-control" id="trajet" placeholder="Trajet" name="trajet" value="<?php echo set_value('trajet'); ?>">
+			</div>
+			<?php echo form_error('km_parcouru', '<div class="alert alert-danger">', '</div>'); ?>
+			<div class="form-group">
+				<label for="km_parcouru">Nombre de km parcourus</label>
+				<input type="text" class="form-control" id="km_parcouru" placeholder="km Parcourus" name="trajet" value="<?php echo set_value('km_parcouru'); ?>">
+			</div>
+			<?php echo form_error('prix_km', '<div class="alert alert-danger">', '</div>'); ?>
+			<div class="form-group">
+				<label for="prix_km">Prix par km</label>
+				<input type="text" class="form-control" id="prix_km" placeholder="Prix / km" name="trajet" value="<?php echo set_value('prix_km'); ?>">
+			</div>
 		</div>
-		<?php echo form_error('trajet', '<div class="alert alert-danger">', '</div>'); ?>
-		<div class="form-group">
-			<label for="km_parcouru">Nombre de km parcourus</label>
-			<input type="text" class="form-control" id="km_parcouru" placeholder="km Parcourus" name="trajet" value="<?php echo set_value('km_parcouru'); ?>">
-		</div>
-		<?php echo form_error('trajet', '<div class="alert alert-danger">', '</div>'); ?>
-		<div class="form-group">
-			<label for="prix_km">Prix par km</label>
-			<input type="text" class="form-control" id="prix_km" placeholder="Prix / km" name="trajet" value="<?php echo set_value('prix_km'); ?>">
-		</div>
-		
 		<div class="form-group">
 			<button class="btn btn-primary btn-block">Ajouter</button>
 		</div>
@@ -97,6 +99,19 @@
 			firstDay : 1
 		});
 	});
+
+	function affichageFormulaire(typeNoteFrais)
+	{
+		if(typeNoteFrais == 9)
+			document.getElementById('AAfficher').style.display='block';
+		else
+			document.getElementById('AAfficher').style.display='none';
+	}
+	$(document).ready(function() {
+		//var typeNoteFrais = $('#type_note_frais option:selected').val();
+		$('#type_note_frais').trigger('change');
+	});
+
 </script>
 </body>
 </html>
