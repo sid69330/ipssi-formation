@@ -45,4 +45,27 @@ class Connexion_model extends CI_Model
 
 		return $this->db->affected_rows();
 	}
+
+	public function recup_infos_cle_mdp($cle)
+	{
+		$this->db->select('id_utilisateur');
+		$this->db->from('utilisateur');
+		$this->db->where('cle_mdp_utilisateur', $cle);
+
+		return($this->db->get()->result());
+	}
+
+	public function reinitialiser_mdp($id_utilisateur, $mdp)
+	{
+		$data = array
+        (
+            'mdp_utilisateur' => $mdp
+        );
+
+        $this->db->set('date_mdp_utilisateur', 'NOW()', FALSE);
+        $this->db->where('id_utilisateur', $id_utilisateur);
+        $this->db->update('utilisateur', $data);
+
+        return $this->db->affected_rows();
+	}
 }

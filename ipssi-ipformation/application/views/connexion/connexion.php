@@ -5,9 +5,19 @@
 		</div>
 	</div>
 	<?php echo form_open('/connexion', array('class' => 'form-horizontal')); ?>
-		
+
 		<?php if(isset($erreurConnexion)) : ?>
-			<p class='alert alert-danger'><?php echo $erreurConnexion; ?></p>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class='alert alert-danger'><?php echo $erreurConnexion; ?></div>
+				</div>
+			</div>
+		<?php elseif(isset($success) && ($success != '')) : ?>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class='alert alert-success'><?php echo $success; ?></div>
+				</div>
+			</div>
 		<?php endif; ?>
 
 		<?php echo form_error('identifiant', '<div class="alert alert-danger">', '</div>'); ?>
