@@ -9,13 +9,13 @@ class Connexion extends CI_Controller
 		$this->load->library('menu');
 		$this->load->library('form_validation');
 		$this->load->model('connexion_model');
-
-		if($this->session->has_userdata('id'))
-			Redirect();
 	}
 	
 	public function index()
 	{
+		if($this->session->has_userdata('id'))
+			Redirect();
+
 		$this->form_validation->set_rules('identifiant', '"Email"', 'trim|required|valid_email|encode_php_tags');
 		$this->form_validation->set_rules('mdp', '"Mot de passe"', 'required|encode_php_tags');
 
@@ -56,19 +56,23 @@ class Connexion extends CI_Controller
 		}	
 		else
 		{
+			$data['success'] = $this->session->flashdata('success');
 			$menu['menu'] = $this->menu->recupMenu();
 			$this->load->view('include/menu.php', $menu);
-			$this->load->view('connexion/connexion.php');
+			$this->load->view('connexion/connexion.php', $data);
 		}
 	}
 
 	public function mot_de_passe_oublie()
 	{
+		if($this->session->has_userdata('id'))
+			Redirect();
+
 		$this->form_validation->set_rules('identifiant', '"Email"', 'trim|required|valid_email|is_exist[utilisateur.mail_utilisateur]|encode_php_tags');
 
 		if($this->form_validation->run() == FALSE)
 		{
-			$menu['title'] = "Connexion à l'intranet";
+			$menu['title'] = "Mot de passe oublié";
 			$menu['menu'] = $this->menu->recupMenu();
 
 			$data['success'] = $this->session->flashdata('success');
@@ -119,6 +123,47 @@ class Connexion extends CI_Controller
 				$this->load->view('connexion/mot-de-passe-oublie.php', $data);
 			}
 		}
+	}
+
+	public function modifier_mdp($cle = '')
+	{
+		$infos = $this->connexion_model->recup_infos_cle_mdp($cle);
+		
+		if(count($infos) == 1)
+		{
+			$menu['title'] = "Réinitialisation du mot de passe";
+			$menu['menu'] = $this->menu->recupMenu();
+			$data['cle'] = $cle;
+
+			$this->form_validation->set_rules('mdp1', '"Mot de passe"', 'required|encode_php_tags|min_length[8]|regex_match[/^(?=.*[a-z])(?=.*[0-9])(?=.*\W).{8,}$/]');
+			$this->form_validation->set_rules('mdp2', '"Ressaisir"', 'required|encode_php_tags|matches[mdp1]');
+
+			if($this->form_validation->run() == FALSE)
+			{
+				$this->load->view('include/menu.php', $menu);
+				$this->load->view('connexion/modifier_mdp.php', $data);
+			}
+			else
+			{
+				$mdp = hash('sha256', $this->input->post('mdp1'));
+
+				$ok = $this->connexion_model->reinitialiser_mdp($infos[0]->id_utilisateur, $mdp);
+
+				if($ok)
+				{
+					$this->session->set_flashdata('success', 'Mot de passe modifié avec succès. Vous pouvez maintenant vous reconnecter simplement.');
+					Redirect('/connexion');
+				}
+				else
+				{
+					$data['erreur'] = 'Une erreur est survenue pendant la mise à jour de votre mot de passe.';
+					$this->load->view('include/menu.php', $menu);
+					$this->load->view('connexion/modifier_mdp.php', $data);
+				}
+			}
+		}
+		else
+			Redirect('/connexion');
 	}
 }
 

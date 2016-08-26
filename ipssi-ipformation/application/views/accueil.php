@@ -1,23 +1,18 @@
-		<div class='container'>
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="col-xs-12 well">
-			
-						<?php if(count($actualite) > 0) : ?>
+		<?php if(count($actualite) > 0) : ?>	
+			<div class='container'>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="col-xs-12 well">
 							<div class="col-lg-2 col-md-2 col-sm-3 visible-lg visible-md visible-sm height-270">
-
 								<?php $i = 0; ?>
 								<?php foreach($actualite as $a) : ?>
 									<div class="btnActualiteAccueil">
 										<p class="lienBtnActualiteAccueil"><a data-target="#carousel-nav" data-slide-to="<?php echo $i; ?>">Actualité <?php echo ++$i; ?></a></p>
 									</div>
 								<?php endforeach; ?>
-
 							</div>
-
 							<div id="carousel-nav" class="carousel slide col-lg-10 col-md-10 col-sm-9" data-ride="carousel">
 								<ol class="carousel-indicators">
-
 									<?php $i = 0; ?>
 									<?php foreach($actualite as $a) : ?>
 										<?php if($i==0) : ?>
@@ -25,9 +20,7 @@
 										<?php endif; ?>
 										<?php $i++; ?>
 									<?php endforeach; ?>
-
 								</ol>
-
 								<div class="carousel-inner" role="listbox">
 									<?php $i = 0; ?>
 									<?php foreach($actualite as $a) : ?>
@@ -55,11 +48,11 @@
 									</div>
 								</div>
 							</div>
-						<?php endif; ?>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		<?php endif; ?>
 		<?php if($infosPage->texte_page_contenu != '') : ?>
 			<div class="container">
 				<?php echo $infosPage->texte_page_contenu; ?>
