@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 25 Août 2016 à 16:58
+-- Généré le :  Ven 26 Août 2016 à 15:42
 -- Version du serveur :  5.5.50-0+deb8u1
 -- Version de PHP :  5.6.24-0+deb8u1
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `ipssi_actualite` (
   `date_validite_actualite` datetime DEFAULT NULL,
   `actif_actualite` tinyint(1) NOT NULL,
   `front` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -372,15 +372,16 @@ CREATE TABLE IF NOT EXISTS `ipssi_notes_frais` (
   `km_parcouru_note_frais` float DEFAULT NULL,
   `montant_km_note_frais` float DEFAULT NULL,
   `date_creation_note_frais` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_paiement_note_frais` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `date_paiement_note_frais` datetime DEFAULT NULL,
+  `motif_refus` text
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ipssi_notes_frais`
 --
 
-INSERT INTO `ipssi_notes_frais` (`id_note_frais`, `id_utilisateur`, `id_type_note_frais`, `id_etat`, `id_type_paiement_note_frais`, `date_note_frais`, `description_note_frais`, `montant_note_frais`, `trajet_note_frais`, `km_parcouru_note_frais`, `montant_km_note_frais`, `date_creation_note_frais`, `date_paiement_note_frais`) VALUES
-(1, 1, 2, 1, NULL, '2016-08-19 00:00:00', 'Ceci est ma premiere note de frais', 49.52, NULL, NULL, NULL, '2016-08-25 10:08:47', NULL);
+INSERT INTO `ipssi_notes_frais` (`id_note_frais`, `id_utilisateur`, `id_type_note_frais`, `id_etat`, `id_type_paiement_note_frais`, `date_note_frais`, `description_note_frais`, `montant_note_frais`, `trajet_note_frais`, `km_parcouru_note_frais`, `montant_km_note_frais`, `date_creation_note_frais`, `date_paiement_note_frais`, `motif_refus`) VALUES
+(1, 1, 2, 1, NULL, '2016-08-19 00:00:00', 'Ceci est ma premiere note de frais', 49.52, NULL, NULL, NULL, '2016-08-25 10:08:47', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -611,7 +612,7 @@ CREATE TABLE IF NOT EXISTS `ipssi_utilisateur` (
   `telephone_utilisateur` varchar(20) NOT NULL,
   `mdp_utilisateur` varchar(150) NOT NULL,
   `date_mdp_utilisateur` datetime DEFAULT NULL,
-  `cle_mdp_utilisaeur` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `cle_mdp_utilisateur` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `mdp_utilisateur_change` tinyint(1) NOT NULL DEFAULT '1',
   `entreprise_utilisateur` varchar(100) NOT NULL,
   `photo_profil` varchar(255) DEFAULT NULL,
@@ -622,9 +623,9 @@ CREATE TABLE IF NOT EXISTS `ipssi_utilisateur` (
 -- Contenu de la table `ipssi_utilisateur`
 --
 
-INSERT INTO `ipssi_utilisateur` (`id_utilisateur`, `id_sexe`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `mdp_utilisateur`, `date_mdp_utilisateur`, `cle_mdp_utilisaeur`, `mdp_utilisateur_change`, `entreprise_utilisateur`, `photo_profil`, `supprime`) VALUES
+INSERT INTO `ipssi_utilisateur` (`id_utilisateur`, `id_sexe`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `mdp_utilisateur`, `date_mdp_utilisateur`, `cle_mdp_utilisateur`, `mdp_utilisateur_change`, `entreprise_utilisateur`, `photo_profil`, `supprime`) VALUES
 (1, 3, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '0777360290', '627d93c4da0370051dbfd30039edae208fedd0bf70a43707237a26087d3e164a', '2016-08-24 14:31:56', NULL, 0, 'EXELIS', NULL, 0),
-(2, 1, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799437', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-02 14:08:51', NULL, 0, 'Dalkia', 'photo-de-profil-de-julien-alexandre-1470231068.jpg', 0);
+(2, 1, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799437', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-26 10:29:01', 'zORTuK8KtO4eM7jh7tehYU7DCdhBMrFb4mTnVQVcvNe8JneDGgJtYFUrH2Sjglj0w1khG5jZHoVgzXK55jlSM60hUQp22yYno0sS', 0, 'Dalkia', 'photo-de-profil-de-julien-alexandre-1470231068.jpg', 0);
 
 --
 -- Index pour les tables exportées
@@ -770,7 +771,7 @@ ALTER TABLE `ipssi_utilisateur`
 -- AUTO_INCREMENT pour la table `ipssi_actualite`
 --
 ALTER TABLE `ipssi_actualite`
-MODIFY `id_actualite` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+MODIFY `id_actualite` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `ipssi_adresse`
 --
@@ -820,7 +821,7 @@ MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT pour la table `ipssi_notes_frais`
 --
 ALTER TABLE `ipssi_notes_frais`
-MODIFY `id_note_frais` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id_note_frais` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `ipssi_page_contenu`
 --
