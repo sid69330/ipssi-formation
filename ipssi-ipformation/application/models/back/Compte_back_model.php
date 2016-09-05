@@ -2,6 +2,26 @@
 
 class Compte_back_model extends CI_Model
 {
+    public function recupTokenGoogle($id_utilisateur)
+    {
+        $this->db->select('token_google');
+        $this->db->from('utilisateur');
+        $this->db->where('id_utilisateur', $id_utilisateur);
+
+        return $this->db->get()->result()[0]->token_google;
+    }
+
+    public function majTokenGoogle($id_utilisateur, $token)
+    {
+        $data = array
+        (
+            'token_google' => $token
+        );
+
+        $this->db->where('id_utilisateur', $id_utilisateur);
+        $this->db->update('utilisateur', $data);
+    }
+
     public function mot_de_passe_actuel_correct($mdp_actuel, $id_utilisateur)
     {
         $this->db->select('id_utilisateur');

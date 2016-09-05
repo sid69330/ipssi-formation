@@ -9,7 +9,7 @@
 
 	<div class="row">
 		<div class="col-xs-12">
-			<a href="/ipssi/administration/gestion-utilisateurs/" class="btn btn-primary"><i class="fa fa-chevron-left" aria-hidden="true"></i> Retour</a>
+			<a href="/ipssi/ressources-humaines/collaborateurs" class="btn btn-primary"><i class="fa fa-chevron-left" aria-hidden="true"></i> Retour</a>
 		</div>
 	</div><br/>
 
@@ -27,7 +27,7 @@
 		</div>
 	<?php endif; ?>
 
-	<?php echo form_open('/ipssi/administration/gestion-utilisateurs/ajouter'); ?>
+	<?php echo form_open('/ipssi/ressources-humaines/collaborateurs/ajouter'); ?>
 
 		<?php echo form_error('sexe', '<div class="alert alert-danger">', '</div>'); ?>
 		<div class="form-group">
@@ -57,11 +57,6 @@
 		<div class="form-group">
 			<label for="tel">Téléphone</label>
 			<input type="text" class="form-control" id="tel" placeholder="Téléphone" name="tel" value="<?php echo set_value('tel'); ?>">
-		</div>
-		<?php echo form_error('mdp', '<div class="alert alert-danger">', '</div>'); ?>
-		<div class="form-group">
-			<label for="mdp">Mot de passe première connexion *</label>
-			<input type="text" class="form-control" id="mdp" placeholder="Mot de passe première connexion" name="mdp">
 		</div>
 		<?php echo form_error('entreprise', '<div class="alert alert-danger">', '</div>'); ?>
 		<div class="form-group">

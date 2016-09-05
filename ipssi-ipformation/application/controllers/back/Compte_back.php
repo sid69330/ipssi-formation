@@ -24,6 +24,8 @@ class Compte_back extends CI_Controller
 
         $data['infos'] = $this->compte_back_model->recupInfosUtilisateur($this->session->userdata('id'));
        
+        $data['login_google'] = $this->associer_google();
+
         $this->load->view('back/include/menu.php', $menu);
         $this->load->view('back/compte/mon_compte_accueil.php', $data);
 	}
@@ -243,7 +245,59 @@ class Compte_back extends CI_Controller
 				$this->load->view('back/compte/modifier_mdp.php', $data);
         	}
         }
-	}	
+	}
+
+	private function associer_google()
+	{
+		require_once $_SERVER['DOCUMENT_ROOT'].'/assets/google-api-php-client-2.0.2/vendor/autoload.php';
+
+		$client = new Google_Client();
+		$client->setClientId('682182360339-8gffe5ukmk4edop89c9te6a55aode029.apps.googleusercontent.com');
+		$client->setClientSecret('iwWRS_UHoSd2u8vmxMCkMwne');
+
+		$client->addScope('email');
+		$client->addScope(Google_Service_Calendar::CALENDAR);
+
+		$redirect_uri = 'http://erp.dev.com/ipssi/compte';
+		$client->setRedirectUri($redirect_uri);
+
+		$service = new Google_Service_Oauth2($client);
+
+		$token = $this->compte_back_model->recupTokenGoogle($this->session->userdata('id'));
+
+		if($token != '')
+		{
+			$client->setAccessToken($token);
+			$token = $client->getAccessToken();
+
+			var_dump($client);
+			
+			
+			
+			/*if($client->isAccessTokenExpired())
+			{
+				$this->compte_back_model->majTokenGoogle($this->session->userdata('id'), null);
+				$this->associer_google();
+			}*/
+		}
+		else
+		{
+			if(isset($_GET['code']))
+			{
+	    		$token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+	    		$client->setAccessToken($token);
+	    		
+	    		//var_dump($token['access_token']);
+	    		$this->compte_back_model->majTokenGoogle($this->session->userdata('id'), "ya29.Ci9VA56Y92EaH6BdGHU5aRybRu8GrdYBQeIL-OwIZsL80jdJcaHJtuzY-HMRPh0OAQ");
+
+	    		Redirect('/ipssi/compte');
+			}
+			else
+			{
+				return $client->createAuthUrl();
+			}
+		}		
+	}
 }
 
 ?>

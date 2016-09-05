@@ -28,6 +28,13 @@
 					</div>
 				</div>
 			</div>
+			<br/>
+			<div class="row">
+				<div class="col-xs-12">
+					<a href="<?php echo $login_google; ?>" class="btn btn-danger btn-sm btn-block"><i class="fa fa-google" aria-hidden="true"></i> Associer à mon compte Google</a>
+				</div>
+			</div>
+			<br/>
 		</div>
 		<div class="col-xs-12 col-md-8">
 			<div class="bloc-tableau-bord">

@@ -50,7 +50,7 @@ class MY_Controller extends CI_Controller
             if(($this->droits !== true) && ((!is_array($this->droits)) || (count($this->droits) == 0)))
             {
                 $this->session->set_flashdata('droit_insuffisant', 'Vous ne possédez pas les droits nécessaires pour accéder à la page demandée. Vous avez été redirigé vers votre dashboard.');
-                Redirect('/ipssi');
+                //Redirect('/ipssi');
             }
         }
     }

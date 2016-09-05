@@ -18,7 +18,7 @@
 	<?php if(in_array('T', $droits)) : ?>
 		<div class="row">
 			<div class="col-xs-12">
-				<a href="/ipssi/administration/gestion-utilisateurs/ajouter" class="btn btn-block btn-primary btn-sm">Ajouter</a>
+				<a href="/ipssi/ressources-humaines/collaborateurs/ajouter" class="btn btn-block btn-primary btn-sm">Ajouter</a>
 			</div>
 		</div><br/>
 	<?php endif; ?>
@@ -38,28 +38,32 @@
 					<tr>
 						<td><?php echo $u->nom_utilisateur; ?></td>
 						<td><?php echo $u->prenom_utilisateur; ?></td>
-						<td class="text-center">
-							<?php if($u->supprime == 0) : ?>
+						
+						<?php if($u->supprime == 0) : ?>
+							<td class="text-center bg-success">
 								Actif
-							<?php else : ?>
-								Inactif
-							<?php endif; ?>
-						</td>
+							</td>
+						<?php else : ?>
+							<td class="text-center bg-danger">
+								Supprimé
+							</td>
+						<?php endif; ?>
+						
 						<td class="center">
 							<?php if(in_array('T', $droits)) : ?>
-								<a href="/ipssi/administration/gestion-utilisateurs/detail/<?php echo $u->id_utilisateur; ?>" title="Détail" class="btn btn-xs btn-default btn-detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
-								<a href="/ipssi/administration/gestion-utilisateurs/modifier/<?php echo $u->id_utilisateur; ?>" title="Modifier" class="btn btn-xs btn-default btn-modifier"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+								<a href="/ipssi/ressources-humaines/collaborateurs/detail/<?php echo $u->id_utilisateur; ?>" title="Détail" class="btn btn-xs btn-default btn-detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
+								<a href="/ipssi/ressources-humaines/collaborateurs/modifier/<?php echo $u->id_utilisateur; ?>" title="Modifier" class="btn btn-xs btn-default btn-modifier"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
-								<?php if($this->session->userdata('id') != $u->id_utilisateur) : ?>
-									<a href="/ipssi/administration/gestion-utilisateurs/supprimer/<?php echo $u->id_utilisateur; ?>" title="Supprimer" class="btn btn-xs btn-default btn-supprimer" <?php if($u->supprime == 1) echo "disabled='disabled'"; ?> onclick="return(confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?'));">
+								<?php if(($this->session->userdata('id') != $u->id_utilisateur) && ($u->supprime == 0)) : ?>
+									<a href="/ipssi/ressources-humaines/collaborateurs/supprimer/<?php echo $u->id_utilisateur; ?>" title="Supprimer" class="btn btn-xs btn-default btn-supprimer" onclick="return(confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?'));">
 										<i class="fa fa-trash" aria-hidden="true"></i>
 									</a>
 								<?php endif; ?>
 							<?php elseif(in_array('M', $droits) || in_array('P', $droits)) : ?>
-								<a href="/ipssi/administration/gestion-utilisateurs/detail/<?php echo $u->id_utilisateur; ?>" title="Détail" class="btn btn-xs btn-default btn-detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
-								<a href="/ipssi/administration/gestion-utilisateurs/modifier/<?php echo $u->id_utilisateur; ?>" title="Modifier" class="btn btn-xs btn-default btn-modifier"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+								<a href="/ipssi/ressources-humaines/collaborateurs/detail/<?php echo $u->id_utilisateur; ?>" title="Détail" class="btn btn-xs btn-default btn-detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
+								<a href="/ipssi/ressources-humaines/collaborateurs/modifier/<?php echo $u->id_utilisateur; ?>" title="Modifier" class="btn btn-xs btn-default btn-modifier"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 							<?php elseif(in_array('V', $droits)) : ?>
-								<a href="/ipssi/administration/gestion-utilisateurs/detail/<?php echo $u->id_utilisateur; ?>" title="Détail" class="btn btn-xs btn-default btn-detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
+								<a href="/ipssi/ressources-humaines/collaborateurs/detail/<?php echo $u->id_utilisateur; ?>" title="Détail" class="btn btn-xs btn-default btn-detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
 							<?php endif; ?>
 						</td>
 					</tr>

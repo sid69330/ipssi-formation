@@ -10,7 +10,7 @@
 
 	<div class="row">
 		<div class="col-xs-12">
-			<a href="/ipssi/administration/gestion-utilisateurs/" class="btn btn-primary"><i class="fa fa-chevron-left" aria-hidden="true"></i> Retour</a>
+			<a href="/ipssi/ressources-humaines/collaborateurs" class="btn btn-primary"><i class="fa fa-chevron-left" aria-hidden="true"></i> Retour</a>
 		</div>
 	</div><br/>
 
@@ -87,7 +87,7 @@
 	<?php if((in_array('T', $droits)) || (in_array('M', $droits)) || (in_array('P', $droits))) : ?>
 		<br/><div class="row">
 			<div class="col-xs-12">
-				<a href="/ipssi/administration/gestion-utilisateurs/modifier/<?php echo $infos->id_utilisateur; ?>" class="btn btn-block btn-primary btn-sm">Modifier</a>
+				<a href="/ipssi/ressources-humaines/collaborateurs/modifier/<?php echo $infos->id_utilisateur; ?>" class="btn btn-block btn-primary btn-sm">Modifier</a>
 			</div>
 		</div>
 	<?php endif; ?>

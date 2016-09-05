@@ -24,6 +24,171 @@ class Ressources_humaines_back extends MY_Controller
         $this->load->view('back/include/menu.php', $menu);
     }
 
+    /* ---------- Page Gestion des utilisateurs ---------- */
+
+    /* Liste des utilisateurs */
+    public function gestion_utilisateurs()
+    {
+        $menu['title'] = "IPSSI - Gestion des utilisateurs";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+
+        $data['utilisateurs'] = $this->ressources_humaines_back_model->liste_utilisateurs($this->droits, $this->session->userdata('id'));
+        $data['droits'] = $this->droits;
+        $data['success'] = $this->session->flashdata('success');
+       
+        $this->load->view('back/include/menu.php', $menu);
+        $this->load->view('back/ressources_humaines/gestion_utilisateur/liste-utilisateurs.php', $data);
+    }
+
+    /* Détail utilisateur */
+    public function detail_utilisateur($id_utilisateur = '')
+    {
+        if(($id_utilisateur == '') || (!$this->ressources_humaines_back_model->utilisateurExiste($id_utilisateur)) || (!$this->droit->droitSuffisantLecture($this->droits, $id_utilisateur, $this->session->userdata('id'))))
+            Redirect('/ipssi/ressources-humaines/collaborateurs');
+
+        $data['infos'] = $this->ressources_humaines_back_model->recup_infos_utilisateur($id_utilisateur);
+
+        $menu['title'] = "IPSSI - Détail de l'utilisateur ".$data['infos']->nom_utilisateur.' '.$data['infos']->prenom_utilisateur;
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+
+        $data['droits'] = $this->droits;
+       
+        $this->load->view('back/include/menu.php', $menu);
+        $this->load->view('back/ressources_humaines/gestion_utilisateur/detail-utilisateurs.php', $data);
+    }
+
+    public function modifier_utilisateur($id_utilisateur = '')
+    {
+        if(($id_utilisateur == '') || (!$this->ressources_humaines_back_model->utilisateurExiste($id_utilisateur)) || (!$this->droit->droitSuffisantModifier($this->droits, $id_utilisateur, $this->session->userdata('id'))))
+            Redirect('/ipssi/ressources-humaines/collaborateurs');
+
+        $this->load->library('methodes_globales');
+
+        $data['infos'] = $this->ressources_humaines_back_model->recup_infos_utilisateur($id_utilisateur);
+
+        $menu['title'] = "IPSSI - Modification de l'utilisateur ".$data['infos']->nom_utilisateur.' '.$data['infos']->prenom_utilisateur;
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+
+        $data['droits'] = $this->droits;
+        $data['sexes'] = $this->methodes_globales->recup_sexe();
+        $data['groupes'] = $this->methodes_globales->recup_groupe();
+        $data['groupes_utilisateur'] = $this->ressources_humaines_back_model->recup_groupe_utilisateur($id_utilisateur);
+
+        $this->form_validation->set_rules('sexe', '"Sexe"', 'trim|required|is_exist[sexe.id_sexe]|encode_php_tags');
+        $this->form_validation->set_rules('nom', '"Nom"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('prenom', '"Prénom"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('email', '"Email"', 'trim|required|valid_email|encode_php_tags');
+        $this->form_validation->set_rules('tel', '"Téléphone"', 'trim|encode_php_tags|regex_match[/^0[0-9]{9}$/]');
+        $this->form_validation->set_rules('entreprise', '"Entreprise"', 'trim|required');
+        $this->form_validation->set_rules('actif', '"Actif"', 'trim|encode_php_tags|regex_match[/^[0-1]$/]');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['success'] = $this->session->flashdata('success');
+            $this->load->view('back/include/menu.php', $menu);
+            $this->load->view('back/ressources_humaines/gestion_utilisateur/modifier-utilisateurs.php', $data);
+        }
+        else
+        {
+            $email = mb_strtolower($this->input->post('email'));
+
+            if($this->ressources_humaines_back_model->email_unique_utilisateur($id_utilisateur, $email))
+            {
+                $groupes = array();
+                $sexe = $this->input->post('sexe');
+                $nom = mb_strtoupper($this->input->post('nom'));
+                $prenom = ucfirst(mb_strtolower($this->input->post('prenom')));
+                $tel = $this->input->post('tel');
+                $entreprise = $this->input->post('entreprise');
+                $groupes = $this->input->post('groupes');
+                $actif = $this->input->post('actif');
+
+                $this->ressources_humaines_back_model->modifier_utilisateur($sexe, $nom, $prenom, $email, $tel, $entreprise, $groupes, $actif, $id_utilisateur);
+
+                $this->session->set_flashdata('success', 'L\'utilisateur a été modifié avec succès.');
+                Redirect('/ipssi/ressources-humaines/collaborateurs/modifier/'.$id_utilisateur);
+            }
+            else
+            {
+                $data['erreurMail'] = 'Le champ "Email" doit contenir une valeur unique.';
+                $this->load->view('back/include/menu.php', $menu);
+                $this->load->view('back/ressources_humaines/gestion_utilisateur/modifier-utilisateurs.php', $data);
+            }
+        }
+    }
+
+    public function ajouter()
+    {
+        if(!$this->droit->droitSuffisantAjouter($this->droits))
+            Redirect('/ipssi/ressources-humaines/collaborateurs');
+
+        $this->load->library('methodes_globales');
+
+        $menu['title'] = "IPSSI - Ajouter un utilisateur";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+
+        $data['droits'] = $this->droits;
+        $data['sexes'] = $this->methodes_globales->recup_sexe();
+        $data['groupes'] = $this->methodes_globales->recup_groupe();
+
+        $this->form_validation->set_rules('sexe', '"Sexe"', 'trim|required|is_exist[sexe.id_sexe]|encode_php_tags');
+        $this->form_validation->set_rules('nom', '"Nom"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('prenom', '"Prénom"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('email', '"Email"', 'trim|required|valid_email|is_unique[utilisateur.mail_utilisateur]|encode_php_tags');
+        $this->form_validation->set_rules('tel', '"Téléphone"', 'trim|encode_php_tags|regex_match[/^0[0-9]{9}$/]');
+        $this->form_validation->set_rules('entreprise', '"Entreprise"', 'trim|required');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['success'] = $this->session->flashdata('success');
+            $this->load->view('back/include/menu.php', $menu);
+            $this->load->view('back/ressources_humaines/gestion_utilisateur/ajouter-utilisateur.php', $data);
+        }
+        else
+        {
+            $sexe = $this->input->post('sexe');
+            $nom = mb_strtoupper($this->input->post('nom'));
+            $prenom = ucfirst(mb_strtolower($this->input->post('prenom')));
+            $email = $this->input->post('email');
+            $tel = $this->input->post('tel');
+            $mdp = hash('sha256', ucfirst(strtolower(substr($prenom, 0, 1))).strtolower(str_replace(' ', '', $nom)));
+            $entreprise = $this->input->post('entreprise');
+            $groupes = $this->input->post('groupes');
+
+            $ok = $this->ressources_humaines_back_model->ajouter_utilisateur($sexe, $nom, $prenom, $email, $tel, $mdp, $entreprise, $groupes);
+
+            if($ok)
+            {
+                $this->session->set_flashdata('success', 'Le nouvel utilisateur a été ajouté avec succès.');
+                Redirect('/ipssi/ressources-humaines/collaborateurs/ajouter');
+            }
+            else
+            {
+                $data['erreur'] = 'Une erreur est survenue pendant l\'ajout du nouvel utilisateur';
+                $this->load->view('back/include/menu.php', $menu);
+                $this->load->view('back/ressources_humaines/gestion_utilisateur/ajouter-utilisateur.php', $data);
+            }
+        }
+    }
+
+    public function supprimer_utilisateur($id_utilisateur)
+    {
+        if(($id_utilisateur == '') || (!$this->ressources_humaines_back_model->utilisateurExiste($id_utilisateur)) || (!$this->droit->droitSuffisantSupprimer($this->droits)))
+            Redirect('/ipssi/ressources-humaines/collaborateurs');
+
+        if($this->session->userdata('id') != $id_utilisateur)
+        {
+            $this->ressources_humaines_back_model->supprimer_utilisateur($id_utilisateur);
+            $this->session->set_flashdata('success', 'Utilisateur supprimé avec succès.');
+        }
+
+        Redirect('/ipssi/ressources-humaines/collaborateurs');
+    }
+
     /* ----------- Notes de frais ----------- */
 
     public function note_frais()

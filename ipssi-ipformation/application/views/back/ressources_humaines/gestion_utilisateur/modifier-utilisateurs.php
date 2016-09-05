@@ -9,7 +9,7 @@
 
 	<div class="row">
 		<div class="col-xs-12">
-			<a href="/ipssi/administration/gestion-utilisateurs/" class="btn btn-primary"><i class="fa fa-chevron-left" aria-hidden="true"></i> Retour</a>
+			<a href="/ipssi/ressources-humaines/collaborateurs" class="btn btn-primary"><i class="fa fa-chevron-left" aria-hidden="true"></i> Retour</a>
 		</div>
 	</div><br/>
 
@@ -21,7 +21,7 @@
 		</div>
 	<?php endif; ?>
 
-	<?php echo form_open('/ipssi/administration/gestion-utilisateurs/modifier/'.$infos->id_utilisateur); ?>
+	<?php echo form_open('/ipssi/ressources-humaines/collaborateurs/modifier/'.$infos->id_utilisateur); ?>
 
 		<?php echo form_error('sexe', '<div class="alert alert-danger">', '</div>'); ?>
 		<div class="form-group">
@@ -64,6 +64,20 @@
 			<label for="entreprise">Entreprise</label>
 			<input type="text" class="form-control" id="entreprise" placeholder="Entreprise" name="entreprise" value="<?php echo set_value('entreprise', $infos->entreprise_utilisateur); ?>">
 		</div>
+		<div class="form-group">
+			<label for="actif">Actif *</label>
+			<select class="form-control" name="actif" id="actif">
+				<?php if(isset($_POST['actif'])) : ?>
+					<option value="1" <?php if($_POST['actif'] == 1) echo "selected='selected'"; ?>>Supprimé</option>
+					<option value="0" <?php if($_POST['actif'] == 0) echo "selected='selected'"; ?>>Actif</option>
+				<?php else : ?>
+					<option value="1" <?php if($infos->supprime == 1) echo "selected='selected'"; ?>>Supprimé</option>
+					<option value="0" <?php if($infos->supprime == 0) echo "selected='selected'"; ?>>Actif</option>
+				<?php endif; ?>
+			</select>
+		</div>
+
+
 
 		<div class="row">
 			<div class="col-xs-12">

@@ -109,7 +109,6 @@
 									<li><a href="/ressources_humaines/poste">Postes à pourvoir</a></li>
 								</ul>
 							</li>
-							<li><a href="/espace_collaborateur">L'espace collaborateur</a></li>
 							<li><a href="/contact">Contact</a></li>
 						</ul>
 					</div>
