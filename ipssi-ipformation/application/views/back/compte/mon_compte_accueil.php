@@ -55,7 +55,11 @@
 								<li class="list-group-item center"><?php echo $google[1]['email']; ?></li>
 								<li class="list-group-item center"><?php echo strtoupper($google[1]['family_name']).' '.ucfirst(strtolower($google[1]['given_name'])); ?></li>
 							</ul>
-							<p></p><a href="/ipssi/compte/logout" class="btn btn-danger btn-sm btn-block"><i class="fa fa-google" aria-hidden="true"></i> Me déconnecter</a></p>
+							<p>
+								<a href="/ipssi/compte?logout=true" class="btn btn-danger btn-sm btn-block" onclick="return(confirm('Etes-vous sûr vouloir dissocier votre compte Google avec IPSSI ?'));">
+									<i class="fa fa-google" aria-hidden="true"></i> Me déconnecter
+								</a>
+							</p>
 						</div>
 					</div>
 				</div>

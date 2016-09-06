@@ -83,14 +83,11 @@ $route['ipssi/ressources-humaines/cvtheque'] = 'back/ressources_humaines_back/cv
 $route['ipssi/ressources-humaines/offre-poste'] = 'back/ressources_humaines_back/offre_poste';
 $route['ipssi/ressources-humaines/candidatures'] = 'back/ressources_humaines_back/candidatures';
 
-
 $route['ipssi/ressources-humaines/collaborateurs'] = 'back/ressources_humaines_back/gestion_utilisateurs';
-//$route['ipssi/ressources-humaines/gestion-utilisateurs'] = 'back/ressources_humaines_back/gestion_utilisateurs';
 $route['ipssi/ressources-humaines/collaborateurs/detail/(:num)'] = 'back/ressources_humaines_back/detail_utilisateur/$1';
 $route['ipssi/ressources-humaines/collaborateurs/ajouter'] = 'back/ressources_humaines_back/ajouter';
 $route['ipssi/ressources-humaines/collaborateurs/modifier/(:num)'] = 'back/ressources_humaines_back/modifier_utilisateur/$1';
 $route['ipssi/ressources-humaines/collaborateurs/supprimer/(:num)'] = 'back/ressources_humaines_back/supprimer_utilisateur/$1';
-
 
 /* ----------- BAO_back ----------- */
 $route['ipssi/boite-a-outils/certifications'] = 'back/boite_a_outils_back/certifications';
@@ -99,6 +96,9 @@ $route['ipssi/boite-a-outils/documents-travail'] = 'back/boite_a_outils_back/doc
 $route['ipssi/parametrage/rh'] = 'back/parametrage_back/rh';
 $route['ipssi/parametrage/crm'] = 'back/parametrage_back/crm';
 /* ----------- Administration_back ----------- */
+
+$route['ipssi/administration/gestion-des-droits'] = 'back/administration_back/gestion_droits';
+
 $route['ipssi/administration/application'] = 'back/administration_back/application';
 
 $route['ipssi/administration/redaction-pages'] = 'back/administration_back/redaction_pages';

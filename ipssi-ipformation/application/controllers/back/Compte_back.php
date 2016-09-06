@@ -264,7 +264,7 @@ class Compte_back extends CI_Controller
 		//$token = $this->compte_back_model->recupTokenGoogle($this->session->userdata('id'));
 		$objOAuthService = new Google_Service_Oauth2($client);
 
-		if(isset($_REQUEST['logout']))
+		if(isset($_GET['logout']))
 		{
 			unset($_SESSION['access_token']);
 			//$client->revokeToken();

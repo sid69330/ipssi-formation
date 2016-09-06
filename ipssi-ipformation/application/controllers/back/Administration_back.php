@@ -18,6 +18,20 @@ class Administration_back extends MY_Controller
         //print_r($this->droits);
     }
 
+    /* ---------- Gestion des droits ---------- */
+
+    public function gestion_droits()
+    {
+        $menu['title'] = "IPSSI - Gestion de l'application";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+
+        $data['droits'] = $this->droits;
+
+        $this->load->view('back/include/menu.php', $menu);
+        $this->load->view('back/administration/gestion_droits/liste-des-droits.php', $data);
+    }
+
     /* ---------- Page Application ---------- */
 
     public function application()
