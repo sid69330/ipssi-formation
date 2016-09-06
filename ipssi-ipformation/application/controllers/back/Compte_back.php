@@ -23,8 +23,9 @@ class Compte_back extends CI_Controller
         $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
 
         $data['infos'] = $this->compte_back_model->recupInfosUtilisateur($this->session->userdata('id'));
+		$data['error'] = $this->session->flashdata('error');
        
-        $data['login_google'] = $this->associer_google();
+        $data['google'] = $this->associer_google();
 
         $this->load->view('back/include/menu.php', $menu);
         $this->load->view('back/compte/mon_compte_accueil.php', $data);
@@ -249,54 +250,68 @@ class Compte_back extends CI_Controller
 
 	private function associer_google()
 	{
+		$return = array();
+
 		require_once $_SERVER['DOCUMENT_ROOT'].'/assets/google-api-php-client-2.0.2/vendor/autoload.php';
 
 		$client = new Google_Client();
 		$client->setClientId('682182360339-8gffe5ukmk4edop89c9te6a55aode029.apps.googleusercontent.com');
 		$client->setClientSecret('iwWRS_UHoSd2u8vmxMCkMwne');
-
-		$client->addScope('email');
-		$client->addScope(Google_Service_Calendar::CALENDAR);
-
+		$client->addScope("https://www.googleapis.com/auth/userinfo.email");
 		$redirect_uri = 'http://erp.dev.com/ipssi/compte';
 		$client->setRedirectUri($redirect_uri);
 
-		$service = new Google_Service_Oauth2($client);
+		//$token = $this->compte_back_model->recupTokenGoogle($this->session->userdata('id'));
+		$objOAuthService = new Google_Service_Oauth2($client);
 
-		$token = $this->compte_back_model->recupTokenGoogle($this->session->userdata('id'));
-
-		if($token != '')
+		if(isset($_REQUEST['logout']))
 		{
-			$client->setAccessToken($token);
-			$token = $client->getAccessToken();
-
-			var_dump($client);
-			
-			
-			
-			/*if($client->isAccessTokenExpired())
-			{
-				$this->compte_back_model->majTokenGoogle($this->session->userdata('id'), null);
-				$this->associer_google();
-			}*/
+			unset($_SESSION['access_token']);
+			//$client->revokeToken();
+			header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL)); //redirect user back to page
 		}
-		else
-		{
-			if(isset($_GET['code']))
-			{
-	    		$token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-	    		$client->setAccessToken($token);
-	    		
-	    		//var_dump($token['access_token']);
-	    		$this->compte_back_model->majTokenGoogle($this->session->userdata('id'), "ya29.Ci9VA56Y92EaH6BdGHU5aRybRu8GrdYBQeIL-OwIZsL80jdJcaHJtuzY-HMRPh0OAQ");
 
-	    		Redirect('/ipssi/compte');
+		if(isset($_GET['code']))
+		{
+			$client->authenticate($_GET['code']);
+			$_SESSION['access_token'] = $client->getAccessToken();
+
+			header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+		}
+
+		if(isset($_SESSION['access_token']) && $_SESSION['access_token'])
+		{
+			$client->setAccessToken($_SESSION['access_token']);
+		}
+
+		if($client->getAccessToken())
+		{
+			$client->setAccessToken($_SESSION['access_token']);//ajouté sans savoir si c'est utile. Si toujours une erreur -> retirer cette ligne
+			$userData = $objOAuthService->userinfo->get();
+			$return[1] = $userData;
+			$_SESSION['access_token'] = $client->getAccessToken();
+
+			$token = $client->getAccessToken()['access_token'];
+
+			if($this->session->userdata('mail') != $userData['email'])
+			{
+				unset($_SESSION['access_token']);
+
+				$this->session->set_flashdata('error', 'Veuillez vous connecter avec la même adresse email que celle de votre compte IPSSI.');
+				Redirect('/ipssi/compte');
 			}
 			else
 			{
-				return $client->createAuthUrl();
+				$this->compte_back_model->majTokenGoogle($this->session->userdata('id'), $token);
 			}
-		}		
+
+			return $return;
+		}
+		else
+		{
+			$return[0] = $client->createAuthUrl();
+			return $return;
+		}
 	}
 }
 
