@@ -117,6 +117,7 @@ class Menu
 			$CI->db->join('droit_sous_menu_groupe D', 'D.id_sous_menu = SM.id_sous_menu');
 			$CI->db->where('front', 0);
 			$CI->db->where_in('D.id_groupe', $groupes);
+			$CI->db->where('D.id_droit <>', null);
 			$CI->db->group_by('libelle_menu');
 			$CI->db->order_by('tri_menu');
 			$result = $CI->db->get()->result();

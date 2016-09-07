@@ -23,8 +23,7 @@ class Droit
 		$this->ci->db->join('droit_sous_menu_groupe DSMG', 'DSMG.id_groupe = G.id_groupe');
 		$this->ci->db->join('sous_menu SM', 'SM.id_sous_menu = DSMG.id_sous_menu');
 		$this->ci->db->join('droit D', 'D.id_droit = DSMG.id_droit');
-
-		$this->ci->db->where('U.id_utilisateur', $id_utilisateur);
+        $this->ci->db->where('U.id_utilisateur', $id_utilisateur);
 		$this->ci->db->where('url_sous_menu', $url_page);
 
 		$result = $this->ci->db->get()->result_array();
@@ -32,7 +31,7 @@ class Droit
 		$droits = array();
 		foreach($result as $r)
 		{
-			array_push($droits, $r['code_droit']);
+		    array_push($droits, $r['code_droit']);
 		}
 
 		return $droits;

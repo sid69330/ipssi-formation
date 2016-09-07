@@ -2,6 +2,80 @@
 
 class Administration_back_model extends CI_Model
 {
+    /* -------------------- Gestion des droits -------------------- */
+
+    public function majDroits(array $droits)
+    {
+        foreach($droits as $d)
+        {
+            $tab = explode('_', $d);
+
+            if(count($tab) == 3)
+            {
+                $groupe = $tab[0];
+                $sous_menu = $tab[1];
+                $droit = $tab[2];
+
+                if($droit == 'null')
+                    $droit = null;
+
+                $data = array(
+                    'id_droit' => $droit
+                );
+                $this->db->where('id_sous_menu', $sous_menu);
+                $this->db->where('id_groupe', $groupe);
+                $this->db->update('droit_sous_menu_groupe', $data);
+            }
+        }
+    }
+
+    public function recupDroits($droits, $id_utilisateur)
+    {
+        $return = array();
+
+        if(in_array('T', $droits))
+        {
+            $this->db->select('G.id_groupe,  G.libelle_groupe, SM.id_sous_menu, SM.libelle_sous_menu, D.id_droit, D.code_droit');
+            $this->db->from('droit_sous_menu_groupe DSMG');
+            $this->db->join('droit D', 'D.id_droit = DSMG.id_droit', 'left');
+            $this->db->join('groupe G', 'G.id_groupe = DSMG.id_groupe', 'left');
+            $this->db->join('sous_menu SM', 'SM.id_sous_menu = DSMG.id_sous_menu', 'left');
+            $this->db->order_by('G.id_groupe, SM.id_sous_menu');
+
+            $return = $this->db->get()->result();
+        }
+        elseif(in_array('M', $droits) || in_array('V', $droits))
+        {
+            $this->db->select('MAX(G2.ordre) as maxi');
+            $this->db->from('groupe G2');
+            $this->db->join('groupe_utilisateur GU2', 'G2.id_groupe = GU2.id_groupe');
+            $this->db->where('GU2.id_utilisateur', $id_utilisateur);
+
+            $ordre = $this->db->get()->result();
+
+            if(isset($ordre[0]->maxi))
+            {
+                $this->db->select('G.id_groupe,  G.libelle_groupe, SM.id_sous_menu, SM.libelle_sous_menu, D.id_droit, D.code_droit');
+                $this->db->from('droit_sous_menu_groupe DSMG');
+                $this->db->join('droit D', 'D.id_droit = DSMG.id_droit', 'left');
+                $this->db->join('groupe G', 'G.id_groupe = DSMG.id_groupe', 'left');
+                $this->db->join('sous_menu SM', 'SM.id_sous_menu = DSMG.id_sous_menu', 'left');
+                $this->db->where('G.ordre <= ', $ordre[0]->maxi);
+                $this->db->order_by('G.id_groupe, SM.id_sous_menu');
+
+                $return = $this->db->get()->result();
+            }
+            
+            
+        }
+        elseif(in_array('P', $droits))
+        {
+
+        }
+
+        return $return;
+    }
+    
     /* -------------------- Rédaction des pages -------------------- */
 
     /* Permet de récupérer la liste des pages pouvant être rédigée */
