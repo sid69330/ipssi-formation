@@ -14,6 +14,8 @@ class Administration_back extends MY_Controller
         $this->load->model('back/administration_back_model');
 
         $this->droits = parent::getDroits();
+
+        print_r($this->droits);
     }
 
     /* ---------- Gestion des droits ---------- */
