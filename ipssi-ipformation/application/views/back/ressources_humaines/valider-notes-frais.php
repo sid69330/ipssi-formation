@@ -27,7 +27,7 @@
 		</div>
 	<?php endif; ?>
 
-	<?php echo form_open('/ipssi/ressources-humaines/note-frais/modifier/'.$note_frais->id_note_frais); ?>
+	<?php echo form_open('/ipssi/ressources-humaines/note-frais/valider/'.$note_frais->id_note_frais); ?>
 
 		<div class="form-group">
 			<label >Utilisateur</label>
@@ -81,6 +81,19 @@
 						<option value="<?php echo $t->id_etat; ?>" selected><?php echo $t->libelle_etat; ?></option>
 					<?php else :?>
 						<option value="<?php echo $t->id_etat; ?>"><?php echo $t->libelle_etat; ?></option>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="type_paiement">Type de paiement</label>
+			<select id="type_paiement" name="type_paiement" class="form-control">
+				<option value="0">-- Veuillez sélecionner un mode de paiement --</option>
+				<?php foreach($paiement_note_frais as $t) : ?>
+					<?php if(set_value('type_paiement', $note_frais->id_type_paiement_note_frais) == $t->id_type_paiement_note_frais) : ?>
+						<option value="<?php echo $t->id_type_paiement_note_frais; ?>" selected><?php echo $t->paiement; ?></option>
+					<?php else :?>
+						<option value="<?php echo $t->id_type_paiement_note_frais; ?>"><?php echo $t->paiement; ?></option>
 					<?php endif; ?>
 				<?php endforeach; ?>
 			</select>
