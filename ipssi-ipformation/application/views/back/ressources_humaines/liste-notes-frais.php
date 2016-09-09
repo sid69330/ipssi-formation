@@ -105,6 +105,7 @@
 						</td>
 						<td><?php echo $nf->montant_note_frais . ' €'; ?></td>
 
+
 						<td class="center">
 							<?php if(in_array('T', $droits)) : ?>
 								<a href="/ipssi/ressources-humaines/note-frais/detail/<?php echo $nf->id_note_frais; ?>" title="Détail" class="btn btn-xs btn-default btn-detail">
@@ -116,9 +117,11 @@
 								<a href="/ipssi/ressources-humaines/note-frais/supprimer/<?php echo $nf->id_note_frais; ?>" title="Supprimer" class="btn btn-xs btn-default btn-supprimer" onclick="return(confirm('Etes-vous sûre de vouloir supprimer cette note de frais ? Toute suppression est non reversible.'));">
 									<i class="fa fa-trash" aria-hidden="true"></i>
 								</a>
-								<a href="/ipssi/ressources-humaines/note-frais/valider/<?php echo $nf->id_note_frais; ?>" title="Valider" class="btn btn-xs btn-default btn-valider">
-									<i class="fa fa-check" aria-hidden="true"></i>
-								</a>
+								<?php if($nf->id_etat == 1): ?>
+									<a href="/ipssi/ressources-humaines/note-frais/valider/<?php echo $nf->id_note_frais; ?>" title="Valider" class="btn btn-xs btn-default btn-valider">
+										<i class="fa fa-check" aria-hidden="true"></i>
+									</a>
+								<?php endif; ?>	
 							<?php elseif(in_array('M', $droits) || in_array('P', $droits)) : ?>
 								<a href="/ipssi/ressources-humaines/note-frais/detail/<?php echo $nf->id_note_frais; ?>" title="Détail" class="btn btn-xs btn-default btn-detail">
 									<i class="fa fa-eye" aria-hidden="true"></i>
@@ -126,10 +129,12 @@
 								<a href="/ipssi/ressources-humaines/note-frais/modifier/<?php echo $nf->id_note_frais; ?>" title="Modifier" class="btn btn-xs btn-default btn-modifier">
 									<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 								</a>
-								<a href="/ipssi/ressources-humaines/note-frais/valider/<?php echo $nf->id_note_frais; ?>" title="Valider" class="btn btn-xs btn-default btn-valider">
-									<i class="fa fa-check" aria-hidden="true"></i>
-								</a>
-							<?php elseif(in_array('V', $droits)) : ?>
+								<?php if($nf->id_etat == 1): ?>
+									<a href="/ipssi/ressources-humaines/note-frais/valider/<?php echo $nf->id_note_frais; ?>" title="Valider" class="btn btn-xs btn-default btn-valider">
+										<i class="fa fa-check" aria-hidden="true"></i>
+									</a>
+								<?php endif; ?>	
+							<?php elseif(in_array('V', $droits) && ($nf->id_etat == 1)) : ?>
 								<a href="/ipssi/ressources-humaines/note-frais/detail/<?php echo $nf->id_note_frais; ?>" title="Détail" class="btn btn-xs btn-default btn-detail">
 									<i class="fa fa-eye" aria-hidden="true"></i>
 								</a>

@@ -201,7 +201,7 @@ class Ressources_humaines_back_model extends CI_Model
     //Récupère mes notes de frais personnelles
     public function recupNotesFraisPersonnelles($idUtilisateur)
     {
-        $this->db->select('id_note_frais, id_utilisateur,NF.motif_refus, E.libelle_etat as etat,TNF.libelle_type_note_frais as type, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
+        $this->db->select('id_note_frais, id_utilisateur,NF.motif_refus, E.libelle_etat as etat,TNF.libelle_type_note_frais as type, PNF.id_type_paiement_note_frais, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
         $this->db->from('notes_frais NF');
         $this->db->join('etat E', 'E.id_etat = NF.id_etat');
         $this->db->join('type_notes_frais TNF', 'TNF.id_type_note_frais = NF.id_type_note_frais');
@@ -211,12 +211,20 @@ class Ressources_humaines_back_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    Public function recupPaiementNoteFrais()
+    {
+        $this->db->select('id_type_paiement_note_frais, libelle_paiement_note_frais as paiement');
+        $this->db->from('type_paiement_notes_frais');
+
+        return $this->db->get()->result();
+    }
+
     //Récupère les notes de frais des autres utilisateurs 
     public function recupNotesFraisAutres($idUtilisateur, $droits)
     {
         if(in_array('T', $droits)) 
         {
-            $this->db->select('id_note_frais, U.id_utilisateur, NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur,E.id_etat,E.libelle_etat as etat,TNF.libelle_type_note_frais as type, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
+            $this->db->select('id_note_frais, U.id_utilisateur, NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur,E.id_etat,E.libelle_etat as etat,TNF.libelle_type_note_frais as type, PNF.id_type_paiement_note_frais, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
             $this->db->from('notes_frais NF');
             $this->db->join('etat E', 'E.id_etat = NF.id_etat');
             $this->db->join('type_notes_frais TNF', 'TNF.id_type_note_frais = NF.id_type_note_frais');
@@ -236,7 +244,7 @@ class Ressources_humaines_back_model extends CI_Model
 
             $ordre = $this->db->get()->result();
 
-            $this->db->select('id_note_frais, U.id_utilisateur, NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur, E.id_etat,E.libelle_etat as etat,TNF.libelle_type_note_frais as type, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
+            $this->db->select('id_note_frais, U.id_utilisateur, NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur, E.id_etat,E.libelle_etat as etat,TNF.libelle_type_note_frais as type, PNF.id_type_paiement_note_frais,PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
             $this->db->from('notes_frais NF');
             $this->db->join('etat E', 'E.id_etat = NF.id_etat');
             $this->db->join('type_notes_frais TNF', 'TNF.id_type_note_frais = NF.id_type_note_frais');
@@ -268,7 +276,7 @@ class Ressources_humaines_back_model extends CI_Model
     {
         if(in_array('T', $droits)) 
         {
-            $this->db->select('id_note_frais, U.id_utilisateur, NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur,E.id_etat,E.libelle_etat as etat,TNF.libelle_type_note_frais as type, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
+            $this->db->select('id_note_frais, U.id_utilisateur, NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur,E.id_etat,E.libelle_etat as etat,TNF.libelle_type_note_frais as type, PNF.id_type_paiement_note_frais,PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
             $this->db->from('notes_frais NF');
             $this->db->join('etat E', 'E.id_etat = NF.id_etat');
             $this->db->join('type_notes_frais TNF', 'TNF.id_type_note_frais = NF.id_type_note_frais');
@@ -288,7 +296,7 @@ class Ressources_humaines_back_model extends CI_Model
 
             $ordre = $this->db->get()->result();
 
-            $this->db->select('id_note_frais, U.id_utilisateur, NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur, E.id_etat,E.libelle_etat as etat,TNF.libelle_type_note_frais as type, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
+            $this->db->select('id_note_frais, U.id_utilisateur, NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur, E.id_etat,E.libelle_etat as etat,TNF.libelle_type_note_frais as type, PNF.id_type_paiement_note_frais, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
             $this->db->from('notes_frais NF');
             $this->db->join('etat E', 'E.id_etat = NF.id_etat');
             $this->db->join('type_notes_frais TNF', 'TNF.id_type_note_frais = NF.id_type_note_frais');
@@ -346,7 +354,7 @@ class Ressources_humaines_back_model extends CI_Model
     {
         if(in_array('T', $droits)) 
         {
-            $this->db->select('id_note_frais, NF.id_utilisateur,NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur,E.id_etat,E.id_etat, E.libelle_etat as etat,NF.id_type_note_frais, TNF.libelle_type_note_frais as type, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
+            $this->db->select('id_note_frais, NF.id_utilisateur,NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur,E.id_etat,E.id_etat, E.libelle_etat as etat,NF.id_type_note_frais, TNF.libelle_type_note_frais as type, PNF.id_type_paiement_note_frais, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
             $this->db->from('notes_frais NF');
             $this->db->join('etat E', 'E.id_etat = NF.id_etat');
             $this->db->join('utilisateur U', 'U.id_utilisateur = NF.id_utilisateur');
@@ -366,7 +374,7 @@ class Ressources_humaines_back_model extends CI_Model
 
             $ordre = $this->db->get()->result()[0];
 
-            $this->db->select('id_note_frais, U.id_utilisateur, NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur, E.id_etat,E.libelle_etat as etat,NF.id_type_note_frais, TNF.libelle_type_note_frais as type, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
+            $this->db->select('id_note_frais, U.id_utilisateur, NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur, E.id_etat,E.libelle_etat as etat,NF.id_type_note_frais, TNF.libelle_type_note_frais as type, PNF.id_type_paiement_note_frais, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
             $this->db->from('notes_frais NF');
             $this->db->join('etat E', 'E.id_etat = NF.id_etat');
             $this->db->join('type_notes_frais TNF', 'TNF.id_type_note_frais = NF.id_type_note_frais');
@@ -382,7 +390,7 @@ class Ressources_humaines_back_model extends CI_Model
         }
         elseif(in_array('P', $droits)) 
         {
-            $this->db->select('id_note_frais, NF.id_utilisateur,NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur, E.id_etat,E.libelle_etat as etat,NF.id_type_note_frais TNF.libelle_type_note_frais as type, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
+            $this->db->select('id_note_frais, NF.id_utilisateur,NF.motif_refus,U.nom_utilisateur, U.prenom_utilisateur, E.id_etat,E.libelle_etat as etat,NF.id_type_note_frais TNF.libelle_type_note_frais as type, PNF.id_type_paiement_note_frais, PNF.libelle_paiement_note_frais as paiement, CAST(date_note_frais AS DATE) as date_note_frais, description_note_frais, montant_note_frais, trajet_note_frais, km_parcouru_note_frais, montant_km_note_frais, date_creation_note_frais, date_paiement_note_frais ');
             $this->db->from('notes_frais NF');
             $this->db->join('etat E', 'E.id_etat = NF.id_etat');
             $this->db->join('utilisateur U', 'U.id_utilisateur = NF.id_utilisateur');
@@ -492,8 +500,16 @@ class Ressources_humaines_back_model extends CI_Model
         return $this->db->insert_id();
     }
 
-    public function valider_note_frais($id_note_frais,$etat_note_frais, $motif_refus)
+    public function valider_note_frais($id_note_frais,$etat_note_frais, $motif_refus, $type_paiement)
     {
+        $data = array
+        (
+            'id_etat' => $etat_note_frais,
+            'motif_refus' => $motif_refus,
+            'id_type_paiement_note_frais' => $type_paiement
+        );
+        $this->db->where('id_note_frais', $id_note_frais);
+        $this->db->update('notes_frais', $data);
 
     }
 

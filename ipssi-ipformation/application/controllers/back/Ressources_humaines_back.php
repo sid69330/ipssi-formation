@@ -370,7 +370,6 @@ class Ressources_humaines_back extends MY_Controller
     {
 
         //Validation N+1 et/ou RH
-        //Ajouter les champs Type de paiement + date de paiement 
         // Si etat <> 3 => motif_refus = null
 
 
@@ -379,12 +378,14 @@ class Ressources_humaines_back extends MY_Controller
 
         $data['note_frais'] = $this->ressources_humaines_back_model->recupNoteFraisAModifier($idNoteFrais, $this->session->userdata('id'), $this->droits);
         $data['etat_note_frais'] = $this->ressources_humaines_back_model->recupEtatNoteFrais();
+        $data['paiement_note_frais'] = $this->ressources_humaines_back_model->recupPaiementNoteFrais();
 
         if($this->droit->droitSuffisantModifier($this->droits, $data['note_frais']->id_utilisateur, $this->session->userdata('id')))
         {
             $this->form_validation->set_rules('etat_note_frais', '"Etat de la note"', 'required');
             if($this->input->post('etat_note_frais') == 3)
                 $this->form_validation->set_rules('motif_refus', '"Motif du refus"', 'required');
+            $this->form_validation->set_rules('type_paiement', '"Type de Paiement"', 'required');
             
 
             if($this->form_validation->run() == FALSE)
@@ -406,6 +407,7 @@ class Ressources_humaines_back extends MY_Controller
 
                 $etat_note_frais = $this->input->post('etat_note_frais');
                 $motif_refus = $this->input->post('motif_refus');
+                $type_paiement = $this->input->post('type_paiement');
 
                 if($erreur != '')
                 {
@@ -419,8 +421,8 @@ class Ressources_humaines_back extends MY_Controller
                 }
                 else
                 {                  
-                    $this->ressources_humaines_back_model->valider_note_frais($data['note_frais']->id_note_frais,$etat_note_frais, $smotif_refus);
-                    $this->session->set_flashdata('success', 'Note de Frais modifiée avec succès.');
+                    $this->ressources_humaines_back_model->valider_note_frais($data['note_frais']->id_note_frais,$etat_note_frais, $smotif_refus, $type_paiement);
+                    $this->session->set_flashdata('success', 'Note de Frais validée avec succès.');
                         Redirect('/ipssi/ressources-humaines/note-frais/valider/'.$data['note_frais']->id_note_frais);
                 }
 
