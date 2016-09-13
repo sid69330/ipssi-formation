@@ -15,14 +15,6 @@ class Ressources_humaines_back extends MY_Controller
         $this->droits = parent::getDroits();
     }
 
-    public function cra()
-    {
-        $menu['title'] = "IPSSI - Comptes rendus d'activités";
-        $menu['back'] = $this->back;
-        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
-       
-        $this->load->view('back/include/menu.php', $menu);
-    }
 
     /* ---------- Page Gestion des utilisateurs ---------- */
 
@@ -201,7 +193,7 @@ class Ressources_humaines_back extends MY_Controller
         $data['notes_frais_autres'] = $this->ressources_humaines_back_model->recupNotesFraisAutres($this->session->userdata('id'), $this->droits);
        
         $this->load->view('back/include/menu.php', $menu);
-        $this->load->view('back/ressources_humaines/liste-notes-frais.php', $data);
+        $this->load->view('back/ressources_humaines/gestion_notes_frais/liste-notes-frais.php', $data);
     }
 
     public function detail_note_frais($idNoteFrais = '')
@@ -220,7 +212,7 @@ class Ressources_humaines_back extends MY_Controller
         $data['id_utilisateur_connecte'] = $this->session->userdata('id');
 
         $this->load->view('back/include/menu.php', $menu);
-        $this->load->view('back/ressources_humaines/detail-notes-frais.php', $data);
+        $this->load->view('back/ressources_humaines/gestion_notes_frais/detail-notes-frais.php', $data);
     }
 
     public function supprimer_note_frais($idNoteFrais = '')
@@ -272,7 +264,7 @@ class Ressources_humaines_back extends MY_Controller
                 $data['droits'] = $this->droits;
 
                 $this->load->view('back/include/menu.php', $menu);
-                $this->load->view('back/ressources_humaines/modifier-notes-frais.php', $data);
+                $this->load->view('back/ressources_humaines/gestion_notes_frais/modifier-notes-frais.php', $data);
             }
             else
             {
@@ -294,7 +286,7 @@ class Ressources_humaines_back extends MY_Controller
                     $data['erreur'] = $erreur;
 
                     $this->load->view('back/include/menu.php', $menu);
-                    $this->load->view('back/ressources_humaines/modifier-notes-frais.php', $data);
+                    $this->load->view('back/ressources_humaines/gestion_notes_frais/modifier-notes-frais.php', $data);
                 }
                 else
                 {                  
@@ -327,7 +319,7 @@ class Ressources_humaines_back extends MY_Controller
         {
             $data['success'] = $this->session->flashdata('success');
             $this->load->view('back/include/menu.php', $menu);
-            $this->load->view('back/ressources_humaines/ajouter-notes-frais.php', $data);
+            $this->load->view('back/ressources_humaines/gestion_notes_frais/ajouter-notes-frais.php', $data);
         }
         else
         {
@@ -335,7 +327,7 @@ class Ressources_humaines_back extends MY_Controller
             {
                 $data['erreur'] = $erreur;
                 $this->load->view('back/include/menu.php', $menu);
-                $this->load->view('back/ressources_humaines/ajouter-notes-frais.php', $data);
+                $this->load->view('back/ressources_humaines/gestion_notes_frais/ajouter-notes-frais.php', $data);
             }
             else
             {
@@ -360,7 +352,7 @@ class Ressources_humaines_back extends MY_Controller
                 {
                     $data['erreur'] = 'Aucune modification effectuée.';
                     $this->load->view('back/include/menu.php', $menu);
-                    $this->load->view('back/ressources_humaines/ajouter-notes-frais.php', $data);
+                    $this->load->view('back/ressources_humaines/gestion_notes_frais/ajouter-notes-frais.php', $data);
                 }                
             }
         }
@@ -399,7 +391,7 @@ class Ressources_humaines_back extends MY_Controller
                 $data['droits'] = $this->droits;
 
                 $this->load->view('back/include/menu.php', $menu);
-                $this->load->view('back/ressources_humaines/valider-notes-frais.php', $data);
+                $this->load->view('back/ressources_humaines/gestion_notes_frais/valider-notes-frais.php', $data);
             }
             else
             {
@@ -417,7 +409,7 @@ class Ressources_humaines_back extends MY_Controller
                     $data['erreur'] = $erreur;
 
                     $this->load->view('back/include/menu.php', $menu);
-                    $this->load->view('back/ressources_humaines/valider-notes-frais.php', $data);
+                    $this->load->view('back/ressources_humaines/gestion_notes_frais/valider-notes-frais.php', $data);
                 }
                 else
                 {                  
@@ -433,6 +425,232 @@ class Ressources_humaines_back extends MY_Controller
     }
 
     /* --------------------------------------- */
+
+    /* ---------------- Les postes à pourvoir ----------------------- */
+
+     public function offre_poste()
+    {
+        $menu['title'] = "IPSSI - Offre de poste";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+        $data['droits'] = $this->droits;
+        $data['postes'] = $this->ressources_humaines_back_model->recupPostes();
+       
+        $this->load->view('back/include/menu.php', $menu);
+        $this->load->view('back/ressources_humaines/gestion_postes/offre-poste.php', $data);
+    }
+
+    public function detail_poste($id_poste = '')
+    {
+        if($id_poste == '')
+            Redirect('/ipssi/ressources-humaines/offre-poste');
+
+
+        $menu['title'] = "IPSSI - Détail de poste";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+        $data['droits'] = $this->droits;
+        $data['poste'] = $this->ressources_humaines_back_model->recupPoste($id_poste);
+       
+        $this->load->view('back/include/menu.php', $menu);
+        $this->load->view('back/ressources_humaines/gestion_postes/detail-poste.php', $data);
+    }
+
+    public function supprimer_poste($id_poste = '')
+    {
+        if(($id_poste == '') || (count($this->ressources_humaines_back_model->recupPoste($id_poste)) == 0))
+            Redirect('/ipssi/ressources-humaines/offre-poste');
+
+        $menu['title'] = "IPSSI - Poste à pourvoir - Supprimer";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+        $data['droits'] = $this->droits;
+
+        $this->ressources_humaines_back_model->supprimerPoste($id_poste);
+        $this->session->set_flashdata('success', 'Poste à pourvoir supprimé avec succès.');
+
+        Redirect('/ipssi/ressources-humaines/offre-poste');
+    }
+
+    public function modifier_poste($id_poste = '')
+    {
+        if(($id_poste == '') || (count($this->ressources_humaines_back_model->recupPoste($id_poste)) == 0))
+            Redirect('/ipssi/ressources-humaines/offre-poste');
+
+
+        $this->form_validation->set_rules('type_poste', '"Type de poste"', 'required');
+        $this->form_validation->set_rules('titre', '"Titre du poste"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('accroche', '"Accroche du poste"', 'required|encode_php_tags');
+        $this->form_validation->set_rules('description', '"Desciption du poste"', 'required|encode_php_tags');
+        $this->form_validation->set_rules('date_debut_poste', '"Date de début de contrat"', 'required|date|encode_php_tags');
+        $this->form_validation->set_rules('niveau', '"Niveau d\'expérience"', 'required|encode_php_tags');
+
+            
+        if($this->form_validation->run() == FALSE)
+        {
+            $menu['title'] = "IPSSI - Modifier poste";
+            $menu['back'] = $this->back;
+            $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+            $data['droits'] = $this->droits;
+            $data['type_poste'] = $this->ressources_humaines_back_model->recupTypePoste();
+            $data['poste'] = $this->ressources_humaines_back_model->recupPoste($id_poste);
+           
+            $this->load->view('back/include/menu.php', $menu);
+            $this->load->view('back/ressources_humaines/gestion_postes/modifier-poste.php', $data);
+        }
+        else
+        {
+            $erreur = '';
+
+            $type_poste = $this->input->post('type_poste');
+            $titre = $this->input->post('titre');
+            $accroche = $this->input->post('accroche');
+            $description = $this->input->post('description');
+            $date_debut_poste = $this->input->post('date_debut_poste');
+            $niveau = $this->input->post('niveau');
+            $remuneration = $this->input->post('remuneration');
+            $entreprise = $this->input->post('entreprise');
+
+            if($erreur != '')
+            {
+                $menu['title'] = "IPSSI - Postes à pourvoir - Modifier";
+                $menu['back'] = $this->back;
+                $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+                $data['erreur'] = $erreur;
+                $data['type_poste'] = $this->ressources_humaines_back_model->recupTypePoste();
+                $data['poste'] = $this->ressources_humaines_back_model->recupPoste($id_poste);
+
+                $this->load->view('back/include/menu.php', $menu);
+                $this->load->view('back/ressources_humaines/gestion_postes/modifier-poste.php', $data);
+            }
+            else
+            {                  
+                $this->ressources_humaines_back_model->modifier_poste($id_poste, $type_poste, $titre, $accroche, $entreprise, $description, $date_debut_poste, $remuneration, $niveau);
+                $this->session->set_flashdata('success', 'Poste modifié avec succès.');
+                    Redirect('/ipssi/ressources-humaines/offre-poste');
+            }
+        }
+    }
+
+     public function ajouter_poste()
+    {
+        $menu['title'] = "IPSSI - Poste à pourvoir - Ajouter";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+       
+        $data['droits'] = $this->droits;
+        $data['type_poste'] = $this->ressources_humaines_back_model->recupTypePoste();
+        
+        $this->form_validation->set_rules('type_poste', '"Type de poste"', 'required');
+        $this->form_validation->set_rules('titre', '"Titre"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('accroche', '"Accroche"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('description', '"Description"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('accroche', '"Accroche"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('date_debut', '"Date début de contrat"', 'required|date|encode_php_tags');
+        $this->form_validation->set_rules('niveau', '"Niveau d\'expérience"', 'required|encode_php_tags');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $menu['title'] = "IPSSI - Poste à pourvoir - Ajouter";
+            $menu['back'] = $this->back;
+            $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+
+            $data['success'] = $this->session->flashdata('success');
+            $data['type_poste'] = $this->ressources_humaines_back_model->recupTypePoste();
+
+            $this->load->view('back/include/menu.php', $menu);
+            $this->load->view('back/ressources_humaines/gestion_postes/ajouter-poste.php', $data);
+        }
+        else
+        {
+            if(isset($erreur))
+            {
+                $data['erreur'] = $erreur;
+                $this->load->view('back/include/menu.php', $menu);
+                $this->load->view('back/ressources_humaines/gestion_postes/ajouter-poste.php', $data);
+            }
+            else
+            {
+
+                $erreur = '';
+
+                $type_poste = $this->input->post('type_poste');
+                $titre = $this->input->post('titre');
+                $accroche = $this->input->post('accroche');
+                $entreprise = $this->input->post('entreprise');
+                $description = $this->input->post('description');
+                $remuneration = $this->input->post('remuneration');
+                $date_debut = $this->input->post('date_debut');
+                $niveau_experience = $this->input->post('niveau');
+
+                $id_insere = $this->ressources_humaines_back_model->ajouter_poste($type_poste, $titre, $accroche, $entreprise, $description, $remuneration, $date_debut, $niveau_experience);
+                if($id_insere != '')
+                {
+                    $this->session->set_flashdata('success', 'Poste ajouté avec succès.');
+                        Redirect('/ipssi/ressources-humaines/offre-poste/ajouter');    
+                }
+                else
+                {
+                    $data['erreur'] = 'Aucune modification effectuée.';
+                    $this->load->view('back/include/menu.php', $menu);
+                    $this->load->view('back/ressources_humaines/gestion_postes/ajouter-poste.php', $data);
+                }   
+            }
+        }
+    }
+
+    /* --------------------------------------- */
+
+    /* -------------------Candidatures -------------------- */
+
+    public function candidatures()
+    {
+        $menu['title'] = "IPSSI - Candidatures";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+        $data['droits'] = $this->droits;
+        $data['candidatures_spontannees'] = $this->ressources_humaines_back_model->recupCandidaturesSpontannees();
+        $data['candidatures'] = $this->ressources_humaines_back_model->recupCandidatures();
+       
+        $this->load->view('back/include/menu.php', $menu);
+        $this->load->view('back/ressources_humaines/gestion_candidatures/liste-candidature.php', $data);
+    }
+
+    public function detail_candidatures($id_candidature = '')
+    {
+
+        if(($id_candidature == '') || (count($this->ressources_humaines_back_model->recupCandidature($id_candidature)) == 0))
+            Redirect('/ipssi/ressources-humaines/candidatures');
+
+        $menu['title'] = "IPSSI - Détail candidature";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+        $data['droits'] = $this->droits;
+        $data['candidature'] = $this->ressources_humaines_back_model->recupCandidature($id_candidature);
+        $data['poste'] = $this->ressources_humaines_back_model->recupPosteCandidature($id_candidature);
+       
+        $this->load->view('back/include/menu.php', $menu);
+        $this->load->view('back/ressources_humaines/gestion_candidatures/detail-candidature.php', $data);
+    }
+
+    public function supprimer_candidatures($id_candidature = '')
+    {
+        if(($id_candidature == '') || (count($this->ressources_humaines_back_model->recupCandidature($id_candidature)) == 0))
+            Redirect('/ipssi/ressources-humaines/candidatures');
+
+        $menu['title'] = "IPSSI - Candidature - Supprimer";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+        $data['droits'] = $this->droits;
+
+        $this->ressources_humaines_back_model->supprimerCandidature($id_candidature);
+        $this->session->set_flashdata('success', 'Candidature supprimée avec succès.');
+
+        Redirect('/ipssi/ressources-humaines/candidatures');
+    }
+
+    /* --------------------------------------- */
+    
 
     public function demande_conges()
     {
@@ -452,32 +670,15 @@ class Ressources_humaines_back extends MY_Controller
         $this->load->view('back/include/menu.php', $menu);
     }
 
-    public function offre_poste()
+    public function cra()
     {
-        $menu['title'] = "IPSSI - Offre de poste";
+        $menu['title'] = "IPSSI - Comptes rendus d'activités";
         $menu['back'] = $this->back;
         $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
        
         $this->load->view('back/include/menu.php', $menu);
     }
 
-    public function candidatures()
-    {
-        $menu['title'] = "IPSSI - Candidatures";
-        $menu['back'] = $this->back;
-        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
-       
-        $this->load->view('back/include/menu.php', $menu);
-    }
-
-    public function collaborateurs()
-    {
-        $menu['title'] = "IPSSI - Collaborateurs";
-        $menu['back'] = $this->back;
-        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
-       
-        $this->load->view('back/include/menu.php', $menu);
-    }
 }
 
 

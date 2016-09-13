@@ -78,9 +78,21 @@ $route['ipssi/ressources-humaines/note-frais/detail/(:num)'] = 'back/ressources_
 $route['ipssi/ressources-humaines/note-frais/ajouter'] = 'back/ressources_humaines_back/ajouter_note_frais';
 $route['ipssi/ressources-humaines/note-frais/valider/(:num)'] = 'back/ressources_humaines_back/valider_note_frais/$1';
 
+
+$route['ipssi/ressources-humaines/offre-poste'] = 'back/ressources_humaines_back/offre_poste';
+$route['ipssi/ressources-humaines/offre-poste/detail/(:num)'] = 'back/ressources_humaines_back/detail_poste/$1';
+$route['ipssi/ressources-humaines/offre-poste/modifier/(:num)'] = 'back/ressources_humaines_back/modifier_poste/$1';
+$route['ipssi/ressources-humaines/offre-poste/supprimer/(:num)'] = 'back/ressources_humaines_back/supprimer_poste/$1';
+$route['ipssi/ressources-humaines/offre-poste/ajouter'] = 'back/ressources_humaines_back/ajouter_poste';
+
+
+$route['ipssi/ressources-humaines/candidatures'] = 'back/ressources_humaines_back/candidatures';
+$route['ipssi/ressources-humaines/candidatures/detail/(:num)'] = 'back/ressources_humaines_back/detail_candidatures/$1';
+$route['ipssi/ressources-humaines/candidatures/supprimer/(:num)'] = 'back/ressources_humaines_back/supprimer_candidatures/$1';
+
+
 $route['ipssi/ressources-humaines/demande-conges'] = 'back/ressources_humaines_back/demande_conges';
 $route['ipssi/ressources-humaines/cvtheque'] = 'back/ressources_humaines_back/cvtheque';
-$route['ipssi/ressources-humaines/offre-poste'] = 'back/ressources_humaines_back/offre_poste';
 $route['ipssi/ressources-humaines/candidatures'] = 'back/ressources_humaines_back/candidatures';
 
 $route['ipssi/ressources-humaines/collaborateurs'] = 'back/ressources_humaines_back/gestion_utilisateurs';

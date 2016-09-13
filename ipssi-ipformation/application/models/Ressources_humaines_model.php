@@ -13,6 +13,7 @@ class Ressources_humaines_model extends CI_Model
 	{	
 		$this->db->select('id_poste, titre_poste, accroche_poste, entreprise_poste, date_depot, description, date_debut_poste, remuneration_poste',true);
 		$this->db->from($this->tablePoste);
+		$this->db->where('supprime', 0);
 		$this->db->order_by('date_depot DESC');
 		
 		$result = $this->db->get()->result();
@@ -25,6 +26,7 @@ class Ressources_humaines_model extends CI_Model
 		$this->db->select('id_poste, titre_poste, accroche_poste, entreprise_poste, date_depot, description, date_debut_poste, remuneration_poste',true);
 		$this->db->from($this->tablePoste);
 		$this->db->where('id_poste',$id_poste);
+		$this->db->where('supprime', 0);
 		
 		$result = $this->db->get()->result();
 		
@@ -46,6 +48,7 @@ class Ressources_humaines_model extends CI_Model
 		$this->db->from($this->tablePoste);
 		$this->db->join($this->tableTypePoste.' T', 'T.id_type_poste = '.$this->tablePoste.'.id_type_poste');
 		$this->db->where('id_poste',$id_poste);
+		$this->db->where('supprime', 0);
 		
 		$result = $this->db->get()->result()[0];
 		

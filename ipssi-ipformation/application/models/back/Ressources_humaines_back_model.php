@@ -513,4 +513,166 @@ class Ressources_humaines_back_model extends CI_Model
 
     }
 
+    /* ------------- Postes à pourvoir --------------------*/
+
+
+    public function recupPostes()
+    {
+        $this->db->select('P.id_poste, P.titre_poste, P.accroche_poste, P.entreprise_poste, P.description, P.date_debut_poste, P.remuneration_poste, P.niveau_experience, P.id_type_poste, TP.libelle as type');
+        $this->db->from('poste_candidature P');
+        $this->db->join('type_poste TP', 'P.id_type_poste = TP.id_type_poste');
+        $this->db->where('P.supprime', 0);
+
+        return $this->db->get()->result();
+    }
+
+    public function recupPoste($id_poste)
+    {
+        $this->db->select('P.id_poste, P.titre_poste, P.accroche_poste, P.entreprise_poste, P.date_depot, DATE_FORMAT(P.date_debut_poste, "%d-%m-%Y") as date_debut_poste, P.description,P.remuneration_poste, P.niveau_experience, P.id_type_poste, TP.libelle as type');
+        $this->db->from('poste_candidature P');
+        $this->db->join('type_poste TP', 'P.id_type_poste = TP.id_type_poste');
+        $this->db->where('P.id_poste', $id_poste);
+        $this->db->where('P.supprime', 0);
+
+        return $this->db->get()->result()[0];
+    }
+
+    public function recupTypePoste()
+    {
+        $this->db->select('id_type_poste, libelle');
+        $this->db->from('type_poste');
+
+        return $this->db->get()->result();
+    }
+
+    public function modifier_poste($id_poste, $id_type, $titre, $accroche, $entreprise, $description, $date_debut, $remuneration, $niveau)
+    {
+
+        $dateMAJ = explode('-',$date_debut);
+
+        $year = $dateMAJ[2];
+        $month= $dateMAJ[1];
+        $day = $dateMAJ[0];
+        $time = ' 00:00:00';
+
+        $dateMAJ = $year .'-'. $month .'-'. $day . $time;
+
+
+        $data = array
+        (
+            'id_type_poste' => $id_type,
+            'titre_poste' => $titre,
+            'accroche_poste' => $accroche,
+            'description' => $description,
+            'entreprise_poste' => $entreprise,
+            'date_debut_poste' => $dateMAJ,
+            'remuneration_poste' => $remuneration,
+            'niveau_experience' => $niveau
+        );
+
+        $this->db->where('id_poste', $id_poste);
+        $this->db->update('poste_candidature', $data);
+    }
+
+    public function supprimerPoste($id_poste)
+    {
+        $data = array
+        (
+            'supprime' => 1
+        );
+
+        $this->db->where('id_poste', $id_poste);
+        $this->db->update('poste_candidature', $data);
+    }
+
+    public function ajouter_poste($type_poste, $titre, $accroche, $entreprise, $description, $remuneration, $date_debut, $niveau_experience)
+    {
+        $dateMAJ = explode('-',$date_debut);
+
+        $year = $dateMAJ[2];
+        $month= $dateMAJ[1];
+        $day = $dateMAJ[0];
+        $time = ' 00:00:00';
+
+        $dateMAJ = $year .'-'. $month .'-'. $day . $time;
+
+        $data = array
+        (
+            'id_type_poste' => $type_poste,
+            'titre_poste' => $titre,
+            'accroche_poste' => $accroche,
+            'entreprise_poste' => $entreprise,
+            'description' => $description,
+            'remuneration_poste' => $remuneration,
+            'date_debut_poste' => $dateMAJ,
+            'niveau_experience' => $niveau_experience
+        );
+        $this->db->insert('poste_candidature', $data);
+
+        return $this->db->insert_id();
+    }
+
+    /* -----------------------------------------------*/
+
+    /* ------------- Candidatures --------------------*/
+
+
+    public function recupCandidaturesSpontannees()
+    {
+        $this->db->select('id_candidature, id_poste_candidature, nom_candidature, prenom_candidature, adresse_candidature, cp_candidature, ville_candidature, pays_candidature, email_candidature, date_naissance, telephone_candidature,S.raccourci_sexe as sexe');
+        $this->db->from('candidature C');
+        $this->db->join('sexe S','C.id_sexe= S.id_sexe');
+        $this->db->where('id_poste_candidature IS NULL');
+        $this->db->where('etat', 1);
+
+        return $this->db->get()->result();
+    }
+
+    public function recupCandidatures()
+    {
+        $this->db->select('id_candidature, id_poste_candidature, nom_candidature, prenom_candidature, adresse_candidature, cp_candidature, ville_candidature, pays_candidature, email_candidature, date_naissance, telephone_candidature,S.raccourci_sexe as sexe');
+        $this->db->from('candidature C');
+        $this->db->join('sexe S','C.id_sexe= S.id_sexe');
+        $this->db->where('id_poste_candidature <>', null);
+        $this->db->where('etat', 1);
+
+        return $this->db->get()->result();
+    }
+
+    public function recupCandidature($id_candidature)
+    {
+        $this->db->select('id_candidature, id_poste_candidature, nom_candidature, prenom_candidature, adresse_candidature, cp_candidature, ville_candidature, pays_candidature, email_candidature, date_naissance, telephone_candidature,S.raccourci_sexe as sexe');
+        $this->db->from('candidature C');
+        $this->db->join('sexe S','C.id_sexe= S.id_sexe');
+        $this->db->where('id_candidature', $id_candidature);
+        $this->db->where('etat', 1);
+
+        return $this->db->get()->result()[0];
+    }
+
+    public function supprimerCandidature($id_candidature)
+    {
+        $data = array
+        (
+            'etat' => 3
+        );
+
+        $this->db->where('id_candidature', $id_candidature);
+        $this->db->update('candidature', $data);
+    }
+
+    public function recupPosteCandidature($id_candidature)
+    {
+        $this->db->select('P.id_poste, P.titre_poste, P.accroche_poste, P.entreprise_poste, P.date_depot, DATE_FORMAT(P.date_debut_poste, "%d-%m-%Y") as date_debut_poste, P.description,P.remuneration_poste, P.niveau_experience, P.id_type_poste, TP.libelle as type');
+        $this->db->from('poste_candidature P');
+        $this->db->join('type_poste TP', 'P.id_type_poste = TP.id_type_poste');
+        $this->db->join('candidature C', 'C.id_poste_candidature = P.id_poste');
+        $this->db->where('C.id_candidature', $id_candidature);
+        $this->db->where('P.supprime', 0);
+
+        return $this->db->get()->result()[0];
+    }
+
+    /* -----------------------------------------------*/
+
 }
