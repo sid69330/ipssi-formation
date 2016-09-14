@@ -670,7 +670,7 @@ class Ressources_humaines_back_model extends CI_Model
         $this->db->where('C.id_candidature', $id_candidature);
         $this->db->where('P.supprime', 0);
 
-        return $this->db->get()->result()[0];
+        return $this->db->get()->result();
     }
 
     /* -----------------------------------------------*/

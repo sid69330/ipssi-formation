@@ -627,7 +627,10 @@ class Ressources_humaines_back extends MY_Controller
         $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
         $data['droits'] = $this->droits;
         $data['candidature'] = $this->ressources_humaines_back_model->recupCandidature($id_candidature);
-        $data['poste'] = $this->ressources_humaines_back_model->recupPosteCandidature($id_candidature);
+        if(count($this->ressources_humaines_back_model->recupPosteCandidature($id_candidature))==1)
+            $data['poste'] = $this->ressources_humaines_back_model->recupPosteCandidature($id_candidature)[0];
+        else
+            $data['poste'] = $this->ressources_humaines_back_model->recupPosteCandidature($id_candidature);
        
         $this->load->view('back/include/menu.php', $menu);
         $this->load->view('back/ressources_humaines/gestion_candidatures/detail-candidature.php', $data);
