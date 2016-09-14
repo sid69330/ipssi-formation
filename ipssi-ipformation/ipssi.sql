@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 14 Septembre 2016 à 13:58
+-- Généré le :  Mer 14 Septembre 2016 à 15:45
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -134,7 +134,16 @@ CREATE TABLE IF NOT EXISTS `ipssi_conges` (
   KEY `id_type_conges` (`id_type_conges`),
   KEY `id_etat` (`id_etat`),
   KEY `id_utilisateur` (`id_utilisateur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `ipssi_conges`
+--
+
+INSERT INTO `ipssi_conges` (`id_conges`, `id_utilisateur`, `id_type_conges`, `id_etat`, `date_debut`, `date_fin`, `nb_jour`, `date_demande`) VALUES
+(2, 2, 4, 1, '2016-09-25', '2016-09-30', 5, '2016-09-14 12:34:25'),
+(3, 1, 1, 2, '2016-09-18', '2016-09-24', 5, '2016-09-14 13:05:44'),
+(4, 1, 1, 1, '2016-09-05', '2016-09-11', 5, '2016-09-14 13:37:23');
 
 -- --------------------------------------------------------
 
@@ -604,7 +613,7 @@ INSERT INTO `ipssi_sous_menu` (`id_sous_menu`, `id_menu`, `libelle_sous_menu`, `
 (7, 3, 'Ils nous font confiance', 'ils-nous-font-confiance', '2016-02-29 07:51:56', 3),
 (8, 4, 'Liste des actualités', 'gestion-actualites', '2016-07-08 08:04:00', 1),
 (10, 5, 'Notes de frais', 'note-frais', '2016-07-08 08:04:33', 2),
-(11, 5, 'Demande de congés', 'demande-conges', '2016-07-08 08:04:54', 3),
+(11, 5, 'Demande de congés', 'liste-conges', '2016-07-08 08:04:54', 3),
 (12, 5, 'CVthèque', 'cvtheque', '2016-07-08 08:05:32', 4),
 (13, 5, 'Offre de poste', 'offre-poste', '2016-07-08 08:05:52', 5),
 (14, 5, 'Candidatures', 'candidatures', '2016-07-08 08:06:07', 6),
