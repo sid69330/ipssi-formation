@@ -675,4 +675,147 @@ class Ressources_humaines_back_model extends CI_Model
 
     /* -----------------------------------------------*/
 
+    /* ------------- Conges --------------------*/
+
+    public function recupCongesPersonnels($id_utilisateur)
+    {
+        $this->db->select('C.id_type_conges, C.id_etat, id_conges, id_utilisateur,  DATE_FORMAT(date_debut, "%d-%m-%Y") as date_debut, DATE_FORMAT(date_fin, "%d-%m-%Y") as date_fin, nb_jour, DATE_FORMAT(date_demande, "%d-%m-%Y") as date_demande, TC.libelle as type,E.libelle_etat as etat');
+        $this->db->from('conges C');
+        $this->db->join('type_conges TC', 'C.id_type_conges = TC.id_type_conges');
+        $this->db->join('etat E', 'E.id_etat = C.id_etat');
+        $this->db->where('C.id_utilisateur', $id_utilisateur);
+        $this->db->order_by('C.id_etat');
+
+        return $this->db->get()->result();
+    }
+
+    public function recupConges($id_utilisateur)
+    {
+        $this->db->select('C.id_type_conges, C.id_etat, id_conges, id_utilisateur,  DATE_FORMAT(date_debut, "%d-%m-%Y") as date_debut, DATE_FORMAT(date_fin, "%d-%m-%Y") as date_fin, nb_jour, DATE_FORMAT(date_demande, "%d-%m-%Y") as date_demande, TC.libelle as type,E.libelle_etat as etat');
+        $this->db->from('conges C');
+        $this->db->join('type_conges TC', 'C.id_type_conges = TC.id_type_conges');
+        $this->db->join('etat E', 'E.id_etat = C.id_etat');
+        $this->db->where('C.id_utilisateur <>', $id_utilisateur);
+        $this->db->where('C.id_etat',1);
+
+        return $this->db->get()->result();
+    }
+
+    public function recupConge($id_conges)
+    {
+        $this->db->select('C.id_type_conges, C.id_etat, id_conges, id_utilisateur,  DATE_FORMAT(date_debut, "%d-%m-%Y") as date_debut, DATE_FORMAT(date_fin, "%d-%m-%Y") as date_fin, nb_jour, DATE_FORMAT(date_demande, "%d-%m-%Y") as date_demande, TC.libelle as type,E.libelle_etat as etat');
+        $this->db->from('conges C');
+        $this->db->join('type_conges TC', 'C.id_type_conges = TC.id_type_conges');
+        $this->db->join('etat E', 'E.id_etat = C.id_etat');
+        $this->db->where('C.id_conges', $id_conges);
+
+        return $this->db->get()->result()[0];
+    }
+
+
+    public function recupEtat()
+    {
+        $this->db->select('id_etat, libelle_etat');
+        $this->db->from('etat');
+
+        return $this->db->get()->result();
+    }
+
+    public function recupTypeConges()
+    {
+        $this->db->select('id_type_conges, libelle');
+        $this->db->from('type_conges');
+
+        return $this->db->get()->result();
+    }
+
+    public function modifier_conges($id_conges, $type_conges, $etat, $date_debut, $date_fin, $nb_jour)
+    {
+        $dateMAJ_debut = explode('-',$date_debut);
+
+        $year = $dateMAJ_debut[2];
+        $month= $dateMAJ_debut[1];
+        $day = $dateMAJ_debut[0];
+        $time = ' 00:00:00';
+
+        $dateMAJ_debut = $year .'-'. $month .'-'. $day . $time;
+
+        $dateMAJ_fin = explode('-',$date_fin);
+
+        $year = $dateMAJ_fin[2];
+        $month= $dateMAJ_fin[1];
+        $day = $dateMAJ_fin[0];
+        $time = ' 00:00:00';
+
+        $dateMAJ_fin = $year .'-'. $month .'-'. $day . $time;
+
+
+        $data = array
+        (
+            'id_type_conges' => $type_conges,
+            'id_etat' => $etat,
+            'date_debut' => $dateMAJ_debut,
+            'date_fin' => $dateMAJ_fin,
+            'nb_jour' => $nb_jour
+        );
+
+        $this->db->where('id_conges', $id_conges);
+        $this->db->update('conges', $data);
+    }
+
+    public function valider_conges($id_conges, $etat)
+    {
+       
+        $data = array
+        (
+            'id_etat' => $etat
+        );
+
+        $this->db->where('id_conges', $id_conges);
+        $this->db->update('conges', $data);
+    }
+
+    public function supprimer_conges($id_conges)
+    {
+       
+        $this->db->where('id_conges', $id_conges);
+        $this->db->delete('conges');
+    }
+
+    public function ajouter_conges($type_conges, $date_debut, $date_fin, $nb_jour, $id_utilisateur)
+    {
+
+        $dateMAJ_debut = explode('-',$date_debut);
+
+        $year = $dateMAJ_debut[2];
+        $month= $dateMAJ_debut[1];
+        $day = $dateMAJ_debut[0];
+        $time = ' 00:00:00';
+
+        $dateMAJ_debut = $year .'-'. $month .'-'. $day . $time;
+
+        $dateMAJ_fin = explode('-',$date_fin);
+
+        $year = $dateMAJ_fin[2];
+        $month= $dateMAJ_fin[1];
+        $day = $dateMAJ_fin[0];
+        $time = ' 00:00:00';
+
+        $dateMAJ_fin = $year .'-'. $month .'-'. $day . $time;
+
+        $data = array(
+            'id_type_conges' => $type_conges,
+            'date_debut' => $dateMAJ_debut,
+            'date_fin' => $dateMAJ_fin,
+            'id_utilisateur' => $id_utilisateur,
+            'nb_jour' => $nb_jour
+        );
+        $this->db->insert('conges', $data);
+
+        $insert_id = $this->db->insert_id();
+       
+        return $this->db->affected_rows();
+    }
+    /* ----------------------------------------------*/
+
 }

@@ -650,16 +650,220 @@ class Ressources_humaines_back extends MY_Controller
     }
 
     /* --------------------------------------- */
-    
 
-    public function demande_conges()
+    /* ----------------- Gestion des conges ---------------------- */
+    
+    public function liste_conges()
     {
-    	$menu['title'] = "IPSSI - Demande de congés";
+        $menu['title'] = "IPSSI - Liste demandes de congés";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+        $data['droits'] = $this->droits;
+        $data['congesPersonnels'] = $this->ressources_humaines_back_model->recupCongesPersonnels($this->session->userdata('id'));
+        $data['conges'] = $this->ressources_humaines_back_model->recupConges($this->session->userdata('id'));
+       
+        $this->load->view('back/include/menu.php', $menu);
+        $this->load->view('back/ressources_humaines/gestion_conges/liste-conges.php', $data);
+    }
+
+    public function detail_conges($id_conges = '')
+    {
+        $menu['title'] = "IPSSI - Détail demande de congés";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+        $data['droits'] = $this->droits;
+        $data['conge'] = $this->ressources_humaines_back_model->recupConge($id_conges);
+       
+        $this->load->view('back/include/menu.php', $menu);
+        $this->load->view('back/ressources_humaines/gestion_conges/detail-conges.php', $data);
+    }
+
+    public function modifier_conges($id_conges = '')
+    {
+        if(($id_conges == '') || (count($this->ressources_humaines_back_model->recupConge($id_conges)) == 0))
+            Redirect('/ipssi/ressources-humaines/liste-conges');
+
+
+        $this->form_validation->set_rules('type_conges', '"Type de congés"', 'required');
+        $this->form_validation->set_rules('etat', '"Etat de la demande"', 'required|encode_php_tags');
+        $this->form_validation->set_rules('date_debut', '"Date de début de la demande"', 'required|date|encode_php_tags');
+        $this->form_validation->set_rules('date_fin', '"Date de fin de la demande"', 'required|date|encode_php_tags');
+
+            
+        if($this->form_validation->run() == FALSE)
+        {
+            $menu['title'] = "IPSSI - Modification d'une demande de congés";
+            $menu['back'] = $this->back;
+            $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+            $data['droits'] = $this->droits;
+            $data['conge'] = $this->ressources_humaines_back_model->recupConge($id_conges);
+            $data['etat'] = $this->ressources_humaines_back_model->recupEtat();
+            $data['type_conges'] = $this->ressources_humaines_back_model->recupTypeConges();
+           
+            $this->load->view('back/include/menu.php', $menu);
+            $this->load->view('back/ressources_humaines/gestion_conges/modifier-conges.php', $data);
+        }
+        else
+        {
+            $erreur = '';
+
+            $type_conges = $this->input->post('type_conges');
+            $etat = $this->input->post('etat');
+            $date_debut = $this->input->post('date_debut');
+            $date_fin = $this->input->post('date_fin');
+            $nb_jour = $this->input->post('nb_jour');
+            
+            if($erreur != '')
+            {
+                $menu['title'] = "IPSSI - Modification d'une demande de congés";
+                $menu['back'] = $this->back;
+                $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+                $data['droits'] = $this->droits;
+                $data['conge'] = $this->ressources_humaines_back_model->recupConge($id_conges);
+                $data['etat'] = $this->ressources_humaines_back_model->recupEtat();
+                $data['type_conges'] = $this->ressources_humaines_back_model->recupTypeConges();
+               
+                $this->load->view('back/include/menu.php', $menu);
+                $this->load->view('back/ressources_humaines/gestion_conges/modifier-conges.php', $data);
+            }
+            else
+            {                  
+                $this->ressources_humaines_back_model->modifier_conges($id_conges, $type_conges, $etat, $date_debut, $date_fin, $nb_jour);
+                $this->session->set_flashdata('success', 'Poste modifié avec succès.');
+                    Redirect('/ipssi/ressources-humaines/liste-conges');
+            }
+            
+        }
+    }
+
+    public function valider_conges($id_conges = '')
+    {
+        if(($id_conges == '') || (count($this->ressources_humaines_back_model->recupConge($id_conges)) == 0))
+            Redirect('/ipssi/ressources-humaines/liste-conges');
+
+        $this->form_validation->set_rules('etat', '"Etat de la demande"', 'required|encode_php_tags');
+            
+        if($this->form_validation->run() == FALSE)
+        {
+            $menu['title'] = "IPSSI - Validation d'une demande de congés";
+            $menu['back'] = $this->back;
+            $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+            $data['droits'] = $this->droits;
+            $data['conge'] = $this->ressources_humaines_back_model->recupConge($id_conges);
+            $data['etat'] = $this->ressources_humaines_back_model->recupEtat();
+           
+            $this->load->view('back/include/menu.php', $menu);
+            $this->load->view('back/ressources_humaines/gestion_conges/valider-conges.php', $data);
+        }
+        else
+        {
+            $erreur = '';
+
+            $etat = $this->input->post('etat');
+            
+            if($erreur != '')
+            {
+                $menu['title'] = "IPSSI - Modification d'une demande de congés";
+                $menu['back'] = $this->back;
+                $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+                $data['droits'] = $this->droits;
+                $data['conge'] = $this->ressources_humaines_back_model->recupConge($id_conges);
+                $data['etat'] = $this->ressources_humaines_back_model->recupEtat();
+                $data['type_conges'] = $this->ressources_humaines_back_model->recupTypeConges();
+               
+                $this->load->view('back/include/menu.php', $menu);
+                $this->load->view('back/ressources_humaines/gestion_conges/valider-conges.php', $data);
+            }
+            else
+            {                  
+                $this->ressources_humaines_back_model->valider_conges($id_conges, $etat);
+                $this->session->set_flashdata('success', 'Poste modifié avec succès.');
+                    Redirect('/ipssi/ressources-humaines/liste-conges');
+            }
+            
+        }
+    }
+
+    public function supprimer_conges($id_conges = '')
+    {
+        if(($id_conges == '') || (count($this->ressources_humaines_back_model->recupConge($id_conges)) == 0))
+            Redirect('/ipssi/ressources-humaines/liste-conges');
+
+        $menu['title'] = "IPSSI - Conges - Supprimer";
+        $menu['back'] = $this->back;
+        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+        $data['droits'] = $this->droits;
+
+        $this->ressources_humaines_back_model->supprimer_conges($id_conges);
+        $this->session->set_flashdata('success', 'Demande de congés supprimée avec succès.');
+
+        Redirect('/ipssi/ressources-humaines/liste-conges');
+    }
+
+
+     public function ajouter_conges()
+    {
+        $menu['title'] = "IPSSI - demande de congés - Ajouter";
         $menu['back'] = $this->back;
         $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
        
-        $this->load->view('back/include/menu.php', $menu);
+        $data['droits'] = $this->droits;
+        $data['etat'] = $this->ressources_humaines_back_model->recupEtat();
+        $data['type_conges'] = $this->ressources_humaines_back_model->recupTypeConges();
+        
+        
+        $this->form_validation->set_rules('type_conges', '"Type de demande"', 'required');
+        $this->form_validation->set_rules('date_debut', '"Date de début"', 'trim|required|encode_php_tags');
+        $this->form_validation->set_rules('date_fin', '"Date de fin"', 'trim|required|encode_php_tags');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $menu['title'] = "IPSSI - Demande de congés - Ajouter";
+            $menu['back'] = $this->back;
+            $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
+
+            $data['success'] = $this->session->flashdata('success');
+
+            $this->load->view('back/include/menu.php', $menu);
+            $this->load->view('back/ressources_humaines/gestion_conges/ajouter-conges.php', $data);
+        }
+        else
+        {
+            if(isset($erreur))
+            {
+                $data['erreur'] = $erreur;
+                $this->load->view('back/include/menu.php', $menu);
+                $this->load->view('back/ressources_humaines/gestion_postes/ajouter-poste.php', $data);
+            }
+            else
+            {
+
+                $erreur = '';
+
+                $type_conges = $this->input->post('type_conges');
+                $date_debut = $this->input->post('date_debut');
+                $date_fin = $this->input->post('date_fin');
+                $nb_jour = $this->input->post('nb_jour');
+
+                $id_insere = $this->ressources_humaines_back_model->ajouter_conges($type_conges, $date_debut, $date_fin, $nb_jour, $this->session->userdata('id'));
+                if($id_insere != '')
+                {
+                    $this->session->set_flashdata('success', 'Demande de congés ajoutée avec succès.');
+                        Redirect('/ipssi/ressources-humaines/liste-conges/ajouter');    
+                }
+                else
+                {
+                    $data['erreur'] = 'Aucune insertion effectuée.';
+                    $this->load->view('back/include/menu.php', $menu);
+                    $this->load->view('back/ressources_humaines/gestion_conges/ajouter-conges.php', $data);
+                }   
+            }
+        }
     }
+
+
+
+    /* --------------------------------------- */
 
     public function cvtheque()
     {
@@ -670,15 +874,7 @@ class Ressources_humaines_back extends MY_Controller
         $this->load->view('back/include/menu.php', $menu);
     }
 
-    public function cra()
-    {
-        $menu['title'] = "IPSSI - Comptes rendus d'activités";
-        $menu['back'] = $this->back;
-        $menu['menu'] = $this->menu->recupMenuBack($this->session->userdata('id'));
-       
-        $this->load->view('back/include/menu.php', $menu);
-    }
-
+    
 }
 
 

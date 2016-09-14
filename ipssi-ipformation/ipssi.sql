@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 13 Septembre 2016 à 16:48
+-- Généré le :  Mer 14 Septembre 2016 à 13:58
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -38,7 +38,17 @@ CREATE TABLE IF NOT EXISTS `ipssi_actualite` (
   `front` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_actualite`),
   KEY `id_utilisateur` (`id_utilisateur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Contenu de la table `ipssi_actualite`
+--
+
+INSERT INTO `ipssi_actualite` (`id_actualite`, `id_utilisateur`, `titre_actualite`, `texte_actualite`, `date_actualite`, `url_photo_actualite`, `date_validite_actualite`, `actif_actualite`, `front`) VALUES
+(3, 1, 'Rendu des projets de groupes', 'Les projets de groupe sont en attente de livraison auprès de IP-Formation pour le 14/09/2016 à 18:00 maximum', '2016-09-14 10:18:15', 'actualite_1_1473848076.jpg', '2016-10-31 00:00:00', 1, 1),
+(4, 1, 'rendu des mémoires personnels', 'Les mémoire personnel sont en attente de livraison auprès de IP-Formation pour le 14/09 à 18:00 maximum', '2016-09-14 10:20:59', 'actualite_1_1473848459.jpg', '2016-10-31 23:59:59', 1, 1),
+(5, 1, 'Rendu des projets de groupes', 'Les projets de groupe sont en attente de livraison auprès de IP-Formation pour le 14/09/2016 à 18:00 maximum', '2016-09-14 10:18:15', 'actualite_1_1473848076.jpg', '2016-10-31 00:00:00', 1, 0),
+(6, 1, 'rendu des mémoires personnels', 'Les mémoire personnel sont en attente de livraison auprès de IP-Formation pour le 14/09 à 18:00 maximum', '2016-09-14 10:20:59', 'actualite_1_1473848459.jpg', '2016-10-31 23:59:59', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -249,7 +259,6 @@ CREATE TABLE IF NOT EXISTS `ipssi_droit_sous_menu_groupe` (
 
 INSERT INTO `ipssi_droit_sous_menu_groupe` (`id_droit`, `id_sous_menu`, `id_groupe`) VALUES
 (NULL, 8, 5),
-(NULL, 9, 6),
 (NULL, 10, 6),
 (NULL, 11, 6),
 (NULL, 12, 5),
@@ -286,9 +295,6 @@ INSERT INTO `ipssi_droit_sous_menu_groupe` (`id_droit`, `id_sous_menu`, `id_grou
 (1, 8, 1),
 (1, 8, 2),
 (1, 8, 6),
-(1, 9, 1),
-(1, 9, 2),
-(1, 9, 4),
 (1, 10, 1),
 (1, 10, 2),
 (1, 10, 4),
@@ -320,13 +326,11 @@ INSERT INTO `ipssi_droit_sous_menu_groupe` (`id_droit`, `id_sous_menu`, `id_grou
 (1, 22, 1),
 (1, 22, 2),
 (1, 22, 6),
-(2, 9, 3),
 (2, 11, 3),
 (2, 12, 3),
 (2, 14, 3),
 (2, 16, 6),
 (2, 17, 6),
-(3, 9, 5),
 (3, 10, 3),
 (3, 10, 5),
 (3, 11, 5),
@@ -404,7 +408,13 @@ CREATE TABLE IF NOT EXISTS `ipssi_groupe_utilisateur` (
 
 INSERT INTO `ipssi_groupe_utilisateur` (`id_utilisateur`, `id_groupe`) VALUES
 (1, 1),
-(2, 1);
+(2, 1),
+(3, 1),
+(3, 2),
+(3, 3),
+(3, 4),
+(3, 5),
+(3, 6);
 
 -- --------------------------------------------------------
 
@@ -528,7 +538,7 @@ CREATE TABLE IF NOT EXISTS `ipssi_poste_candidature` (
   KEY `id_type_poste` (`id_type_poste`),
   KEY `id_poste` (`id_poste`),
   KEY `id_type_poste_2` (`id_type_poste`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `ipssi_poste_candidature`
@@ -593,7 +603,6 @@ INSERT INTO `ipssi_sous_menu` (`id_sous_menu`, `id_menu`, `libelle_sous_menu`, `
 (6, 3, 'Nos secteurs d''activités', 'nos-secteurs-d-activites', '2016-02-29 07:51:29', 2),
 (7, 3, 'Ils nous font confiance', 'ils-nous-font-confiance', '2016-02-29 07:51:56', 3),
 (8, 4, 'Liste des actualités', 'gestion-actualites', '2016-07-08 08:04:00', 1),
-(9, 5, 'CRA', 'cra', '2016-07-08 08:04:19', 1),
 (10, 5, 'Notes de frais', 'note-frais', '2016-07-08 08:04:33', 2),
 (11, 5, 'Demande de congés', 'demande-conges', '2016-07-08 08:04:54', 3),
 (12, 5, 'CVthèque', 'cvtheque', '2016-07-08 08:05:32', 4),
@@ -761,7 +770,7 @@ CREATE TABLE IF NOT EXISTS `ipssi_utilisateur` (
   PRIMARY KEY (`id_utilisateur`),
   UNIQUE KEY `mail_utilisateur` (`mail_utilisateur`),
   KEY `id_sexe` (`id_sexe`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `ipssi_utilisateur`
@@ -769,7 +778,8 @@ CREATE TABLE IF NOT EXISTS `ipssi_utilisateur` (
 
 INSERT INTO `ipssi_utilisateur` (`id_utilisateur`, `id_sexe`, `nom_utilisateur`, `prenom_utilisateur`, `mail_utilisateur`, `telephone_utilisateur`, `mdp_utilisateur`, `date_mdp_utilisateur`, `cle_mdp_utilisateur`, `mdp_utilisateur_change`, `entreprise_utilisateur`, `photo_profil`, `supprime`) VALUES
 (1, 3, 'MOSSON', 'Romane', 'romane.mosson@gmail.com', '0777360290', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-09-12 16:44:28', '7PC4qr1LEFQx7lkBiBSr3hENSv5078OfMfi4cJcjoHsvavIn5fopoNcjcf1BgZ3vEBaZEX7NOFKVq6MB3P7jsJqhIrEZCNWbITeR', 0, 'EXELIS', NULL, 0),
-(2, 1, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799437', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-26 10:29:01', 'zORTuK8KtO4eM7jh7tehYU7DCdhBMrFb4mTnVQVcvNe8JneDGgJtYFUrH2Sjglj0w1khG5jZHoVgzXK55jlSM60hUQp22yYno0sS', 0, 'Dalkia', 'photo-de-profil-de-julien-alexandre-1470231068.jpg', 0);
+(2, 1, 'JULIEN', 'Alexandre', 'alexandre.julien.91@gmail.com', '0676799437', '0b6d666907634a18c00d4c71b854ffeded6d636f8b0f1eb348eb7e2dd974e8c6', '2016-08-26 10:29:01', 'zORTuK8KtO4eM7jh7tehYU7DCdhBMrFb4mTnVQVcvNe8JneDGgJtYFUrH2Sjglj0w1khG5jZHoVgzXK55jlSM60hUQp22yYno0sS', 0, 'Dalkia', 'photo-de-profil-de-julien-alexandre-1470231068.jpg', 0),
+(3, 1, 'TEST', 'Test', 'test@test.fr', '0102030405', 'eba9fde9184a4a9780e69ebe56b22339796d7f168ae1ba51e82f6160c208c131', NULL, NULL, 1, 'TEST', NULL, 0);
 
 --
 -- Contraintes pour les tables exportées
@@ -779,9 +789,9 @@ INSERT INTO `ipssi_utilisateur` (`id_utilisateur`, `id_sexe`, `nom_utilisateur`,
 -- Contraintes pour la table `ipssi_conges`
 --
 ALTER TABLE `ipssi_conges`
-  ADD CONSTRAINT `ipssi_conges_ibfk_3` FOREIGN KEY (`id_utilisateur`) REFERENCES `ipssi_utilisateur` (`id_utilisateur`),
   ADD CONSTRAINT `ipssi_conges_ibfk_1` FOREIGN KEY (`id_type_conges`) REFERENCES `ipssi_type_conges` (`id_type_conges`),
-  ADD CONSTRAINT `ipssi_conges_ibfk_2` FOREIGN KEY (`id_etat`) REFERENCES `ipssi_etat` (`id_etat`);
+  ADD CONSTRAINT `ipssi_conges_ibfk_2` FOREIGN KEY (`id_etat`) REFERENCES `ipssi_etat` (`id_etat`),
+  ADD CONSTRAINT `ipssi_conges_ibfk_3` FOREIGN KEY (`id_utilisateur`) REFERENCES `ipssi_utilisateur` (`id_utilisateur`);
 
 --
 -- Contraintes pour la table `ipssi_contact`
@@ -795,9 +805,9 @@ ALTER TABLE `ipssi_contact`
 -- Contraintes pour la table `ipssi_droit_sous_menu_groupe`
 --
 ALTER TABLE `ipssi_droit_sous_menu_groupe`
-  ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_4` FOREIGN KEY (`id_droit`) REFERENCES `ipssi_droit` (`id_droit`),
   ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_2` FOREIGN KEY (`id_sous_menu`) REFERENCES `ipssi_sous_menu` (`id_sous_menu`),
-  ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_3` FOREIGN KEY (`id_groupe`) REFERENCES `ipssi_groupe` (`id_groupe`);
+  ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_3` FOREIGN KEY (`id_groupe`) REFERENCES `ipssi_groupe` (`id_groupe`),
+  ADD CONSTRAINT `ipssi_droit_sous_menu_groupe_ibfk_4` FOREIGN KEY (`id_droit`) REFERENCES `ipssi_droit` (`id_droit`);
 
 --
 -- Contraintes pour la table `ipssi_groupe_utilisateur`

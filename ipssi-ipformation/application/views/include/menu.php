@@ -19,9 +19,9 @@
 					<p class="italique center entete-titre">L'institut Privée Supérieur des Systèmes d'Information</p>
 				</div>
 				<div class="col-lg-1 col-lg-offset-1 col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-3 col-xs-2 col-xs-offset-3 reseaux">
-					<a class="btn btn-social-icon btn-facebook reseau"><i class="fa fa-facebook"></i></a><br/>
-					<a class="btn btn-social-icon btn-linkedin reseau"><i class="fa fa-linkedin"></i></a><br/>					
-					<a class="btn btn-social-icon btn-twitter reseau"><i class="fa fa-twitter"></i></a><br/>
+					<a href="https://www.facebook.com/ipformation/?hc_ref=SEARCH&fref=nf" class="btn btn-social-icon btn-facebook reseau" target="_blank"><i class="fa fa-facebook"></i></a><br/>
+					<a href="https://www.linkedin.com/edu/ecole-ipssi-%2F-groupe-ip-formation-161093" class="btn btn-social-icon btn-linkedin reseau" target="_blank"><i class="fa fa-linkedin"></i></a><br/>					
+					<a href="https://twitter.com/ipformation?lang=fr" class="btn btn-social-icon btn-twitter reseau" target="_blank"><i class="fa fa-twitter"></i></a><br/>
 				</div>
 				<?php if(!$this->session->has_userdata('id')) : ?>
 					<div class="col-lg-2 col-md-3 col-sm-4 entete-droite visible-lg visible-md visible-sm">

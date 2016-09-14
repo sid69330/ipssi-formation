@@ -69,7 +69,6 @@ $route['ipssi/actualites/gestion-actualites/detail/(:num)'] = 'back/actualites_b
 $route['ipssi/actualites/gestion-actualites/modifier/(:num)'] = 'back/actualites_back/modifier_actualite/$1';
 $route['ipssi/actualites/gestion-actualites/export'] = 'back/actualites_back/export';
 /* ----------- RH_back ----------- */
-$route['ipssi/ressources-humaines/cra'] = 'back/ressources_humaines_back/cra';
 
 $route['ipssi/ressources-humaines/note-frais'] = 'back/ressources_humaines_back/note_frais';
 $route['ipssi/ressources-humaines/note-frais/modifier/(:num)'] = 'back/ressources_humaines_back/modifier_note_frais/$1';
@@ -91,9 +90,15 @@ $route['ipssi/ressources-humaines/candidatures/detail/(:num)'] = 'back/ressource
 $route['ipssi/ressources-humaines/candidatures/supprimer/(:num)'] = 'back/ressources_humaines_back/supprimer_candidatures/$1';
 
 
-$route['ipssi/ressources-humaines/demande-conges'] = 'back/ressources_humaines_back/demande_conges';
+$route['ipssi/ressources-humaines/liste-conges'] = 'back/ressources_humaines_back/liste_conges';
+$route['ipssi/ressources-humaines/liste-conges/detail/(:num)'] = 'back/ressources_humaines_back/detail_conges/$1';
+$route['ipssi/ressources-humaines/liste-conges/modifier/(:num)'] = 'back/ressources_humaines_back/modifier_conges/$1';
+$route['ipssi/ressources-humaines/liste-conges/valider/(:num)'] = 'back/ressources_humaines_back/valider_conges/$1';
+$route['ipssi/ressources-humaines/liste-conges/supprimer/(:num)'] = 'back/ressources_humaines_back/supprimer_conges/$1';
+$route['ipssi/ressources-humaines/liste-conges/ajouter'] = 'back/ressources_humaines_back/ajouter_conges';
+
+
 $route['ipssi/ressources-humaines/cvtheque'] = 'back/ressources_humaines_back/cvtheque';
-$route['ipssi/ressources-humaines/candidatures'] = 'back/ressources_humaines_back/candidatures';
 
 $route['ipssi/ressources-humaines/collaborateurs'] = 'back/ressources_humaines_back/gestion_utilisateurs';
 $route['ipssi/ressources-humaines/collaborateurs/detail/(:num)'] = 'back/ressources_humaines_back/detail_utilisateur/$1';

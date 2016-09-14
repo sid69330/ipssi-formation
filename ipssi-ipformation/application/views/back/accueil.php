@@ -53,7 +53,7 @@
         </div>
     </div>
 <?php endif; ?>
-<div class='container'>
+<!--<div class='container'>
     <?php if($droit_insuffisant != '') : ?>
         <div class="row">
             <div class="col-xs-12">
@@ -112,7 +112,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <?php include_once($_SERVER['DOCUMENT_ROOT'].'/application/views/include/footer.php'); ?>
 </body>
 </html>
