@@ -252,7 +252,7 @@ class Compte_back extends CI_Controller
 	{
 		$return = array();
 
-		require_once $_SERVER['DOCUMENT_ROOT'].'/assets/google-api-php-client-2.0.2/vendor/autoload.php';
+		require_once $_SERVER['DOCUMENT_ROOT'].'/assets/google-api-php-client-2.0.3/vendor/autoload.php';
 
 		$client = new Google_Client();
 		$client->setClientId('682182360339-8gffe5ukmk4edop89c9te6a55aode029.apps.googleusercontent.com');
